@@ -11,6 +11,7 @@ export const HomeContainer = styled.div`
   background-repeat: no-repeat;
   background-attachment: local;
   background-position: center;
+  height: 75rem;
 `
 
 export const BorderContainer = styled.div`
