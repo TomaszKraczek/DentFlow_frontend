@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Jaw = styled.div`
-  margin-top: 50px;
+  margin-top: 100px;
   position: absolute;
   width: 100px;
   margin-right: 0;

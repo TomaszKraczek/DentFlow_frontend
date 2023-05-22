@@ -116,7 +116,7 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         } finally {
             // setIsLoading(false);
         }
-    }, [currentClinic?.id,props,from, to,date,description]);
+    }, [doctor?.email,type,patient?.patientId,currentClinic?.id,props,from, to,date,description]);
     function doFilterDoctors ()  {
         const filterDoctors:EmployeeResponse[]=[]
         doctors.map((doctor)=>{

@@ -280,7 +280,9 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
            {currentVisit && (
                <>
                    <PatientInformation>
-                       Pacjent :{currentVisit.patient.lastName}     {currentVisit.patient.firstName}
+                       Pacjent: {currentVisit.patient.lastName}     {currentVisit.patient.firstName}<br/>
+                       Pesel:{currentVisit.patient.pesel}<br/>
+                       Data urodzenia:{currentVisit.patient.birthDate}
                    </PatientInformation>
                    <Jaw>
                        <UpperJawLeftFirst src={UpLFirst} isSelected = {currentTooth?.number ===1}  isNoTooth={teeth[0]?.noTooth}  alt="11" onClick={(event) => handleChoseTooth(event,teeth[0])}/>

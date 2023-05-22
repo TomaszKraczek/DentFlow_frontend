@@ -117,7 +117,6 @@ export default function CustomPaginationActionsTable() {
     }
     function employeeHandleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
         const searchTerm = event.target.value;
-        console.log(employees)
         const result = splitString(searchTerm);
         let results: EmployeeResponse[] = [];
         if (result !== null) {
@@ -156,7 +155,6 @@ export default function CustomPaginationActionsTable() {
             const result = await ClinicApi.getEmployees()
             setEmployees(result.data);
             setEmployeesSearchResults(result.data);
-            console.log(result.data)
         } finally {
             // setIsLoading(false);
         }
