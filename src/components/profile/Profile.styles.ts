@@ -172,6 +172,8 @@ export const ClinicData = styled.div`
   align-items: center;
   border: 3px solid #1784B3;
   border-radius: 5px;
+  padding: 40px;
+  gap: 30px;
 `
 
 export const TableDiv = styled(Box)`
@@ -258,6 +260,29 @@ export const TimeSettings = styled.div`
 
 export const CenterDiv = styled.div`
   width: 12.2rem;
+`;
+
+
+export const ComponentWrapper  = styled.div`
+  border: 1px solid #1784b3;
+  border-radius: 40px;
+  padding: 15px 10px 10px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  
+`;
+
+
+export const Header   = styled.div`
+  position:absolute;
+  margin-top:-25px;
+  margin-left:10px;
+  color:white;
+  background:#1784b3;
+  border-radius:10px;
+  padding:2px 10px
 `;
 
 
