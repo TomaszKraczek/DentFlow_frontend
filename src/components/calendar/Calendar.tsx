@@ -9,6 +9,7 @@ import {AddVisitModal} from "./addVisit/AddVisitModal";
 import {UserContext} from "../../context/UserContext";
 import {ClinicAvailability} from "../UserInterface/ClinicAvailability";
 import {useParams} from "react-router-dom";
+import DehazeIcon from '@mui/icons-material/Dehaze';
 import dayjs from "dayjs";
 
 
@@ -47,12 +48,10 @@ export const Calendar = () => {
     return (
         <>
            <HScreen>
-               <Toggle onClick={toggle}>
-                   <span />
-                   <span />
-                   <span />
-               </Toggle>
                <CalendarHeaderBody>
+                   <Toggle onClick={toggle}>
+                       <DehazeIcon sx={{ fontSize: 50, marginLeft: "50px" }} ></DehazeIcon>
+                   </Toggle>
                    {(currentUser?.roles.includes("DOCTOR") ||
                        currentUser?.roles.includes("RECEPTIONIST")) &&
                        <BackVisitButton onClick={handleModalOpen}>Dodaj wizyte</BackVisitButton>}

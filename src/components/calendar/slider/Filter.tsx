@@ -2,6 +2,8 @@ import React, {ChangeEventHandler, useContext, useEffect, useState} from "react"
 import { FilterBody } from "./Slidebar.styles"
 import {CalendarContext} from "../../../context/CalendarContext";
 import {Doctor} from "../../../models/Doctor";
+import {Checkbox, FormControlLabel} from "@mui/material";
+
 
 
 export function Filter(){
@@ -35,10 +37,7 @@ export function Filter(){
     return(
         <FilterBody>
                 {doctors.map((doctor,i)=>(
-                    <>
-                        <input key={i}   type="checkbox" value={doctor.email} onChange={handleCheckChange} />
-                        <label key={i} style={{ marginLeft: 8 }}>{doctor.email}</label>
-                    </>
+                    <FormControlLabel value={doctor.email} control={<Checkbox    onChange={handleCheckChange}/>} label={doctor.email} />
                     ))}
         </FilterBody>
     )

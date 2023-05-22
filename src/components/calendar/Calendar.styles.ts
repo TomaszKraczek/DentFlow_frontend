@@ -4,20 +4,12 @@ export const HScreen = styled.div`
  height: auto;
 `;
 export const Toggle = styled.div`
+  margin-right: auto;
   cursor: pointer;
   z-index: 2;
-  position: fixed;
-  margin-bottom: -50px;
   height: 50px;
-  width: 50px;
-
-  span {
-    display: block;
-    height: 3px;
-    width: 25px;
-    margin: 10px auto 5px;
-    background: black;
-  }
+  width: 100px;
+  margin-top: -10px;
 `;
 
 export const CalendarBody = styled.div`

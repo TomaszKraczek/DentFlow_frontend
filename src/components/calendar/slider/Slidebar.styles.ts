@@ -12,6 +12,7 @@ export const SlidebarHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-left: 10px;
 `;
 
 export const Arrow = styled.div`
@@ -32,5 +33,6 @@ export const Arrow = styled.div`
 `;
 
 export const FilterBody = styled.div`
+    margin-left: 10px;
 `;
 

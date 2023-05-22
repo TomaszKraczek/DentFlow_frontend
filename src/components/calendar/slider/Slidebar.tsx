@@ -1,15 +1,17 @@
-import React, { useState} from "react"
+import React, {useContext, useState} from "react"
 import {Arrow, HeaderLabel, SlidebarBody, SlidebarHeader} from "./Slidebar.styles";
 import {getMonth,} from "../../../utils/utils";
 import dayjs from "dayjs";
 import {Month} from "../monthCalendar/Month";
 import {Filter} from "./Filter";
+import {UserContext} from "../../../context/UserContext";
 
 
 
 export function Slidebar(){
     const [currenMonth,setCurrenMonth] = useState(dayjs().month())
     const [monthDays,setMonthDays] = useState(getMonth(currenMonth))
+    const {currentUser} = useContext(UserContext);
     const nextWeek =() => {
         setCurrenMonth(currenMonth+1);
         setMonthDays(getMonth(currenMonth+1));
@@ -32,7 +34,7 @@ export function Slidebar(){
                 </SlidebarHeader>
             </SlidebarHeader>
             <Month month = {monthDays} />
-            <Filter/>
+            {currentUser?.roles.includes("RECEPTIONIST") &&<Filter/>}
         </SlidebarBody>
     )
 }
