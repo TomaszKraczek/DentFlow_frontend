@@ -9,7 +9,7 @@ export const List = styled.div`
   align-items: center;
 `;
 export const Time = styled.div`
-  cursor: pointer;
+  //cursor: pointer;
   border: 2px solid #1784b3;
   width: 100px;
   font-size: 1.5rem;
@@ -17,10 +17,10 @@ export const Time = styled.div`
   border-radius: 10px;
   text-align: center;
   align-items: center;
-  :hover{
-    opacity: 80%;
-    background-color: lightgray;
-  }
+  //:hover{
+  //  opacity: 80%;
+  //  background-color: lightgray;
+  //}
 `;
 export const Div = styled.div<{isOpen:boolean}>`
   width: ${props => props.isOpen ? '85%' : '100%'};

@@ -55,7 +55,8 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
         <Div isOpen={props.isOpen} >
             <div>
                 <HeaderLabel>{currenDate.format("MMM DD dddd")}</HeaderLabel>
-                <HeaderLabel>Możesz umówić się telefonicznie:<br />{currentClinic?.phoneNumber}</HeaderLabel>
+                <HeaderLabel>Umówić się telefonicznie:<br />{currentClinic?.phoneNumber}</HeaderLabel>
+                <HeaderLabel>Godziny dostępności lekarzy</HeaderLabel>
                 <>
                     {doctors.map((doctor,id) => (
                         <>

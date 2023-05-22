@@ -12,7 +12,7 @@ import {toast} from "react-toastify";
 
 export  const  RecepcionistVisitInformation= () =>{
     const{currentClinic} = useContext(ClinicContext)
-    const{currentVisit} = useContext(CalendarContext)
+    const{currentVisit,fetchVisits} = useContext(CalendarContext)
     const[description,setDescription] = useState<string|undefined>("")
     useEffect(()=>{
         setDescription(currentVisit?.receptionistDescription)
@@ -35,6 +35,21 @@ export  const  RecepcionistVisitInformation= () =>{
         }
 
         },[currentClinic?.id,currentVisit?.id,description]);
+    const deleteVisit = useCallback(async () => {
+        try {
+            await VisitApi.deleteVisit({
+                clinicId:currentClinic?.id,
+                visitId:currentVisit?.id,
+            })
+            toast.success("Usunieto wizyte");
+            fetchVisits()
+        } catch (error: any) {
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
+    },[currentClinic?.id,currentVisit?.id]);
     return(
         <>
         {currentVisit ?(
@@ -50,7 +65,7 @@ export  const  RecepcionistVisitInformation= () =>{
                         <Description value={description} onChange={safeVisitDescription}/>
                         <Button onClick={handleSubmit}>Zapisz Notatke</Button>
                     </DescriptionRow>
-
+                    <Button onClick={deleteVisit}>Usuń wizyte</Button>
                 </RecepcionistVisitInformationContainet>
             ):(<></>)}
         </>

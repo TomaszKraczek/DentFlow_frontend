@@ -41,7 +41,7 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
     const {currenDate} = useContext(CalendarContext)
 
     const renderTimeList = (timeList: string[]) => {
-        return timeList.map((time, index) => <Time onClick={bookAVisit} key={index}>{time}</Time>);
+        return timeList.map((time, index) => <Time key={index}>{time}</Time>);
     };
 
     const handleModalClose = () => {

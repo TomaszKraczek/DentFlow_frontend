@@ -28,4 +28,6 @@ export class VisitApi {
         await authorizedApi.get("/visits/myVisits", )
     static addVisitUser = async(request: AskVisitRequest) =>
         await authorizedApi.post("/visits/addVisitUser", request)
+    static deleteVisit = async(request: { clinicId: number | undefined; visitId: number | undefined }) =>
+        await authorizedApi.delete("/visits", {params:request})
 }

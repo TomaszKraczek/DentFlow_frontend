@@ -82,18 +82,18 @@ export const Visit = styled.div<{type:string,lengthOfTheVisit:number,selectedVis
   margin-top: ${props => props.min}px;
   height: ${props => props.lengthOfTheVisit}px;
   font-size: 80%;
-  color: #fff;
+  color: white;
   background-color: ${props => props.selectedVisit
     ? '#81a0be' // Kolor, gdy selectedVisit jest true
     : props.type === 'CONTROL'
-        ? '#1784B3' // Kolor, gdy type jest CONTROL
+        ? '#6f6f6f' // Kolor, gdy type jest CONTROL
         : props.type === 'TREATMENT'
-            ? 'pink' // Kolor, gdy type jest TREATMENT
+            ? '#b06d6d' // Kolor, gdy type jest TREATMENT
             : props.type === 'OTHER'
-                ? 'black' // Kolor, gdy type jest OTHER
+                ? "#1784B3" // Kolor, gdy type jest OTHER
                 : '#1784B3'};
   float: right;
-  opacity: 0.5;
+  opacity: 0.8;
   margin-left: 10px;
   justify-content: space-between;
   align-items: center;
