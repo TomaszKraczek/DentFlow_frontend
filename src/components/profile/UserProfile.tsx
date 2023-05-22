@@ -8,7 +8,7 @@ import {
     StyledTextFieldSmall,
 } from "../login/Login.styles";
 import {ProfileUserResponse} from "../../models/api/ProfileUserResponse";
-export default function ReceptionistProfile() {
+export default function UserProfile() {
     const [user, setUser] = useState<ProfileUserResponse>();
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');

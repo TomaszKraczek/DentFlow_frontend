@@ -164,7 +164,6 @@ export const HomeContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 10rem;
-  height: 60rem;
 `;
 
 export const ClinicData = styled.div`

@@ -96,7 +96,7 @@ const UserRegistration = () => {
     }
 
     return (
-        <LoginForm height={67}>
+        <LoginForm height={55}>
 
             <LoginHeader>
                 Rejestracja
@@ -109,14 +109,14 @@ const UserRegistration = () => {
                 <StyledTextFieldMedium label="Nazwisko" size={"medium"} onChange={onLastnameChange}/>
                 <StyledTextFieldSmall label="Nazwisko" size={"small"} onChange={onLastnameChange}/>
 
-                <StyledTextFieldMedium label="PESEL" size={"medium"} onChange={(event) => setPesel(event.target.value)}/>
-                <StyledTextFieldSmall label="PESEL" size={"small"} onChange={(event) => setPesel(event.target.value)}/>
-                {pesel.length !== 11 && pesel.length !== 0 && <ValidationError>Błędny PESEL</ValidationError>}
+                {/*<StyledTextFieldMedium label="PESEL" size={"medium"} onChange={(event) => setPesel(event.target.value)}/>*/}
+                {/*<StyledTextFieldSmall label="PESEL" size={"small"} onChange={(event) => setPesel(event.target.value)}/>*/}
+                {/*{pesel.length !== 11 && pesel.length !== 0 && <ValidationError>Błędny PESEL</ValidationError>}*/}
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <StyledDatePickerMedium label={"Data urodzenia"} slotProps={{textField:{size:"medium"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>
-                    <StyledDatePickerSmall label={"Data urodzenia"} slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>
-                </LocalizationProvider>
+                {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
+                {/*    <StyledDatePickerMedium label={"Data urodzenia"} slotProps={{textField:{size:"medium"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>*/}
+                {/*    <StyledDatePickerSmall label={"Data urodzenia"} slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>*/}
+                {/*</LocalizationProvider>*/}
 
 
                 <StyledTextFieldMedium label="Email" size={"medium"} type="email" onChange={onEmailChange}/>
@@ -132,8 +132,8 @@ const UserRegistration = () => {
                 <StyledTextFieldSmall label="Powtórz hasło" type="password" size={"small"} onChange={onRepeatedPasswordChange}/>
                 {!isRepeatedPasswordValid && password.length !== 0 && <ValidationError>Hasła nie są zgodne</ValidationError>}
 
-                <StyledTextFieldMedium label="Numer telefonu" type="tel" size={"medium"} onChange={onTelNumberChange}/>
-                <StyledTextFieldSmall label="Numer telefonu" type="tel" size={"small"} onChange={onTelNumberChange}/>
+                {/*<StyledTextFieldMedium label="Numer telefonu" type="tel" size={"medium"} onChange={onTelNumberChange}/>*/}
+                {/*<StyledTextFieldSmall label="Numer telefonu" type="tel" size={"small"} onChange={onTelNumberChange}/>*/}
 
                 <LoginButton onClick={handleSubmit} disabled={!isDataValid}>
                     Dołącz
