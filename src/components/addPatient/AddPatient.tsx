@@ -77,8 +77,6 @@ export const AddPatient = () => {
                 <StyledTextFieldMedium label="Email" type="email" size={"medium"} value = {email} onChange={event => setEmail(event.target.value)}/>
                 <StyledTextFieldSmall label="Email" type="email" size={"small"} value = {email} onChange={event => setEmail(event.target.value)}/>
 
-
-
                 <LoginButton  onClick={PatientRegistration}>
                     Dodaj
                 </LoginButton>

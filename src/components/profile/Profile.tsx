@@ -4,6 +4,7 @@ import OwnerProfileData from "./OwnerProfileData"
 import PersonalProfile from "./PersonalProfile";
 import {UserContext} from "../../context/UserContext";
 import { HomeContainer } from "./Profile.styles";
+import ReceptionistProfile from "./ReceptionistProfile";
 
 
 export const Profile = () => {
@@ -14,7 +15,8 @@ export const Profile = () => {
           <PersonalProfile/>
           {currentUser?.roles.includes("DOCTOR") &&<ClinicsTable/>}
           {currentUser?.roles.includes("OWNER")&&<OwnerProfileData />}
-          {!currentUser?.roles.includes("OWNER")&&!currentUser?.roles.includes("DOCTOR")&&<>todo</>}
+          {currentUser?.roles.includes("RECEPTIONIST")&&<ReceptionistProfile />}
+          {!currentUser?.roles.includes("OWNER")&&!currentUser?.roles.includes("DOCTOR")&&!currentUser?.roles.includes("RECEPTIONIST")&&<>todo</>}
       </HomeContainer>
       </>
   );

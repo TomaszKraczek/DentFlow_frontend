@@ -6,7 +6,6 @@ import {ClinicApi} from "../../api/ClinicApi";
 import {TableCell, TableRow} from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import Table from "@mui/material/Table";
-import {ProfileUserResponse} from "../../models/api/ProfileUserResponse";
 import {UserApi} from "../../api/UserApi";
 
 export default function DataGridDemo() {
