@@ -62,6 +62,9 @@ export default function DataGridDemo() {
                     <TableCell >
                         {ownerEmail}
                     </TableCell>
+                        <TableCell >
+                        {clinic?.phoneNumber}
+                        </TableCell>
                 </TableRow>
                 </TableBody>
             </Table>

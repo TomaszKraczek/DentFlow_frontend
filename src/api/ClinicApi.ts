@@ -5,6 +5,7 @@ import {EmployeeResponse} from "../models/api/EmployeeResponse";
 import {EmployeeRequest} from "../models/api/EmployeeRequest";
 import {PatientResponse} from "../models/api/PatientResponse";
 import {VisitResponse} from "../models/api/VisitResponse";
+import {ClinicUpdateData} from "../models/api/ClinicUpdateData";
 
 export class ClinicApi {
     static getAllClinics = async () =>
@@ -14,7 +15,8 @@ export class ClinicApi {
 
     static register = async (request: ClinicRequest) =>
         await authorizedApi.post("/clinics", request);
-
+    static updateClinic = async (request: ClinicUpdateData) =>
+        await authorizedApi.patch("/clinics/myClinic", request)
     static getMyClinic = async () =>
         await authorizedApi.get<ClinicResponse>("/clinics/myClinic");
 

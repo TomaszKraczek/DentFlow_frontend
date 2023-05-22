@@ -9,7 +9,7 @@ import {
     ProfilePicture, UserName, Button, TextFieldModal, ChangeButton
 } from "./Profile.styles";
 import img from "../../resources/img/profile.png";
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {UserApi} from "../../api/UserApi";
 import {ProfileUserResponse} from "../../models/api/ProfileUserResponse";
 import {toast} from "react-toastify";
@@ -18,6 +18,11 @@ import {AuthApi} from "../../api/AuthApi";
 import {
     Loader
 } from "../login/Login.styles";
+import ClinicsTable from "./ClinicsTable";
+import {UserContext} from "../../context/UserContext";
+import OwnerProfileData from "./OwnerProfileData";
+import {ClinicResponse} from "../../models/api/ClinicResponse";
+import {ClinicApi} from "../../api/ClinicApi";
 
 export default function MultiActionAreaCard() {
     const [isLoading, setIsLoading] = useState(false);
@@ -26,6 +31,10 @@ export default function MultiActionAreaCard() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
+    const {currentUser} = useContext(UserContext);
+    const [clinic, setClinic] = useState<ClinicResponse>();
+    const [address, setAddress] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     const openModal = () => {
         setShowModal(true)
@@ -52,11 +61,31 @@ export default function MultiActionAreaCard() {
         }
     }, [fetchProfileUser]);
 
+    const fetchClinic = useCallback(async () => {
+        try {
+            const result = await ClinicApi.getMyClinic();
+            setClinic(result.data);
+            setAddress(result.data.address);
+            setPhoneNumber(result.data.phoneNumber);
+
+        }
+        finally {
+        }
+    },[])
+    useEffect(() => {
+        fetchClinic()
+    },[fetchClinic]);
     const changeLastname = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setLastName(event.target.value)
     }
     const changeFirstname = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setFirstName(event.target.value)
+    }
+    const changePhoneNumber = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setPhoneNumber(event.target.value)
+    }
+    const changeClinicAddress = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setAddress(event.target.value)
     }
     const onResetClicked = useCallback(async () => {
         try {
@@ -73,7 +102,7 @@ export default function MultiActionAreaCard() {
 
     }, []);
 
-    const handleSubmit = async () => {
+    const handleUserModalSubmit = async () => {
             try {
                 const updatedUser = await UserApi.updateUser({
                     firstName: firstName,
@@ -85,6 +114,20 @@ export default function MultiActionAreaCard() {
             } catch (error) {
                 toast.error("Nie udało się zaktualizować profilu");
             }
+
+    };
+    const handleClinicModalSubmit = async () => {
+        try {
+            const updateClinic = await ClinicApi.updateClinic({
+                address: address,
+                phoneNumber: phoneNumber
+            });
+            setClinic(updateClinic.data);
+            toast.success("Zaktualizowano profil");
+            closeModal();
+        } catch (error) {
+            toast.error("Nie udało się zaktualizować profilu");
+        }
 
     };
 
@@ -99,7 +142,56 @@ export default function MultiActionAreaCard() {
                         <Button onClick={openModal}>
                             Edytuj Profil
                         </Button>
-                        <CardActions>
+                        {currentUser?.roles.includes("OWNER")&&<CardActions>
+                            {showModal && (
+                                <Modal>
+                                    <ModalOverlay/>
+                                    <ModalContent>
+                                        <UserName>Edytuj Profil</UserName>
+                                        <ModalBody>
+                                            <TextFieldModal
+                                                required
+                                                id="firstName"
+                                                label="Imię"
+                                                defaultValue={firstName}
+                                                onChange={changeFirstname}/>
+                                            <TextFieldModal
+                                                required
+                                                id="lastName"
+                                                label="Nazwisko"
+                                                defaultValue={lastName}
+                                                onChange={changeLastname}/>
+                                            <TextFieldModal
+                                                required
+                                                id="phoneNumber"
+                                                label="Numer Telefonu"
+                                                defaultValue={phoneNumber}
+                                                onChange={changePhoneNumber}/>
+                                            <TextFieldModal
+                                                required
+                                                id="address"
+                                                label="Adres"
+                                                defaultValue={address}
+                                                onChange={changeClinicAddress}/>
+                                            <TextFieldModal
+                                                defaultValue={email}
+                                                type='email' disabled/>
+                                            <ChangeButton onClick={onResetClicked}>zmień maila</ChangeButton>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <Button onClick={closeModal}>
+                                                Anuluj
+                                            </Button>
+                                            <Button onClick={handleClinicModalSubmit}>
+                                                Zapisz
+                                            </Button>
+                                        </ModalFooter>
+                                    </ModalContent>
+                                </Modal>
+                            )}
+                        </CardActions>}
+
+                        {currentUser?.roles.includes("DOCTOR") && <CardActions>
                             {showModal && (
                                 <Modal>
                                     <ModalOverlay/>
@@ -127,14 +219,15 @@ export default function MultiActionAreaCard() {
                                             <Button onClick={closeModal}>
                                                 Anuluj
                                             </Button>
-                                            <Button onClick={handleSubmit}>
+                                            <Button onClick={handleUserModalSubmit}>
                                                 Zapisz
                                             </Button>
                                         </ModalFooter>
                                     </ModalContent>
                                 </Modal>
                             )}
-                        </CardActions>
+                        </CardActions>}
+
                     </ProfileDiv>
                 )}
             </>
