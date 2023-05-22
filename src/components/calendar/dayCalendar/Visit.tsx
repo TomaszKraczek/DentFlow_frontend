@@ -35,7 +35,7 @@ import {
     VisitBody, VisitOptions, TeethOptions, ToothDescription,
     ToothStatus,StatusLabel,StatusCheckbox, ToothDescriptionTextField,
     ToothDescriptionHistory, PatientInformation, Descriptions,
-    ToothDescriptionSaveButton, DescriptionTitle, DescriptionRow, ToothNumberText,ToothText
+    ToothDescriptionSaveButton, DescriptionTitle, DescriptionRow, ToothNumberText,ToothText,PatientInfoText
 
 } from "./DayCalendar.styles";
 import UpLEight from "../../../resources/img/Jaw/8-UP-L.png";
@@ -280,9 +280,11 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
            {currentVisit && (
                <>
                    <PatientInformation>
-                       Pacjent: {currentVisit.patient.lastName}     {currentVisit.patient.firstName}<br/>
-                       Pesel:{currentVisit.patient.pesel}<br/>
-                       Data urodzenia:{currentVisit.patient.birthDate}
+                       <PatientInfoText>
+                           Pacjent: {currentVisit.patient.lastName}   {currentVisit.patient.firstName}<br/>
+                           Pesel:{currentVisit.patient.pesel}<br/>
+                           Data urodzenia:{currentVisit.patient.birthDate}
+                       </PatientInfoText>
                    </PatientInformation>
                    <Jaw>
                        <UpperJawLeftFirst src={UpLFirst} isSelected = {currentTooth?.number ===1}  isNoTooth={teeth[0]?.noTooth}  alt="11" onClick={(event) => handleChoseTooth(event,teeth[0])}/>

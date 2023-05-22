@@ -125,3 +125,17 @@ export const PatientInformation = styled.div`
     font-size: 1.5rem;
 `
 
+export const PatientInfoText = styled.div`
+  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 3px solid rgb(23, 132, 179);
+      border-radius: 15px;
+      margin-left: 10%;
+      margin-right: 10%;
+      padding-top: 4%;
+      padding-bottom: 4%;
+`
