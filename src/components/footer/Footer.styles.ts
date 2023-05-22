@@ -8,9 +8,11 @@ export const Box = styled.div`
   bottom: 0;
   width: 100%;
   height: 15rem;
+  transition: 2s;
   @media only screen and (max-width: 950px){
     flex-direction: column;
     align-items: center;
+    transition: 2s;
   }
 `;
    
@@ -28,24 +30,29 @@ export const Column = styled.div`
   text-align: left;
   margin-left: 60px;
   height: 10rem;
+  transition: 2s;
   
   @media(max-width: 1350px) {
     margin-left: 40px;
+    transition: 2s;
   }
   
   @media(max-width: 950px) {
     margin-left: 0;
+    transition: 2s;
   } 
 `;
    
 export const Row = styled.div`
   display: inherit;
   justify-content: center;
+  transition: 2s;
   grid-template-columns: repeat(auto-fill, 
                          minmax(185px, 1fr));
   grid-gap: 20px;
    
   @media (max-width: 768px) {
+    transition: 2s;
     grid-template-columns: repeat(auto-fill, 
                            minmax(200px, 1fr));
   }
@@ -56,6 +63,7 @@ export const FooterLink = styled.a`
   margin-bottom: 20px;
   font-size: 18px;
   text-decoration: none;
+  transition: 2s;
    
   &:hover {
       color: black;
@@ -63,6 +71,7 @@ export const FooterLink = styled.a`
   }
 
   @media(max-width: 768px) {
+    transition: 2s;
     font-size: 10px;
   }
 `;
@@ -72,8 +81,10 @@ export const FooterText = styled.a`
   margin-bottom: 20px;
   font-size: 18px;
   text-decoration: none;
+  transition: 2s;
   
   @media(max-width: 768px) {
+    transition: 2s;
     font-size: 10px;
   }
 `;
@@ -83,8 +94,10 @@ export const Heading = styled.p`
   color: #fff;
   margin-bottom: 40px;
   font-weight: bold;
+  transition: 2s;
 
   @media(max-width: 768px) {
+    transition: 2s;
     font-size: 14px;
   }
 `;

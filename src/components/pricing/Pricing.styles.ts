@@ -28,8 +28,10 @@ export const Prices = styled.div`
   width: fit-content;
   margin-left: 50%;
   margin-right: 50%;
+  transition: 2s;
   @media only screen and (max-width: 950px){
     flex-direction: column;
     align-items: center;
+    transition: 2s;
   }
 `

@@ -23,10 +23,10 @@ export const ThirdTypeOffer: React.FC<OfferProps> = ({ price, header, currency }
     return (
         <ThirdOfferContainer>
             <Header>
-                <H1>5+ foteli</H1>
+                <H1>{header}</H1>
             </Header>
             <PriceArea>
-                <H2>899.99</H2>
+                <H2>{price}</H2>
                 <H3>zł/msc</H3>
             </PriceArea>
             <OfferParam>

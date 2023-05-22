@@ -8,34 +8,41 @@ import {DateTimePicker} from "@mui/x-date-pickers";
 export const RememberMeLabel = styled(FormControlLabel)`
   margin-left: 3rem;
   margin-right: 1rem;
+  transition: 2s;
   @media(max-width:950px){
     position:relative;
     margin-top: 0rem;
     left:3rem;
+    transition: 2s;
   }
 `
 
 export const PasswordRecoveryLabel = styled(Grid)`
   margin-left: 3rem;
   margin-right: 1rem;
+  transition: 2s;
   @media(max-width:950px){
     position:relative;
     margin-top: 3rem;
     left:0rem;
+    transition: 2s;
   }
 `
 export const ValidationError = styled.div`
   color: red;
   font-size: 13px;
+  transition: 2s;
   @media(max-width:950px){
     width: 14rem;
     position:relative;
     margin-top: -1rem;
     left:3rem;
+    transition: 2s;
   }
   @media (max-width: 450px) {
     position:relative;
     left:3rem;
+    transition: 2s;
   }
 `
 
@@ -52,11 +59,13 @@ export const LoginForm = styled.div<LoginFormProps>`
   margin: 5rem auto;
   display: flex;
   flex-direction: column;
+  transition: 2s;
 
   @media (max-width: 950px) {
     width: 20rem;
     height: ${(props) => props.height}rem;
     margin: 5rem auto;
+    transition: 2s;
   }
 `
 
@@ -70,11 +79,13 @@ export const LoginHeader = styled.div`
   margin-bottom: 2rem;
   margin-top: 2rem;
   flex-direction: column;
+  transition: 2s;
 
   @media (max-width: 950px) {
     font-size: 1.8rem;
     margin-top: 3rem;
     margin-bottom: 1rem;
+    transition: 2s;
   }
 `
 
@@ -86,6 +97,7 @@ export const LoginInputs = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   flex-direction: column;
+  transition: 2s;
 `
 export const LoginP = styled.div`
   margin-top: 1rem;
@@ -94,6 +106,7 @@ export const LoginP = styled.div`
   margin-left: auto;
   margin-right: auto;
   flex-direction: column;
+  transition: 2s;
 `
 const spinAnimation = keyframes`
   0% {
@@ -119,6 +132,7 @@ export const StyledTextFieldMedium = styled(TextField)`
     width: 100%;
     margin-top: 2rem;
     padding: 0;
+    transition: 2s;
     .MuiInputLabel-root {
       font-weight: normal;
     }
@@ -133,6 +147,7 @@ export const StyledTextFieldMedium = styled(TextField)`
       width: 80%;
       margin-top: 1rem;
       padding: 0;
+      transition: 2s;
       .MuiInputLabel-root {
         font-size: 14px;
       }
@@ -149,6 +164,7 @@ export const StyledTextFieldSmall = styled(TextField)`
     width: 80%;
     margin-top: 1rem;
     padding: 0;
+    transition: 2s;
     .MuiInputLabel-root {
       font-weight: normal;
     }
@@ -164,6 +180,7 @@ export const StyledTextFieldSmall = styled(TextField)`
       margin-right: auto;
       margin-left: auto;
       padding: 0;
+      transition: 2s;
       .MuiInputLabel-root {
         font-size: 14px;
         
@@ -181,6 +198,7 @@ export const StyledDatePickerMedium = styled(DatePicker)`
     width: 100%;
     margin-top: 2rem;
     padding: 0;
+    transition: 2s;
   }
 
   @media (max-width: 950px) {
@@ -189,7 +207,7 @@ export const StyledDatePickerMedium = styled(DatePicker)`
       width: 80%;
       margin-top: 1rem;
       padding: 0;
-
+      transition: 2s;
       .MuiInputLabel-root {
         font-size: 14px;
       }
@@ -207,11 +225,14 @@ export const StyledDatePickerSmall = styled(DatePicker)`
     width: 80%;
     margin-top: 0.5rem;
     padding: 0;
+    transition: 2s;
     .MuiInputLabel-root {
       font-weight: normal;
+      transition: 2s;
     }
     .MuiInputBase-input {
       font-size: 16px;
+      transition: 2s;
     }
   }
 
@@ -222,12 +243,14 @@ export const StyledDatePickerSmall = styled(DatePicker)`
       margin-right: auto;
       margin-left: auto;
       padding: 0;
+      transition: 2s;
       .MuiInputLabel-root {
         font-size: 14px;
-        
+        transition: 2s;
       }
       .MuiInputBase-input {
         font-size: 14px;
+        transition: 2s;
       }
     }
   }
@@ -249,6 +272,7 @@ export const LoginButton = styled.button`
   border-radius: 10px;
   margin-left: auto;
   display: block;
+  transition: 2s;
 
      &:hover {
        filter: brightness(85%);
@@ -263,6 +287,7 @@ export const LoginButton = styled.button`
     height: 3rem;
     width: 13rem;
     font-size: 1.5rem;
+    transition: 2s;
 
   @media(max-width: 950px){
     height: 2.5rem;
@@ -273,5 +298,6 @@ export const LoginButton = styled.button`
     margin-top: 3rem;
     margin-bottom: 1rem;
     display: block;
+    transition: 2s;
   }
 `

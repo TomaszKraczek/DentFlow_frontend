@@ -10,10 +10,12 @@ export const SecondOfferContainer = styled.div`
   padding: 2.8rem;
   margin-top: -2rem;
   margin-bottom: 2rem;
+  transition: 2s;
 
   @media(max-width: 1400px) {
     padding: 1.5rem;
     margin-top: -2rem;
+    transition: 2s;
   }
   
 `
@@ -32,9 +34,11 @@ export const PriceArea = styled.div`
   align-items: center;
   margin-top: 2rem;
   background: #1784B3;
+  transition: 2s;
 
   @media(max-width: 790px) {
     margin-top: 1rem;
+    transition: 2s;
   }
 `
 
@@ -51,9 +55,11 @@ export const OfferIcon = styled.div`
   padding-top: 1rem;
   margin-top: 1rem;
   background: #1784B3;
+  transition: 2s;
 
   @media(max-width: 950px) {
     padding-top: 0.5rem;
+    transition: 2s;
   }
 `
 
@@ -68,8 +74,10 @@ export const H1 = styled.div`
   font-weight: bold;
   margin-top: 2rem;
   color: white;
+  transition: 2s;
   
   @media(max-width: 1400px){
+    transition: 2s;
     font-size: 1.7rem;
   }
   
@@ -83,8 +91,10 @@ export const H2 = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   color: #FFBE5C;
+  transition: 2s;
 
   @media(max-width: 1400px){
+    transition: 2s;
     font-size: 2.5rem;
     display: flex;
     align-items: center;
@@ -99,16 +109,19 @@ export const H3 = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   color: #FFBE5C;
+  transition: 2s;
 
   @media(max-width: 1500px){
     margin-left: 0.1rem;
     margin-right: 0.5rem;
+    transition: 2s;
   }
 
   @media(max-width: 950px){
     font-size: 1.1rem;
     margin-left: 0.1rem;
     margin-right: 0.5rem;
+    transition: 2s;
   }
   `
 
@@ -118,12 +131,15 @@ export const H4 = styled.div`
   margin-left: 1rem;
   text-space: 0.1rem;
   color: #FAFAFA;
+  transition: 2s;
   
   @media(max-width: 1400px){
     font-size: 0.7rem;
+    transition: 2s;
   }
 
   @media(max-width: 790px){
     font-size: 0.7rem;
+    transition: 2s;
   }
 `
