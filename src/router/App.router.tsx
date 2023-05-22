@@ -23,9 +23,8 @@ import { SendEmail } from "../components/resetPassword/SendEmail";
 import {ResetPassword} from "../components/resetPassword/ResetPassword";
 import {SelectedProtectedRoute} from "../components/SelectedProtectedRoute";
 import { ResetEmail } from "../components/resetPassword/ResetEmail";
-import PatientDetails from "../patientDetails/PatientDetails";
 import {AboutUs} from "../components/aboutUs/AboutUs";
-
+import PatientDetails from "../components/patientDetails/PatientDetails";
 
 
 

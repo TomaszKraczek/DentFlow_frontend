@@ -1,12 +1,23 @@
 import {authorizedApi} from "../hooks/withAxiosIntercepted";
 import {Tooth} from "../models/Tooth";
+import dayjs from "dayjs";
 
 export class TeethApi {
-    static async safeToothStatus(request: { clinicId: number | undefined; tooth:Tooth |null; patientId: number | undefined }) {
+    static async saveToothStatus(request: {
+        clinicId: number | undefined;
+        tooth: Tooth | null;
+        patientId: number | undefined
+    }) {
         await authorizedApi.patch('/teeth/status', request)
     }
 
-    static async safeToothDescription(request: { clinicId: number | undefined; patientId: number | undefined; tooth: Tooth | null }) {
+    static async saveToothDescription(request: {
+        clinicId: number | undefined;
+        patientId: number | undefined;
+        tooth: Tooth | null;
+        currentDateTime: string | undefined,
+        doctorName: string | undefined
+    }) {
         await authorizedApi.patch('/teeth/description', request)
     }
 }

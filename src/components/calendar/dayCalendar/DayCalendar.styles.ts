@@ -104,8 +104,7 @@ export const StatusCheckbox = styled.input`
 
 export const ToothDescriptionTextField = styled.textarea`
     resize: none;
-    width:80%;
-    margin-left:3%;
+    width: 26.7rem;
     margin-bottom:10px;
     height:10%;
     border:2px ridge rgb(23,132,179);
@@ -115,7 +114,7 @@ export const ToothDescriptionTextField = styled.textarea`
 
 export const ToothDescriptionHistory = styled.div`
     border: 2px solid rgb(23,132,179);
-    width:95%;
+    width: 27rem;
     border-radius:10px;
     
 `
