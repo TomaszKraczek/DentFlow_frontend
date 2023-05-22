@@ -6,6 +6,7 @@ export const HomeContainer = styled.div`
   align-items: center;
   flex-direction: column;
   margin-top: 64px;
+
 `;
 
 export const StyledHeading = styled.span`
@@ -13,4 +14,5 @@ export const StyledHeading = styled.span`
     font-weight: 600;
     margin-top: 32px;
     margin-bottom: 8px;
+   
 `

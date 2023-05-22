@@ -14,7 +14,7 @@ import {
     ModalBody,
     ModalContent,
     ModalFooter,
-    ModalOverlay,
+    ModalOverlay, PaymentModalContent, StyledSelect,
     TextFieldModal,
     UserName
 } from "../profile/Profile.styles";
@@ -113,14 +113,35 @@ const ClinicRegistration = () => {
     const [expiration, setExpiration] = useState('');
     const [cvv, setCvv] = useState('');
 
+    // tablica zawierająca dane z różnych ofert
+        const pricingOptions = [
+            { header: "1 fotel", price: "249.99", currency: "zł/msc" },
+            { header: "1-4 fotele", price: "549.99", currency: "zł/msc" },
+            { header: "5+ foteli", price: "899.99", currency: "zł/msc" },
+        ];
+
+    // stan przechowujący aktualnie wybraną opcję
+    const [selectedPricingOption, setSelectedPricingOption] = useState(pricingOptions[0]);
+
+    const handlePricingOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedPricingOption(pricingOptions[event.target.selectedIndex]);
+    };
+
 
     return (
         <>
             {showModal?(
                 <Modal>
                     <ModalOverlay/>
-                    <ModalContent>
+                    <PaymentModalContent>
                         <UserName>Płatność</UserName>
+                        <StyledSelect onChange={handlePricingOptionChange}>
+                            {pricingOptions.map((option, index) => (
+                                <option key={index} value={option.price}>
+                                    {option.header} - {option.price} {option.currency}
+                                </option>
+                            ))}
+                        </StyledSelect>
                         <ModalBody>
                             <TextFieldModal
                                 required
@@ -151,13 +172,14 @@ const ClinicRegistration = () => {
                                 defaultValue={cvv}
                                 onChange={e => setCvv(e.target.value)}/>
                         </ModalBody>
+
                         <ModalFooter>
                             <Button onClick={registerClinic} disabled={!isEmailValid || !isPasswordValid || !isFormValid}>
                                 Zapłać
                             </Button>
                             {/*disabled={!isEmailValid || !isPasswordValid || !isFormValid}*/}
                         </ModalFooter>
-                    </ModalContent>
+                    </PaymentModalContent>
                 </Modal>
                 ):(
                 <LoginForm height={67}>

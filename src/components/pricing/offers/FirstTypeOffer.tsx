@@ -26,9 +26,9 @@ export const FirstTypeOffer: React.FC<OfferProps> = ({ price, header, currency }
     return (
         <FirstOfferContainer>
             <Header>
-                <H1>1 fotel</H1>
+                <H1>{header}</H1>
                 <PriceArea>
-                    <H2>249.99</H2>
+                    <H2>{price}</H2>
                     <H3>zł/msc</H3>
                 </PriceArea>
             </Header>

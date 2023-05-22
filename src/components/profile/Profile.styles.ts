@@ -17,11 +17,23 @@ export const ProfilePicture = styled.img`
 `;
 
 export const TextFieldModal = styled(TextField)`
-  @media(max-width: 1950px){
-    width: 15rem;
-  }
+  //margin-right: 1rem;
+  padding: 0.5em;
+  //margin: 0.5em;
+  color: palevioletred;
+  //background: papayawhip;
+  border: none;
+  border-radius: 3px;
+  width: 20rem;
+  //width: 100%;
+  transition: 2s;
   @media(max-width: 1200px){
-    width: 10rem;
+    width: 15rem;
+    transition: 2s;
+  }
+  @media(max-width: 900px){
+    width: 13rem;
+    transition: 2s;
   }
   
 `;
@@ -33,11 +45,13 @@ export const UserName = styled.div`
   text-align: center;
   font-family: Montserrat;
   margin-top: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  transition: 2s;
   @media (max-width: 950px) {
     font-size: 1.8rem;
     margin-top: 3rem;
     margin-bottom: 1rem;
+    transition: 2s;
   }
 `;
 
@@ -54,6 +68,7 @@ export const Button = styled.button`
   border-radius: 10px;
   margin-left: auto;
   display: block;
+  transition: 2s;
      &:hover {
        filter: brightness(85%);
      }
@@ -66,6 +81,7 @@ export const Button = styled.button`
     height: 3rem;
     width: 13rem;
     font-size: 1.5rem;
+    transition: 2s;
     
   @media(max-width: 950px){
     height: 2.5rem;
@@ -76,6 +92,7 @@ export const Button = styled.button`
     margin-top: 3rem;
     margin-bottom: 1rem;
     display: block;
+    transition: 2s;
   }
 `;
 export const ChangeButton = styled.button`
@@ -148,9 +165,46 @@ export const ModalContent = styled.div`
   }
 `;
 
+export const PaymentModalContent = styled.div`
+  position: relative;
+  z-index: 101;
+  background-color: #fff;
+  width: 28rem;
+  padding: 20px;
+  border: 1px solid #1784b3;
+  border-radius: 1rem;
+  transition: 2s;
+  @media(max-width: 1200px){
+    width: 20rem;
+    transition: 2s;
+  }
+  @media(max-width: 900px){
+    width: 15rem;
+    transition: 2s;
+  }
+`;
+
+export const StyledSelect = styled.select`
+  padding: 0.5em;
+  //margin: 0.5em;
+  color: #1784b3;
+  border: none;
+  border-radius: 3px;
+  width: 86%;
+  display: block;
+  margin: 0 auto 1rem;
+  option {
+    padding: 0.5em;
+  }
+`;
+
 export const ModalBody = styled.div`
+  //display: flex;
+  gap: 10px;
+  margin-top: 2rem;
   margin-bottom: 20px;
   text-align: center;
+  transition: 2s;
 `;
 
 export const ModalFooter = styled.div`

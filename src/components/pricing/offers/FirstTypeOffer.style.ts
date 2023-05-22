@@ -6,16 +6,17 @@ export const FirstOfferContainer = styled.div`
   border-radius: 10px;
   padding: 2.8rem;
   align-items: center;
-
+  transition: 2s;
 
 
   @media(max-width: 1400px) {
     padding: 1.5rem;
     margin-top: 0;
+    transition: 2s;
   }
   
   @media(max-width: 1250px) {
-    
+    transition: 2s;
   }
   
   
@@ -23,6 +24,7 @@ export const FirstOfferContainer = styled.div`
     padding: 1.5rem;
     margin-top: -3rem;
     margin-bottom: 4rem;
+    transition: 2s;
   }
 `
 
@@ -30,6 +32,7 @@ export const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: 2s;
   //background: #FAFAFA;
 `
 
@@ -39,9 +42,11 @@ export const PriceArea = styled.div`
   align-items: center;
   margin-bottom: 1rem;
   margin-top: 2rem;
+  transition: 2s;
   
   @media(max-width: 790px) {
     margin-top: 1rem;
+    transition: 2s;
   }
 `
 
@@ -57,9 +62,11 @@ export const OfferIcon = styled.div`
   flex-direction: row;
   padding-top: 1rem;
   margin-top: 1rem;
+  transition: 2s;
   
   @media(max-width: 950px) {
     padding-top: 0.5rem;
+    transition: 2s;
   }
 `
 
@@ -73,9 +80,11 @@ export const H1 = styled.div`
   font-weight: bold;
   margin-top: 2rem;
   color: #1784B3;
+  transition: 2s;
  
   @media(max-width: 1400px){
     font-size: 1.7rem;
+    transition: 2s;
   }
 `
 
@@ -86,12 +95,14 @@ export const H2 = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   color: #FFBE5C;
+  transition: 2s;
   
   @media(max-width: 1400px){
     font-size: 2.5rem;
     display: flex;
     align-items: center;
     justify-self: center;
+    transition: 2s;
   }
 `
 
@@ -102,17 +113,20 @@ export const H3 = styled.div`
   margin-left: 1rem;
   margin-right: 1rem;
   color: #FFBE5C;
+  transition: 2s;
   
   
   @media(max-width: 1500px){
     margin-left: 0.1rem;
     margin-right: 0.5rem;
+    transition: 2s;
   }
 
   @media(max-width: 950px){
     font-size: 1.1rem;
     margin-left: 0.1rem;
     margin-right: 0.5rem;
+    transition: 2s;
   }
 `
 
@@ -121,12 +135,15 @@ export const H4 = styled.div`
   font-family: Montserrat;
   margin-left: 1rem;
   text-space: 0.1rem;
+  transition: 2s;
   
   @media(max-width: 1400px){
     font-size: 0.7rem;
+    transition: 2s;
   }
 
   @media(max-width: 790px){
     font-size: 0.7rem;
+    transition: 2s;
   }
 `

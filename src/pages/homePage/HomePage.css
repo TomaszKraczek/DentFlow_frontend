@@ -30,9 +30,11 @@ a{
     align-items: center;
     flex-wrap: wrap;
     margin-top: 2rem;
+    transition: 2s;
 }
 @media (max-width: 950px) {
     #homeBody{
+        transition: 2s;
         margin-left: 2rem;
     }
 }
