@@ -20,7 +20,6 @@ export const ClinicContextProvider = ({ children }: React.PropsWithChildren) => 
     const [currentClinic, setCurrentClinic] = useState<Clinic | null>(null);
     const {currentUser} = useContext(UserContext);
     const clinicModifier = (clinic: Clinic  | null) => {
-        console.log(clinic)
         setCurrentClinic(clinic);
     };
 

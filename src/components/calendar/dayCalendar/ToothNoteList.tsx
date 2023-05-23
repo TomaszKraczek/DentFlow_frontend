@@ -20,21 +20,34 @@ export const VirtualizedList:React.FC<Props> = (props:Props) => {
         const { index, style,data } = props;
 
         return (
-            <ListItem style={{ ...style,width:"360px",textAlign: "center" }} key={index} component="div" disablePadding>
-                <ListItemButton>
-                    <ListItemText primary={`${data[index].id}#${data[index].description}`} />
-                </ListItemButton>
+            <ListItem style={{ ...style,width:"21rem",textAlign: "left" }} key={index} component="div" disablePadding>
+
+                    <ListItemText
+                        style={{...style}}
+                        primaryTypographyProps={{
+                            fontSize: 15,
+                            color: 'primary.main',
+                            marginLeft: "1rem"
+                        }}
+                        secondaryTypographyProps={{
+                            fontSize: 13,
+                            marginLeft: "2rem"
+                        }}
+                        secondary={`${data[index].dateTime} ${data[index].doctorName}`}
+                        primary={`${data[index].description}`}/>
+
+
             </ListItem>
         );
     }
     return (
         <Box
-            sx={{ width: '100%', height: 400, maxWidth: 360,borderRadius:20, bgcolor: 'background.paper' }}
+            sx={{ width: '100%', height: 400, maxWidth: 360, borderRadius:20, bgcolor: 'background.paper' }}
         >
             <FixedSizeList
                 height={400}
-                width={360}
-                itemSize={60}
+                width={430}
+                itemSize={37}
                 itemCount={props.descriptions.length}
                 overscanCount={5}
                 itemData={props.descriptions}

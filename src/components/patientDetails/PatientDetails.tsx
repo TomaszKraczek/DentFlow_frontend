@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import {useContext, useEffect, useState} from "react";
-import {ClinicContext} from "../context/ClinicContext";
-import {PatientApi} from "../api/PatientApi";
+import {ClinicContext} from "../../context/ClinicContext";
+import {PatientApi} from "../../api/PatientApi";
 
 function PatientDetails() {
     const location = useLocation();

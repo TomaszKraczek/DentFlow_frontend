@@ -76,6 +76,7 @@ import {VisitApi} from "../../../api/VisitApi";
 import {ClinicContext} from "../../../context/ClinicContext";
 import { TeethApi } from "../../../api/TeethApi";
 import {VirtualizedList} from "./ToothNoteList";
+import dayjs from "dayjs";
 
 
 
@@ -133,41 +134,46 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
         setPathologicalClash(tooth.pathologicalClash)
     };
 
-    const safeVisitDescription = useCallback(async (event:React.ChangeEvent<HTMLTextAreaElement>) =>{
-        await VisitApi.safeDescription({
-            clinicId:currentClinic?.id,
-            visitId:currentVisit?.id,
-            doctorDescription:event.target.value
+    const saveVisitDescription = useCallback(async (event:React.ChangeEvent<HTMLTextAreaElement>) =>{
+        await VisitApi.saveDescription({
+            clinicId: currentClinic?.id,
+            visitId: currentVisit?.id,
+            doctorDescription: event.target.value
         })
     },[currentClinic?.id,currentVisit?.id]);
 
-    const safeToothStatus = useCallback(async () =>{
-        await TeethApi.safeToothStatus({
-            clinicId:currentClinic?.id,
-            patientId:currentVisit?.patient.patientId,
-            tooth:currentTooth,
+    const saveToothStatus = useCallback(async () =>{
+        await TeethApi.saveToothStatus({
+            clinicId: currentClinic?.id,
+            patientId: currentVisit?.patient.patientId,
+            tooth: currentTooth,
         })
     },[currentClinic?.id,currentTooth,currentVisit?.patient.patientId]);
 
-    const safeToothDescription = useCallback(async () =>{
+    const saveToothDescription = useCallback(async () =>{
+        if(descriptionTooth.length > 5){
         try{
-            await TeethApi.safeToothDescription({
-                clinicId:currentClinic?.id,
-                patientId:currentVisit?.patient.patientId,
-                tooth:currentTooth,
+            await TeethApi.saveToothDescription({
+                clinicId: currentClinic?.id,
+                patientId: currentVisit?.patient.patientId,
+                doctorName: currentVisit?.doctor.firstName + " " + currentVisit?.doctor.lastName,
+                currentDateTime: dayjs(new Date).format("YYYY-MM-DD HH:mm"),
+                tooth: currentTooth,
             })
             if(currentTooth){
                 currentTooth.descriptions.push({id:currentTooth.descriptions.length > 0
                         ? currentTooth.descriptions.sort((b, a) => b.id - a.id)[currentTooth.descriptions.length-1].id + 1
-                        : 1,description:descriptionTooth})
+                        : 1,description:descriptionTooth,
+                    dateTime: dayjs(new Date).format("YYYY-MM-DD HH:mm"),
+                    doctorName: currentVisit?.doctor.firstName + " " + currentVisit?.doctor.lastName})
                 currentTooth.description = "";
             }
             setDescriptionTooth("")
         }catch (e){
 
-        }
+        }}
 
-    },[currentClinic?.id,currentTooth,currentVisit?.patient.patientId,descriptionTooth]);
+    },[currentClinic?.id,currentTooth,currentVisit?.patient.patientId,descriptionTooth, currentVisit?.doctor.email, currentVisit?.doctor.firstName, currentVisit?.doctor.lastName]);
     function changeToothDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
         if(currentTooth)
             currentTooth.description = event.target.value;
@@ -177,97 +183,97 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
         if(currentTooth)
             currentTooth.caries = !currentTooth.caries;
         setCaries(!caries);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeNoToothStatus(){
         if(currentTooth)
             currentTooth.noTooth = !currentTooth.noTooth;
         setNoTooth(!noTooth);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeFillingStatus(){
         if(currentTooth)
             currentTooth.filling = !currentTooth.filling;
         setFilling(!filling);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeForObservationStatus(){
         if(currentTooth)
             currentTooth.forObservation = !currentTooth.forObservation;
         setForObservation(!forObservation);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeSecondaryCariesStatus(){
         if(currentTooth)
             currentTooth.secondaryCaries = !currentTooth.secondaryCaries;
         setSecondaryCaries(!secondaryCaries);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeProstheticCrownStatus(){
         if(currentTooth)
             currentTooth.prostheticCrown = !currentTooth.prostheticCrown;
         setProstheticCrown(!prostheticCrown);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeChannelsFilledCorrectlyStatus(){
         if(currentTooth)
             currentTooth.channelsFilledCorrectly = !currentTooth.channelsFilledCorrectly;
         setChannelsFilledCorrectly(!channelsFilledCorrectly);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeChannelNotCompletedStatus(){
         if(currentTooth)
             currentTooth.channelNotCompleted = !currentTooth.channelNotCompleted;
         setChannelNotCompleted(!channelNotCompleted);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changePeriapicalChangeStatus(){
         if(currentTooth)
             currentTooth.periapicalChange = !currentTooth.periapicalChange;
         setPeriapicalChange(!periapicalChange);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeCrownRootInsertStatus(){
         if(currentTooth)
             currentTooth.crownRootInsert = !currentTooth.crownRootInsert;
         setCrownRootInsert(!crownRootInsert);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeSupragingivalCalculusStatus(){
         if(currentTooth)
             currentTooth.supragingivalCalculus = !currentTooth.supragingivalCalculus;
         setSupragingivalCalculus(!supragingivalCalculus);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeSubgingivalCalculusStatus(){
         if(currentTooth)
             currentTooth.subgingivalCalculus = !currentTooth.subgingivalCalculus;
         setSubgingivalCalculus(!subgingivalCalculus);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeImpactedToothStatus(){
         if(currentTooth)
             currentTooth.impactedTooth = !currentTooth.impactedTooth;
         setImpactedTooth(!impactedTooth);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeMicrodonticToothStatus(){
         if(currentTooth)
             currentTooth.microdonticTooth = !currentTooth.microdonticTooth;
         setMicrodonticTooth(!microdonticTooth);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changeDevelopmentalDefectStatus(){
         if(currentTooth)
             currentTooth.developmentalDefect = !currentTooth.developmentalDefect;
         setDevelopmentalDefect(!developmentalDefect);
-        safeToothStatus()
+        saveToothStatus()
     }
     function changePathologicalClashStatus(){
         if(currentTooth)
             currentTooth.pathologicalClash = !currentTooth.pathologicalClash;
         setPathologicalClash(!pathologicalClash);
-        safeToothStatus()
+        saveToothStatus()
     }
     useEffect(() => {
         if(currentVisit){
@@ -324,7 +330,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                        <Descriptions>
                            <DescriptionRow>
                                <DescriptionTitle>Notatka Lekarska</DescriptionTitle>
-                               <Description value={currentVisit.doctorDescription}  onChange={safeVisitDescription}/>
+                               <Description value={currentVisit.doctorDescription}  onChange={saveVisitDescription}/>
                            </DescriptionRow>
                            <DescriptionRow>
                                <DescriptionTitle>Notatka z Recepcji</DescriptionTitle>
@@ -335,14 +341,15 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                            <TeethOptions>
                            <ToothDescription>
                                 <ToothNumberText>Ząb : {toothName}</ToothNumberText>
-                               <ToothDescriptionTextField value={descriptionTooth} onChange={changeToothDescription}/>
-                               <ToothDescriptionSaveButton onClick={safeToothDescription}>Dodaj notatkę do zęba</ToothDescriptionSaveButton>
+                               <ToothDescriptionTextField value={descriptionTooth} onChange={changeToothDescription} placeholder="Wprowadź wpis do dokumentacji" />
+                               <ToothDescriptionSaveButton onClick={saveToothDescription}>Dodaj wpis do dokumentacji</ToothDescriptionSaveButton>
                                <ToothDescriptionHistory>
+                                   <ToothText>Dokumentacja</ToothText>
                                    <VirtualizedList descriptions={currentTooth.descriptions.sort((a, b) => b.id - a.id)}/>
                                </ToothDescriptionHistory>
                            </ToothDescription>
                            <ToothStatus>
-                               <ToothText>Statusy Zęba</ToothText>
+                               <ToothText>Status Zęba</ToothText>
                            <StatusLabel><StatusCheckbox type="checkbox" checked={forObservation} onChange={changeForObservationStatus}/> Do obserwacji</StatusLabel>
                            <StatusLabel><StatusCheckbox type="checkbox" checked={caries} onChange={changeCariesStatus}/> Próchnica</StatusLabel>
                            <StatusLabel><StatusCheckbox type="checkbox" checked={secondaryCaries} onChange={changeSecondaryCariesStatus}/> Próchnica wtórna</StatusLabel>
