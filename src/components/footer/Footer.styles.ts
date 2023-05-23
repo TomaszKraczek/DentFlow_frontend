@@ -9,6 +9,8 @@ export const Box = styled.div`
   width: 100%;
   height: 15rem;
   transition: 2s;
+  display: flex;
+  padding-bottom:64px ;
   @media only screen and (max-width: 950px){
     flex-direction: column;
     align-items: center;

@@ -8,7 +8,7 @@ export const MainContainer = styled.div`
   padding-bottom: 0;
   text-align: center;
   width: 30rem;
-  height: 20rem;
+  height: 30rem;
     @media (max-width: 768px) {
       padding: 1rem;
       width: 15rem;

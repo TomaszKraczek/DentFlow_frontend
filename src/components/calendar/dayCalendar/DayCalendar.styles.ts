@@ -32,6 +32,9 @@ export const Description = styled.textarea`
     height:80%;
     margin-bottom:5%;
     border:none;
+      :focus {
+        outline: none; 
+      }
 `
 export const DescriptionTitle = styled.h3`
     color: rgb(23,132,179)
@@ -48,6 +51,7 @@ export const DescriptionRow = styled.div`
 `
 
 export const ToothDescriptionSaveButton = styled.button`
+  cursor: pointer;
     height:40px;
     width:50%;
     margin-left:26%;

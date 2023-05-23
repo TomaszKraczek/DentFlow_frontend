@@ -53,14 +53,19 @@ export const CalendarContextProvider = ({ children }: React.PropsWithChildren) =
     const fetchVisits= useCallback(async () => {
         try {
             if (currentUser?.roles.includes("DOCTOR")){
-                const result = await VisitApi.getDoctorVisitsFromClinic({clinicId: currentClinic?.id})
-                setCurrentVisits(result.data);
-                setNoFilterVisits(result.data)
+                if(currentClinic && currentClinic.id >0) {
+                    const result = await VisitApi.getDoctorVisitsFromClinic({clinicId: currentClinic?.id})
+                    setCurrentVisits(result.data);
+                    setNoFilterVisits(result.data)
+                }
             }
             else if (currentUser?.roles.includes("RECEPTIONIST")){
-                const result = await VisitApi.getVisitsFromClinic({clinicId: currentClinic?.id})
-                setCurrentVisits(result.data);
-                setNoFilterVisits(result.data)
+                if(currentClinic && currentClinic.id >0){
+                    const result = await VisitApi.getVisitsFromClinic({clinicId: currentClinic?.id})
+                    setCurrentVisits(result.data);
+                    setNoFilterVisits(result.data)
+                }
+
             }else if(currentUser?.roles.includes("USER")){
                 const result = await VisitApi.getMyVisits()
                 setCurrentVisits(result.data);

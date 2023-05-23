@@ -35,7 +35,7 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
     const [isFormComplete, setIsFormComplete] = useState(false);
     const generateTimeOptions = () => {
         const options = [];
-        for (let hour = 8; hour <= 20; hour++) {
+        for (let hour = 8; hour < 20; hour++) {
             for (let minute = 0; minute < 60; minute += 15) {
                 const time = dayjs().set("hour", hour).set("minute", minute);
                 const label = time.format("HH:mm");

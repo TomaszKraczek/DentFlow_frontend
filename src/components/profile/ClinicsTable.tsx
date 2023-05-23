@@ -92,7 +92,10 @@ export default function DataGridDemo() {
     const generateTimeOptions = () => {
         const options = [];
         for (let hour = 8; hour <= 20; hour++) {
-            for (let minute = 0; minute < 60; minute += 15) {
+            if(hour===20){
+                break
+            }
+            for (let minute = 0; minute <= 60; minute += 15) {
                 const time = dayjs().set("hour", hour).set("minute", minute);
                 const label = time.format("HH:mm");
                 const value = time.toISOString();

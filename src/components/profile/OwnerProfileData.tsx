@@ -38,14 +38,14 @@ export default function DataGridDemo() {
                     disabled
                     label="Nazwa Kliniki"
                     size={"medium"}
-                    value={clinic?.name}
+                    value={clinic?.name ||""}
                     onChange={handleChangeFirstName}
                 />
                 <StyledTextFieldSmall
                     disabled
                     label="Nazwa Kliniki"
                     size={"small"}
-                    value={clinic?.name}
+                    value={clinic?.name||""}
                     onChange={handleChangeFirstName}
                 />
 
@@ -53,14 +53,14 @@ export default function DataGridDemo() {
                     disabled
                     label="Tel Kliniki"
                     size={"medium"}
-                    value={clinic?.phoneNumber}
+                    value={clinic?.phoneNumber ||""}
                     onChange={handleChangeLastName}
                 />
                 <StyledTextFieldSmall
                     disabled
                     label="Tel Kliniki"
                     size={"small"}
-                    value={clinic?.phoneNumber}
+                    value={clinic?.phoneNumber ||""}
                     onChange={handleChangeLastName}
                 />
 
@@ -68,28 +68,28 @@ export default function DataGridDemo() {
                     disabled
                     label="Miasto"
                     size={"medium"}
-                    value={clinic?.city}
+                    value={clinic?.city ||""}
                     onChange={handleChangeEmail}
                 />
                 <StyledTextFieldSmall
                     disabled
                     label="Miasto"
                     size={"small"}
-                    value={clinic?.city}
+                    value={clinic?.city ||""}
                     onChange={handleChangeEmail}
                 />
                 <StyledTextFieldMedium
                     disabled
                     label="Ulica"
                     size={"medium"}
-                    value={clinic?.address}
+                    value={clinic?.address ||""}
                     onChange={handleChangeEmail}
                 />
                 <StyledTextFieldSmall
                     disabled
                     label="Ulica"
                     size={"small"}
-                    value={clinic?.address}
+                    value={clinic?.address ||""}
                     onChange={handleChangeEmail}
                 />
             </LoginInputs>

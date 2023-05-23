@@ -7,6 +7,7 @@ export const Wrapper = styled.nav`
   align-items: center;
   padding: 10px;
   background-color: #1784B3;
+  grid-row: 0;
 `;
 
 export const Logo = styled.img`
