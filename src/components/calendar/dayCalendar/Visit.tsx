@@ -77,6 +77,7 @@ import {ClinicContext} from "../../../context/ClinicContext";
 import { TeethApi } from "../../../api/TeethApi";
 import {VirtualizedList} from "./ToothNoteList";
 import dayjs from "dayjs";
+import {toast} from "react-toastify";
 
 
 
@@ -135,19 +136,33 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
     };
 
     const saveVisitDescription = useCallback(async (event:React.ChangeEvent<HTMLTextAreaElement>) =>{
-        await VisitApi.saveDescription({
-            clinicId: currentClinic?.id,
-            visitId: currentVisit?.id,
-            doctorDescription: event.target.value
-        })
+        try {
+            await VisitApi.saveDescription({
+                clinicId: currentClinic?.id,
+                visitId: currentVisit?.id,
+                doctorDescription: event.target.value
+            })
+        }catch (error){
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
     },[currentClinic?.id,currentVisit?.id]);
 
     const saveToothStatus = useCallback(async () =>{
-        await TeethApi.saveToothStatus({
-            clinicId: currentClinic?.id,
-            patientId: currentVisit?.patient.patientId,
-            tooth: currentTooth,
-        })
+        try {
+            await TeethApi.saveToothStatus({
+                clinicId: currentClinic?.id,
+                patientId: currentVisit?.patient.patientId,
+                tooth: currentTooth,
+            })
+        }catch (error){
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
     },[currentClinic?.id,currentTooth,currentVisit?.patient.patientId]);
 
     const saveToothDescription = useCallback(async () =>{
@@ -170,7 +185,9 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
             }
             setDescriptionTooth("")
         }catch (e){
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }}
 
     },[currentClinic?.id,currentTooth,currentVisit?.patient.patientId,descriptionTooth, currentVisit?.doctor.email, currentVisit?.doctor.firstName, currentVisit?.doctor.lastName]);

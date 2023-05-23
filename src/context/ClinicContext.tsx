@@ -4,6 +4,7 @@ import {Clinic} from "../models/Clinic";
 import {ClinicApi} from "../api/ClinicApi";
 import {CLINIC_ID, CLINIC_NAME, CLINIC_PHONE, NOS} from "../constants/constants";
 import {UserContext} from "./UserContext";
+import {toast} from "react-toastify";
 
 
 
@@ -24,21 +25,26 @@ export const ClinicContextProvider = ({ children }: React.PropsWithChildren) => 
     };
 
     useEffect(() => {
-        if (!currentClinic && currentUser) {
-            ClinicApi.getMyClinic().then(r => {
-                if(!r.data){
-                    clinicModifier({
-                        id: Number(localStorage.getItem(CLINIC_ID)),
-                        name: localStorage.getItem(CLINIC_NAME) as "",
-                        phoneNumber:localStorage.getItem(CLINIC_PHONE) as "",
-                        numberOfSeats:Number(localStorage.getItem(NOS))
-                    });
-                }else{
-                    clinicModifier(r.data);
-                }
-            });
+        try {
+            if (!currentClinic && currentUser) {
+                ClinicApi.getMyClinic().then(r => {
+                    if(!r.data){
+                        clinicModifier({
+                            id: Number(localStorage.getItem(CLINIC_ID)),
+                            name: localStorage.getItem(CLINIC_NAME) as "",
+                            phoneNumber:localStorage.getItem(CLINIC_PHONE) as "",
+                            numberOfSeats:Number(localStorage.getItem(NOS))
+                        });
+                    }else{
+                        clinicModifier(r.data);
+                    }
+                });
 
+            }
+        }catch (error){
+            toast.error("Bład serwera")
         }
+
     }, [currentClinic,currentUser]);
 
     return (

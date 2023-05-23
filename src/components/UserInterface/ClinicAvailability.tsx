@@ -9,6 +9,7 @@ import {CalendarContext} from "../../context/CalendarContext";
 import {VisitResponse} from "../../models/api/VisitResponse";
 import dayjs from "dayjs";
 import {ClinicContext} from "../../context/ClinicContext";
+import {toast} from "react-toastify";
 
 
 
@@ -30,7 +31,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
             });
             setDoctors(result.data.sort((a,b) => a.firstName.length-b.firstName.length))
         } catch (error) {
-            // Obsłuż błąd
+            toast.error("Bład serwera")
         }
     };
 
@@ -42,7 +43,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
             });
             setVisits( result.data.filter(value => dayjs(value.visitDate).format("YYYY MM dd")===currenDate.format("YYYY MM dd")))
         } catch (error) {
-            // Obsłuż błąd
+            toast.error("Bład serwera")
         }
     };
 

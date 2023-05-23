@@ -63,8 +63,10 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
                 clinicId:currentClinic?.id
             });
             setDoctors(result.data)
-        } finally {
-            // setIsLoading(false);
+        } catch (error) {
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, [currentClinic?.id]);
 
@@ -74,8 +76,10 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
                 clinicId:currentClinic?.id
             });
             setPatients(result.data)
-        } finally {
-            // setIsLoading(false);
+        } catch (error) {
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, [currentClinic?.id]);
     const handleDataChange = (date: dayjs.Dayjs | null) => {
@@ -113,8 +117,10 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
             props.handleModalClose();
             toast.success("Dodano wizyte");
             fetchVisits()
-        } finally {
-            // setIsLoading(false);
+        } catch (error) {
+                toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                    position: toast.POSITION.TOP_RIGHT,
+                });
         }
     }, [doctor?.email,type,patient?.patientId,currentClinic?.id,props,from, to,date,description]);
     function doFilterDoctors ()  {

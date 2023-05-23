@@ -5,6 +5,7 @@ import { ClinicResponse } from '../../models/api/ClinicResponse';
 import {ClinicApi} from "../../api/ClinicApi";
 import {UserApi} from "../../api/UserApi";
 import {LoginForm, LoginInputs, StyledTextFieldMedium, StyledTextFieldSmall} from "../login/Login.styles";
+import {toast} from "react-toastify";
 
 export default function DataGridDemo() {
     const [clinic, setClinic] = useState<ClinicResponse>();
@@ -13,8 +14,8 @@ export default function DataGridDemo() {
             const result = await ClinicApi.getMyClinic();
             setClinic(result.data);
         }
-        finally {
-
+        catch (error) {
+            toast.error("Bład serwera")
         }
     },[])
     useEffect(() => {

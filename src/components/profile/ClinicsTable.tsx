@@ -28,19 +28,7 @@ import {TextField} from "@mui/material";
 import dayjs from "dayjs";
 
 
-const columns: GridColDef[] = [
-    {
-        field: 'id',
-        headerName: 'Nr.',
-        width: 90
-    },
-    {
-        field: 'name',
-        headerName: 'Kliniki :',
-        width: 150,
-        editable: true,
-    }
-];
+
 interface Hour {
     from: string;
     to: string;
@@ -52,8 +40,45 @@ interface Day {
 }
 
 export default function DataGridDemo() {
+    const columns: GridColDef[] = [
+        {
+            field: 'id',
+            headerName: 'Nr.',
+            width: 100
+        },
+        {
+            field: 'name',
+            headerName: 'Kliniki :',
+            width: 185,
+        },
+        {
+            field: 'city',
+            headerName: 'Miasto :',
+            width: 185,
+        },
+        {
+            field: 'address',
+            headerName: 'Ulica :',
+            width: 185,
+        },
+        {
+            field: 'phoneNumber',
+            headerName: 'Tel Kliniki :',
+            width: 185,
+        },
+        {
+            field: '',
+            headerName: 'Godziny Dostępnopsci',
+            width: 185,
+            renderCell: (params) => (
+                <button style={{color:"white",background:"#FFBE5C" ,border:"none",height:"35px",width:"150px",borderRadius:"10px",cursor:"pointer"}} onClick={()=>{clinicSetting(Number(params.id))}} color="primary" >
+                    Ustaw Godziny
+                </button>
+            ),
+        },
+    ];
     const [clinics, setClinics] = useState<ClinicResponse[]>([]);
-    const [clinicId, setClinicId] = useState();
+    const [clinicId, setClinicId] = useState<number>();
     const [showModal, setShowModal] = useState(false);
     const [canSend, setcanSend] = useState(false);
     const [days, setDays] = useState<Day[]>([
@@ -123,7 +148,7 @@ export default function DataGridDemo() {
 
             closeModal();
         } catch (error) {
-            toast.error("Nie udało się zaktualizować godzin");
+            toast.error("Bład serwera")
         }
     };
 
@@ -133,8 +158,8 @@ export default function DataGridDemo() {
             const result = await ClinicApi.getClinicWhereWork()
             setClinics(result.data.sort((a, b) => a.id - b.id))
         }
-        finally {
-
+        catch (error) {
+            toast.error("Bład serwera")
         }
     },[])
     const fetchHoursOfAvailability = useCallback(async (clinicId:number) => {
@@ -153,8 +178,8 @@ export default function DataGridDemo() {
             addHour(0)
             removeHour(0,days[0].hours.length-1)
         }
-        finally {
-
+        catch (error) {
+            toast.error("Bład serwera")
         }
     },[addHour,days])
     useEffect(() => {
@@ -162,16 +187,16 @@ export default function DataGridDemo() {
     },[fetchClinic]);
 
 
-    const clinicSetting = (params: GridRowParams) => {
-        fetchHoursOfAvailability(params.row.id)
-        setClinicId(params.row.id)
+    const clinicSetting = (id:number) => {
+        fetchHoursOfAvailability(id)
+        setClinicId(id)
         setShowModal(true)
 
     };
     return (
         <>
-            <TableDiv>
-                <DataGrid onRowClick={clinicSetting} sx={{
+            <TableDiv sx ={{width:"50%"}}>
+                <DataGrid  sx={{
                     borderRadius: 3,
                     border: 3,
                     borderColor: '#1784B3',

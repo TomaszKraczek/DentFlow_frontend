@@ -6,6 +6,7 @@ import {ClinicContext} from "./ClinicContext";
 import {getWeek} from "../utils/utils";
 import dayjs from "dayjs";
 import {UserContext} from "./UserContext";
+import {toast} from "react-toastify";
 
 
 const defaultSettings: CalendarContextType = {
@@ -67,11 +68,9 @@ export const CalendarContextProvider = ({ children }: React.PropsWithChildren) =
             }
 
         }catch (e) {
+            toast.error("Bład serwera")
+        }
 
-        }
-        finally {
-            // setIsLoading(false);
-        }
     }, [currentClinic?.id,currentUser?.roles]);
 
     useEffect(() => {

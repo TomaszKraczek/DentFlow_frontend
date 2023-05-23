@@ -41,7 +41,9 @@ export const AddPatient = () => {
             toast.success("Dodano Pacjenta");
             navigate(`/clinics/${currentClinic?.id}/visits`)
         } catch (error: any) {
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     },[currentClinic?.id, email, firstName, lastName, phoneNumber, navigate, birthDate, pesel])
 

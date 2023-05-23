@@ -53,8 +53,8 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
             })
             toast.success("Dodano wizyte");
             setShowModal(true)
-        } finally {
-            // setIsLoading(false);
+        } catch (errot) {
+            toast.error("Bład serwera")
         }
     }, [doctor.email,currenDate,clinicId,type,props,description]);
     const getAvailableTimes = () => {

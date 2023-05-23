@@ -34,10 +34,15 @@ const UserRegistration = () => {
             email: email,
             password: password,
         }
-        UserApi.registerUser(user).then(r => {
-        })
-        toast.success("Poprawnie zarejestrowano");
-        navigate("/login");
+        try {
+            UserApi.registerUser(user).then(r => {
+            })
+            toast.success("Poprawnie zarejestrowano");
+            navigate("/login");
+        }catch (error){
+            toast.error("Bład serwera")
+        }
+
     }
 
     useEffect(() => {

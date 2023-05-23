@@ -74,7 +74,7 @@ const ClinicRegistration = () => {
             navigate("/")
 
         } catch (error: any) {
-
+            toast.error("Bład serwera")
         }
     }, [selectedPricingOption,ownerLastname,ownerName,phoneNumber,clinicName, city, address, email, password, navigate]);
 

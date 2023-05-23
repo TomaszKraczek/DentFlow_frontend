@@ -19,6 +19,7 @@ import {
     UserName
 } from "../profile/Profile.styles";
 import {UserContext} from "../../context/UserContext";
+import {toast} from "react-toastify";
 
 
 export const ChooseClinic = () => {
@@ -51,7 +52,9 @@ export const ChooseClinic = () => {
             const result = await ClinicApi.getClinicWhereWork();
             setClinics(result.data);
         } catch (e){
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, []);
 
@@ -60,7 +63,9 @@ export const ChooseClinic = () => {
             const result = await ClinicApi.getAllClinics();
             setClinics(result.data);
         } catch (e){
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, []);
     const AddPatientsAccount= useCallback(async () => {
@@ -70,7 +75,9 @@ export const ChooseClinic = () => {
             });
             setClinicsToAdd(clinicsToAdd.splice(1))
         } catch (e){
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, [clinicsToAdd]);
     const fetchPatientsAccount= useCallback(async () => {
@@ -78,7 +85,9 @@ export const ChooseClinic = () => {
             const result = await UserApi.getAllMyPatientsAccountClinics();
             setClinicsToAdd(result.data)
         } catch (e){
-
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }, []);
 

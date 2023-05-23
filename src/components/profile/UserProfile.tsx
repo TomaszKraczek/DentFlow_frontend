@@ -8,6 +8,7 @@ import {
     StyledTextFieldSmall,
 } from "../login/Login.styles";
 import {ProfileUserResponse} from "../../models/api/ProfileUserResponse";
+import {toast} from "react-toastify";
 export default function UserProfile() {
     const [user, setUser] = useState<ProfileUserResponse>();
     const [firstName, setFirstName] = useState('');
@@ -22,8 +23,8 @@ export default function UserProfile() {
             setFirstName(userData.firstName);
             setLastName(userData.lastName);
             setEmail(userData.email);
-        } finally {
-            // ...
+        } catch (error) {
+            toast.error("Bład serwera")
         }
     }, []);
 

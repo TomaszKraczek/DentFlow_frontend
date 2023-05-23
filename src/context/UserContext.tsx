@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 import {NavbarContext} from "./NavbarContext";
 import {UnLoginPages} from "../models/pages/UnLoginPages";
 import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
 
 const defaultSettings: UserContextType = {
   currentUser: null,
@@ -25,11 +26,16 @@ export const UserContextProvider = ({ children }: React.PropsWithChildren) => {
   };
 
   const fetchUser = useCallback(async () => {
-    const user = await UserApi.getUser();
-    userModifier({
-      email: user.data.email,
-      roles: user.data.roles,
-    });
+    try {
+      const user = await UserApi.getUser();
+      userModifier({
+        email: user.data.email,
+        roles: user.data.roles,
+      });
+    }catch (error){
+      toast.error("Bład serwera")
+    }
+
   }, []);
 
 

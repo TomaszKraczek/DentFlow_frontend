@@ -22,17 +22,31 @@ export const AddEmployee = ()=>{
     };
 
     const addEmployee = useCallback(async () => {
-        await ClinicApi.addEmployees({
-            email: email,
-            role:role
-        });
-        toast.success("Dodano pracownika");
-        navigate("/my-clinic");
+        try {
+            await ClinicApi.addEmployees({
+                email: email,
+                role:role
+            });
+            toast.success("Dodano pracownika");
+            navigate("/my-clinic");
+        }catch (error){
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
     },[email, role, navigate] );
 
     const fetchEmails= useCallback(async () => {
+        try {
             const result = await UserApi.getAllEmails();
             setEmailList(result.data);
+        }catch (error){
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+
     }, []);
 
     useEffect(() => {

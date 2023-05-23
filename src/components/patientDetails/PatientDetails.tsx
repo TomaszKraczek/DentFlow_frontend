@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import {useContext, useEffect, useState} from "react";
 import {ClinicContext} from "../../context/ClinicContext";
 import {PatientApi} from "../../api/PatientApi";
+import {toast} from "react-toastify";
 
 function PatientDetails() {
     const location = useLocation();
@@ -10,10 +11,14 @@ function PatientDetails() {
     const [patientInfo, setPatientInfo] = useState();
 
     useEffect(() => {
-        PatientApi.getVisitInfo({
-            patientId: patient.patientId,
-            clinicId: currentClinic?.id
-        })
+        try {
+            PatientApi.getVisitInfo({
+                patientId: patient.patientId,
+                clinicId: currentClinic?.id
+            })
+        }catch (error){
+            toast.error("Nie udało się usunąć pracownika")
+        }
     }, [patient.patientId,currentClinic?.id])
 
 
