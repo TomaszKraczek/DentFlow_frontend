@@ -6,12 +6,15 @@ import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Description } from '../../../models/Description';
 import ListItem from '@mui/material/ListItem';
 import {useState} from "react";
+import {ToothNote} from "../../patientDetails/PatientDetails";
 
 
 
 type Props = {
     descriptions:Description[]
+    toothNote:ToothNote
 };
+
 
 
 
