@@ -27,7 +27,7 @@ export const Description = styled.textarea`
     resize:none;    
     width:90%;
     margin-right:5%;
-  background-color: white;
+    background-color: white;
     margin-left:5%;
     height:80%;
     margin-bottom:5%;
