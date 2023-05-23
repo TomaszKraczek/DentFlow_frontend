@@ -18,7 +18,7 @@ export const Calendar = () => {
     const dayjs = require('dayjs');
     require('dayjs/locale/pl'); // Importuj lokalizację językową
     dayjs.locale('pl'); // Ustawienie języka na polski
-    const {currenDate,selectedDateModifier,weekDays,dateModifier} = useContext(CalendarContext)
+    const {currenDate,selectedDate,selectedDateModifier,weekDays,dateModifier} = useContext(CalendarContext)
     const {currentUser} = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
     const [isWeekCalendar, setIsWeekCalendar] = useState(true);
@@ -40,10 +40,18 @@ export const Calendar = () => {
         selectedDateModifier(dayjs(new Date()))
     }
     const nextWeek =() => {
-        dateModifier(currenDate.add(1, 'week'));
+        if(isWeekCalendar){
+            dateModifier(currenDate.add(1, 'week'));
+        }else {
+            selectedDateModifier(selectedDate.add(1, 'days'));
+        }
     }
     const prevWeek =() => {
-        dateModifier(currenDate.subtract(1, 'week'));
+        if(isWeekCalendar) {
+            dateModifier(currenDate.subtract(1, 'week'));
+        }else {
+            selectedDateModifier(selectedDate.subtract(1, 'days'));
+        }
     }
     return (
         <>

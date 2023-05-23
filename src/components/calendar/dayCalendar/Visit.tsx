@@ -362,7 +362,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                            <ToothDescription>
                                    <ToothNumberText>Ząb : {toothName}</ToothNumberText>
                                    <ToothDescriptionTextField value={descriptionTooth} onChange={changeToothDescription} placeholder="Wprowadź wpis do dokumentacji" />
-                                   <ToothDescriptionSaveButton onClick={saveToothDescription}>Dodaj wpis do dokumentacji</ToothDescriptionSaveButton>
+                                   <ToothDescriptionSaveButton onClick={saveToothDescription} disabled={descriptionTooth.length <= 5}>Dodaj wpis do dokumentacji</ToothDescriptionSaveButton>
                                    <ToothDescriptionHistory>
                                        <ToothText>Dokumentacja</ToothText>
                                        <VirtualizedList descriptions={currentTooth.descriptions.sort((a, b) => b.id - a.id)}/>

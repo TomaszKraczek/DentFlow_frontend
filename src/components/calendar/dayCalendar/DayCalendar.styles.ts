@@ -60,7 +60,10 @@ export const ToothDescriptionSaveButton = styled.button`
     border:0;
     border-radius:10px;
     color:white;
-    
+  &:disabled{
+    background-color: gray;
+    filter: brightness(100%);
+  }
 `
 
 
