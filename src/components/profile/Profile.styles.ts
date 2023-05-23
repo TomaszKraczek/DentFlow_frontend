@@ -318,25 +318,28 @@ export const CenterDiv = styled.div`
 
 
 export const ComponentWrapper  = styled.div`
-  border: 1px solid #1784b3;
-  border-radius: 40px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
   padding: 15px 10px 10px;
-  width: 200px;
+  width: 320px;
+  height: 57.4px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 40px;
-  
+  text-align: center;
+  font-size: 1rem;
 `;
 
 
 export const Header   = styled.div`
   position:absolute;
-  margin-top:-25px;
-  margin-left:10px;
-  color:white;
-  background:#1784b3;
+  margin-top:-30px;
+  color:lightgray;
+  height: 17.24px;
+  background-color: white;
   border-radius:10px;
-  padding:2px 10px
+  padding:2px 10px;
+  font-size: 16px;
 `;
 
 

@@ -28,7 +28,9 @@ export default function UserProfile() {
     }, []);
 
     useEffect(() => {
+        if (!user){
             fetchProfile();
+        }
     }, [fetchProfile, user]);
 
     const handleChangeFirstName = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {

@@ -24,7 +24,6 @@ export default function DataGridDemo() {
         fetchClinic()
     },[fetchClinic]);
     const handleChangeFirstName = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-
     };
 
     const handleChangeLastName = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -35,64 +34,64 @@ export default function DataGridDemo() {
 
     };
     return (
-        <LoginForm height={20}>
+        <LoginForm height={25}>
             <LoginInputs>
                 <StyledTextFieldMedium
-                    InputProps={{
-                        readOnly: true,
-                    }}
+                    disabled
                     label="Nazwa Kliniki"
                     size={"medium"}
-                    defaultValue={clinic?.address}
+                    value={clinic?.name}
                     onChange={handleChangeFirstName}
                 />
                 <StyledTextFieldSmall
-                    InputProps={{
-                        readOnly: true,
-                    }}
+                    disabled
                     label="Nazwa Kliniki"
                     size={"small"}
-                    defaultValue={clinic?.name}
+                    value={clinic?.name}
                     onChange={handleChangeFirstName}
                 />
 
                 <StyledTextFieldMedium
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    label="Nazwisko"
+                    disabled
+                    label="Tel Kliniki"
                     size={"medium"}
-                    defaultValue={clinic?.name}
+                    value={clinic?.phoneNumber}
                     onChange={handleChangeLastName}
                 />
                 <StyledTextFieldSmall
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    label="Nazwisko"
+                    disabled
+                    label="Tel Kliniki"
                     size={"small"}
-                    defaultValue={clinic?.name}
-                    onChange={()=>{}}
+                    value={clinic?.phoneNumber}
+                    onChange={handleChangeLastName}
                 />
 
                 <StyledTextFieldMedium
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    label="Email"
+                    disabled
+                    label="Miasto"
                     size={"medium"}
-                    type="email"
-                    defaultValue={clinic?.name}
+                    value={clinic?.city}
                     onChange={handleChangeEmail}
                 />
                 <StyledTextFieldSmall
-                    InputProps={{
-                        readOnly: true,
-                    }}
-                    label="Email"
+                    disabled
+                    label="Miasto"
                     size={"small"}
-                    type="email"
-                    defaultValue={clinic?.name}
+                    value={clinic?.city}
+                    onChange={handleChangeEmail}
+                />
+                <StyledTextFieldMedium
+                    disabled
+                    label="Ulica"
+                    size={"medium"}
+                    value={clinic?.address}
+                    onChange={handleChangeEmail}
+                />
+                <StyledTextFieldSmall
+                    disabled
+                    label="Ulica"
+                    size={"small"}
+                    value={clinic?.address}
                     onChange={handleChangeEmail}
                 />
             </LoginInputs>
