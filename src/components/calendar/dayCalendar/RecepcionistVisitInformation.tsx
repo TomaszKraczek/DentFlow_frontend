@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState} from "react"
-import {Informacions, RecepcionistVisitInformationContainet} from "./RecepcionistVisitInformation.styles"
-import {Description, DescriptionRow} from "./DayCalendar.styles";
+import {Informations, RecepcionistVisitInformationContainet, DescriptionRowRecepcionist, Description, LabelInfo, ButtonContainer, DeleteButton} from "./RecepcionistVisitInformation.styles"
+import {DescriptionRow} from "./DayCalendar.styles";
 import {CalendarContext} from "../../../context/CalendarContext";
 import {Button} from "../../profile/Profile.styles";
 import {VisitApi} from "../../../api/VisitApi";
@@ -54,18 +54,21 @@ export  const  RecepcionistVisitInformation= () =>{
         <>
         {currentVisit ?(
                 <RecepcionistVisitInformationContainet  >
-                    <Informacions>
-                        Pacjent:
-                        imie:{currentVisit?.patient.firstName}
-                        nazwisko:{currentVisit?.patient.lastName}
-                        nazwisko:{currentVisit?.patient.pesel}
-                        nazwisko:{currentVisit?.patient.birthDate}
-                    </Informacions>
-                    <DescriptionRow>
+                    <Informations>
+                        <LabelInfo>Dane Pacjenta: </LabelInfo>
+                        Pacjent: {currentVisit.patient.lastName}   {currentVisit.patient.firstName}<br/>
+                        Pesel:{currentVisit.patient.pesel}<br/>
+                        Data urodzenia:{currentVisit.patient.birthDate}
+                    </Informations>
+                    <DescriptionRowRecepcionist>
+                        <LabelInfo>Notatka do Wizyty: </LabelInfo>
                         <Description value={description} onChange={safeVisitDescription}/>
+                    </DescriptionRowRecepcionist>
+                    <ButtonContainer>
                         <Button onClick={handleSubmit}>Zapisz Notatke</Button>
-                    </DescriptionRow>
-                    <Button onClick={deleteVisit}>Usuń wizyte</Button>
+                        <DeleteButton onClick={deleteVisit}>Usuń wizyte</DeleteButton>
+                    </ButtonContainer>
+
                 </RecepcionistVisitInformationContainet>
             ):(<></>)}
         </>
