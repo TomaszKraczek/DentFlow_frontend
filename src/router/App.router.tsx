@@ -26,6 +26,8 @@ import { ResetEmail } from "../components/resetPassword/ResetEmail";
 import {AboutUs} from "../components/aboutUs/AboutUs";
 import PatientDetails from "../components/patientDetails/PatientDetails";
 import {Footer} from "../components/footer/Footer";
+import {Contact} from "../components/contact/Contact";
+import {HomePageProtected} from "../components/HomePageProtected";
 
 
 
@@ -38,11 +40,11 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/"
              element={
-          <>
+          <HomePageProtected>
               <HomePage />
               <AboutUs />
               <Pricing />
-          </>
+          </HomePageProtected>
       }></Route>
         <Route element={<SetContainter/>}>
             <Route
@@ -161,6 +163,18 @@ export const AppRouter = () => {
                 path="*"
                 element={<NotFound />}>
             </Route>
+            <Route
+                path="/pricing"
+                element={
+                    <Pricing/>
+                }
+            ></Route>
+            <Route
+                path="/contact"
+                element={
+                    <Contact/>
+                }
+            ></Route>
         </Route>
 
     </Routes>
