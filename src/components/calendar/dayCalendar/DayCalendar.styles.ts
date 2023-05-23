@@ -122,6 +122,7 @@ export const ToothDescriptionHistory = styled.div`
 export const PatientInformation = styled.div`
   text-align: center;
     font-size: 1.5rem;
+  height: 200px;
 `
 
 export const PatientInfoText = styled.div`

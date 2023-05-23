@@ -1,11 +1,8 @@
 import styled from 'styled-components';
 
 export const Jaw = styled.div`
-  margin-top: 100px;
   position: absolute;
   width: 100px;
-  margin-right: 0;
-  margin-left: 60px;
   grid-column: 1;
   height: 639px;
 `
@@ -520,4 +517,11 @@ export const DownJawRightEight = styled.img<{
   :hover{
     opacity: 30%;
   }
+`
+export const Box = styled.div`
+  grid-column: 1;
+  width: 405px;
+  margin-right: auto;
+  margin-left: auto;
+ 
 `
