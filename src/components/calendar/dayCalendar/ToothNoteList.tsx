@@ -12,7 +12,6 @@ import {ToothNote} from "../../patientDetails/PatientDetails";
 
 type Props = {
     descriptions:Description[]
-    toothNote:ToothNote
 };
 
 

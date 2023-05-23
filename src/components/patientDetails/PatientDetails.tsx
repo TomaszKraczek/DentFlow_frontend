@@ -1,40 +1,34 @@
 import { useLocation } from 'react-router-dom';
-import React, {useContext, useEffect, useState} from "react";
-import {ClinicContext} from "../../context/ClinicContext";
-import {PatientApi} from "../../api/PatientApi";
-import {toast} from "react-toastify";
-
-import {ToothDescriptionHistory, ToothText} from "../calendar/dayCalendar/DayCalendar.styles";
-import {VirtualizedList} from "../calendar/dayCalendar/ToothNoteList";
 import { Description } from '../../models/Description';
-import {Tooth} from "../../models/Tooth";
-export type ToothNote = {description: string,
-    teethNumber: number
+import DentalHistory from "./DentalHistory";
+import {PatientData, PatientInformation} from "./PatientDetails.styles";
+import './DentalHistory.css'
+
+export type ToothNote = {
+    teethNumber: number,
+    description: Description
 }
 function PatientDetails() {
     const location = useLocation();
     const {patient} = location.state;
-    const {currentClinic} = useContext(ClinicContext);
-    const [patientInfo, setPatientInfo] = useState();
 
-    useEffect(() => {
-        PatientApi.getVisitInfo({
-            patientId: patient.patientId,
-            clinicId: currentClinic?.id
-        })
-    }, [patient.patientId,currentClinic?.id])
+
 
 
     return (
-        <div>
-            <h2>Informacje o pacjencie:</h2>
-            <p>Imię: {patient.firstName}</p>
-            <p>Nazwisko: {patient.lastName}</p>
-            <p>Email: {patient.email}</p>
-            <p>Klinika: {currentClinic?.name}</p>
-            <p>Klinika: {currentClinic?.id}</p>
-            <p>{patient.patientId}</p>
-        </div>
-    );
+            <PatientData>
+                <PatientInformation>
+                    <p className='patientInfo'>Imię: {patient.firstName}</p>
+                    <p className='patientInfo'>Nazwisko: {patient.lastName}</p>
+                    <p className='patientInfo'>PESEL: {patient.pesel}</p>
+                    <p className='patientInfo'>Data urodzenia: {patient.birthDate}</p>
+                    <p className='patientInfo'>Numer telefonu: {patient.phoneNumber}</p>
+
+                </PatientInformation>
+
+                <DentalHistory patient={patient} />
+            </PatientData>
+
+    )
 }
 export default PatientDetails;
