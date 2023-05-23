@@ -5,6 +5,7 @@ import {CalendarContext} from "../../../context/CalendarContext";
 import {VisitResponse} from "../../../models/api/VisitResponse";
 import Tooltip from "@mui/material/Tooltip";
 import {UserContext} from "../../../context/UserContext";
+import { Timer } from "../../timer/Timer";
 
 
 
@@ -62,8 +63,8 @@ export  const WeekDay: React.FC<Props> = (props:Props) =>{
                                 ))}
                             </Hour>
                 ))}
+                {!props.isWeekCalendar && <Timer/>}
             </DayBody>
-
     </>
     )
 }

@@ -360,14 +360,14 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                        {currentTooth && (
                            <TeethOptions>
                            <ToothDescription>
-                                <ToothNumberText>Ząb : {toothName}</ToothNumberText>
-                               <ToothDescriptionTextField value={descriptionTooth} onChange={changeToothDescription} placeholder="Wprowadź wpis do dokumentacji" />
-                               <ToothDescriptionSaveButton onClick={saveToothDescription}>Dodaj wpis do dokumentacji</ToothDescriptionSaveButton>
-                               <ToothDescriptionHistory>
-                                   <ToothText>Dokumentacja</ToothText>
-                                   <VirtualizedList descriptions={currentTooth.descriptions.sort((a, b) => b.id - a.id)}/>
-                               </ToothDescriptionHistory>
-                           </ToothDescription>
+                                   <ToothNumberText>Ząb : {toothName}</ToothNumberText>
+                                   <ToothDescriptionTextField value={descriptionTooth} onChange={changeToothDescription} placeholder="Wprowadź wpis do dokumentacji" />
+                                   <ToothDescriptionSaveButton onClick={saveToothDescription}>Dodaj wpis do dokumentacji</ToothDescriptionSaveButton>
+                                   <ToothDescriptionHistory>
+                                       <ToothText>Dokumentacja</ToothText>
+                                       <VirtualizedList descriptions={currentTooth.descriptions.sort((a, b) => b.id - a.id)}/>
+                                   </ToothDescriptionHistory>
+                       </ToothDescription>
                            <ToothStatus>
                                <ToothText>Status Zęba</ToothText>
                            <StatusLabel><StatusCheckbox type="checkbox" checked={forObservation} onChange={changeForObservationStatus}/> Do obserwacji</StatusLabel>

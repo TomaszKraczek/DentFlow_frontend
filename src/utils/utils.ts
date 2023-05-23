@@ -26,3 +26,17 @@ export function getWeek(date:dayjs.Dayjs): dayjs.Dayjs[] {
     }
     return  weekDays
 }
+
+export function getTimeRemaining() {
+    const dayjs = require('dayjs');
+    require('dayjs/plugin/duration');
+    dayjs.extend(require('dayjs/plugin/duration'));
+    const now = dayjs(); // Pobierz aktualną datę i godzinę
+    const targetTime = dayjs().hour(20).minute(0).second(0); // Ustaw docelową godzinę na 20:00
+
+    const remainingTime = targetTime.diff(now); // Oblicz różnicę między aktualnym czasem a docelowym czasem
+    const duration = dayjs.duration(remainingTime); // Konwertuj różnicę na obiekt Duration
+
+    // Zwróć pozostały czas w formacie godzin:minuty:sekundy
+    return duration.hours() *66 + duration.minutes() ;
+}

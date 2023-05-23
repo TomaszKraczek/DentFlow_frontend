@@ -118,14 +118,14 @@ export const MenuItem = styled.a`
     color: black;
   }
 `;
-export const Login = styled.button`
+export const Login = styled.button<{ width: number }>`
   background-color: #FFBE5C;
   color: white;
   font-size: 28px;
   cursor: pointer;
   border: none;
   margin-right:30px  ;
-  width: 100px;
+  width: ${props=> props.width}px;
   height: 45px;
   border-radius: 10px;
   transition: 2s;

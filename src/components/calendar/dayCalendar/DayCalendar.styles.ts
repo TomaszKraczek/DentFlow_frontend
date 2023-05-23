@@ -50,7 +50,7 @@ export const DescriptionRow = styled.div`
 export const ToothDescriptionSaveButton = styled.button`
     height:40px;
     width:50%;
-    margin-left:18%;
+    margin-left:26%;
     margin-bottom:3%;
     background-color:#FFBE5C;
     border:0;
@@ -71,10 +71,7 @@ export const ToothDescription = styled.div`
     display:flex;
     flex-direction:column;
     grid-column:1;
-`
-
-export const ToothNumberText = styled.h2`
-    margin-left:30%;
+  //margin-right: 25px;
 `
 
 export const ToothStatus = styled.div`
@@ -85,9 +82,12 @@ export const ToothStatus = styled.div`
     margin-top:5%;
     margin-left:7%;
 `
+
+export const ToothNumberText = styled.h2`
+  margin-left:40%;
+`
 export const ToothText = styled.h2`
     color:rgb(23,132,179);
-    margin-left:25%;
 `
 
 export const StatusLabel = styled.label`
@@ -116,6 +116,7 @@ export const ToothDescriptionHistory = styled.div`
     border: 2px solid rgb(23,132,179);
     width: 27rem;
     border-radius:10px;
+  text-align: center;
     
 `
 

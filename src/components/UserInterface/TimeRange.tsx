@@ -61,7 +61,6 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
         const hoursOfAvailability:HoursOfAvailabilityResponse[] = []
         doctor.hoursOfAvailability.map((hour)=>{
             if(hour.day.toLowerCase() === currenDate.format("dddd")){
-                console.log(hour)
                 hoursOfAvailability.push(hour)
             }
         })

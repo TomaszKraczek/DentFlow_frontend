@@ -98,3 +98,10 @@ export const Visit = styled.div<{type:string,lengthOfTheVisit:number,selectedVis
   justify-content: space-between;
   align-items: center;
 `;
+export const Line = styled.div<{time:number}>`
+  height: 3px;
+  background-color: red;
+  width: 100%;
+  margin-top: ${props => props.time}px;
+  z-index: 2;
+`;

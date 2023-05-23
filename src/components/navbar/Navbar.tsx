@@ -9,7 +9,7 @@ import {
     Login,
     MidLogo, LogoLink
 } from "./Navbar.styles";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import logo from "../../resources/img/logo.png"
 import {ProfileButton} from "./ProfileButton";
 import {UserContext} from "../../context/UserContext";
@@ -21,7 +21,7 @@ export const Navbar= () =>  {
     const { currentUser} = useContext(UserContext);
     const { currentPages} = useContext(NavbarContext);
     const navigate = useNavigate()
-
+    const location =  useLocation()
     const toggle = () => {
         setIsOpen(!isOpen);
     }
@@ -51,11 +51,22 @@ export const Navbar= () =>  {
                 </MenuItems>
             </Menu>
             {!currentUser ? (
-                <Link to={"/login"}>
-                    <Login  >
-                        Login
-                    </Login>
-                </Link>
+                <> {location.pathname === "/login" ?
+                    (<Link to={"/user-registration"}>
+                        <Login   width={150}>
+                            Zarejestruj
+                        </Login>
+                    </Link>
+                    ):(
+                       <Link to={"/login"}>
+                            <Login   width={100}>
+                                Zaloguj
+                            </Login>
+                        </Link>
+                    )}
+
+                </>
+
             ):(
                 <ProfileButton/>
             )}
