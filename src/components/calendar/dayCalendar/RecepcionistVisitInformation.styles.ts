@@ -38,6 +38,9 @@ export const Description = styled.textarea`
     text-align: center;
     margin-bottom:3%;
     border:none;
+    :focus{
+        outline:none;
+    }
 `
 export const LabelInfo = styled.h3`
    color:rgb(23 132 179);
