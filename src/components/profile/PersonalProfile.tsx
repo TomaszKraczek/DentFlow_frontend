@@ -18,10 +18,7 @@ import {AuthApi} from "../../api/AuthApi";
 import {
     Loader
 } from "../login/Login.styles";
-import ClinicsTable from "./ClinicsTable";
 import {UserContext} from "../../context/UserContext";
-import OwnerProfileData from "./OwnerProfileData";
-import {ClinicResponse} from "../../models/api/ClinicResponse";
 import {ClinicApi} from "../../api/ClinicApi";
 
 export default function MultiActionAreaCard() {
@@ -32,7 +29,6 @@ export default function MultiActionAreaCard() {
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const {currentUser} = useContext(UserContext);
-    const [clinic, setClinic] = useState<ClinicResponse>();
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
@@ -59,12 +55,11 @@ export default function MultiActionAreaCard() {
         if (!user) {
             fetchProfileUser()
         }
-    }, [fetchProfileUser]);
+    }, [fetchProfileUser,user]);
 
     const fetchClinic = useCallback(async () => {
         try {
             const result = await ClinicApi.getMyClinic();
-            setClinic(result.data);
             setAddress(result.data.address);
             setPhoneNumber(result.data.phoneNumber);
 
@@ -122,7 +117,6 @@ export default function MultiActionAreaCard() {
                 address: address,
                 phoneNumber: phoneNumber
             });
-            setClinic(updateClinic.data);
             toast.success("Zaktualizowano profil");
             closeModal();
         } catch (error) {

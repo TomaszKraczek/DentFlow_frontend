@@ -50,7 +50,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
     useEffect(() => {
         fetchDoctors();
         fetchVisits()
-    }, [currenDate]);
+    }, [currenDate,fetchDoctors,fetchVisits]);
     return (
         <Div isOpen={props.isOpen} >
             <div>

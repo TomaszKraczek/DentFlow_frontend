@@ -2,23 +2,13 @@ import React, {useCallback, useContext, useState} from 'react';
 import { EmployeeResponse } from '../../models/api/EmployeeResponse';
 import { VisitResponse } from "../../models/api/VisitResponse";
 import { Time } from "./ClinicAvailability.styles";
-import dayjs from "dayjs";
 import {
-    Button,
-    CenterDiv,
     Modal,
-    ModalBody,
     ModalContent,
-    ModalFooter,
     ModalOverlay,
-    UserName
 } from "../profile/Profile.styles";
 import {LoginButton, LoginHeader, LoginInputs} from "../login/Login.styles";
 import {Autocomplete, TextField} from "@mui/material";
-import {LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {DemoContainer} from "@mui/x-date-pickers/internals/demo";
-import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import {StyledTextarea} from "../calendar/addVisit/AddVisitModal..styles";
 import {VisitApi} from "../../api/VisitApi";
 import {toast} from "react-toastify";
@@ -50,10 +40,6 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
     function changeDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
         setDescription(event.target.value)
     }
-    const bookAVisit = (event:React.MouseEvent<HTMLDivElement> ) => {
-        setShowModal(true)
-        setfrom(event.currentTarget.innerHTML)
-    };
     const handleAppointment = useCallback(async () => {
         try {
             await VisitApi.addVisitUser({

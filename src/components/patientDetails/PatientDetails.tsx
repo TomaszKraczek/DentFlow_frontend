@@ -14,7 +14,7 @@ function PatientDetails() {
             patientId: patient.patientId,
             clinicId: currentClinic?.id
         })
-    }, [])
+    }, [patient.patientId,currentClinic?.id])
 
 
 

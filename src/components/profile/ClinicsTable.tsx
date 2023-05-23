@@ -156,7 +156,7 @@ export default function DataGridDemo() {
         finally {
 
         }
-    },[])
+    },[addHour,days])
     useEffect(() => {
         fetchClinic()
     },[fetchClinic]);

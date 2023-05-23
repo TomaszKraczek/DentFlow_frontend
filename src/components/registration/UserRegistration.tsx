@@ -7,15 +7,12 @@ import {
     LoginButton, LoginForm,
     LoginHeader,
     LoginInputs,
-    PasswordRecoveryLabel, StyledDatePickerMedium, StyledDatePickerSmall,
+    PasswordRecoveryLabel,
     StyledTextFieldMedium,
     StyledTextFieldSmall,
     ValidationError
 } from "../login/Login.styles";
 import { Grid, Link } from "@mui/material";
-import {LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 
 
 const UserRegistration = () => {
@@ -24,24 +21,18 @@ const UserRegistration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     const [repeatedPassword, setRepeatedPassword] = useState('')
-    const [telNumber, setTelNumber] = useState('')
     const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
     const [isPasswordValid, setIsPasswordValid] = useState<boolean>(true);
     const [isRepeatedPasswordValid, setIsRepeatedPasswordValid] = useState<boolean>(true);
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
-    const [pesel, setPesel] = useState('')
-    const [birthDate, setBirthDate] =  useState<dayjs.Dayjs | null>(null);
     const navigate = useNavigate();
 
     const handleSubmit = () => {
         let user: UserRegistrationData = {
             firstName: firstName,
             lastName: lastName,
-            pesel:pesel,
-            birthDate:birthDate?.format("DD-MM-YYYY"),
             email: email,
             password: password,
-            telNumber: telNumber
         }
         UserApi.registerUser(user).then(r => {
         })
@@ -54,7 +45,7 @@ const UserRegistration = () => {
         setIsEmailValid(validateEmail(email));
         setIsPasswordValid(validatePassword(password));
         setIsDataValid((isPasswordValid && isEmailValid && isRepeatedPasswordValid))
-    }, [birthDate,pesel,repeatedPassword, email, password, isPasswordValid, isEmailValid,  isRepeatedPasswordValid]);
+    }, [repeatedPassword, email, password, isPasswordValid, isEmailValid,  isRepeatedPasswordValid]);
 
     const validateRepeatedPassword = (repeatedPassword: string) => {
         return password === repeatedPassword;
@@ -88,12 +79,6 @@ const UserRegistration = () => {
         setRepeatedPassword(event.target.value)
     }
 
-    const onTelNumberChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-        setTelNumber(event.target.value)
-    }
-    const handleBirthdayChange = (date: dayjs.Dayjs | any) => {
-        setBirthDate(date)
-    }
 
     return (
         <LoginForm height={55}>
@@ -108,16 +93,6 @@ const UserRegistration = () => {
 
                 <StyledTextFieldMedium label="Nazwisko" size={"medium"} onChange={onLastnameChange}/>
                 <StyledTextFieldSmall label="Nazwisko" size={"small"} onChange={onLastnameChange}/>
-
-                {/*<StyledTextFieldMedium label="PESEL" size={"medium"} onChange={(event) => setPesel(event.target.value)}/>*/}
-                {/*<StyledTextFieldSmall label="PESEL" size={"small"} onChange={(event) => setPesel(event.target.value)}/>*/}
-                {/*{pesel.length !== 11 && pesel.length !== 0 && <ValidationError>Błędny PESEL</ValidationError>}*/}
-
-                {/*<LocalizationProvider dateAdapter={AdapterDayjs}>*/}
-                {/*    <StyledDatePickerMedium label={"Data urodzenia"} slotProps={{textField:{size:"medium"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>*/}
-                {/*    <StyledDatePickerSmall label={"Data urodzenia"} slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/>*/}
-                {/*</LocalizationProvider>*/}
-
 
                 <StyledTextFieldMedium label="Email" size={"medium"} type="email" onChange={onEmailChange}/>
                 <StyledTextFieldSmall label="Email" size={"small"} type="email" onChange={onEmailChange}/>

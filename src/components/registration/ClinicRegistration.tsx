@@ -12,7 +12,6 @@ import {
 import {
     Button, Modal,
     ModalBody,
-    ModalContent,
     ModalFooter,
     ModalOverlay, PaymentModalContent, StyledSelect,
     TextFieldModal,
@@ -34,7 +33,18 @@ const ClinicRegistration = () => {
     const [secondPassword, setSecondPassword] = useState('');
     const [isPasswordValid, setPasswordValid] = useState<boolean | null>(false)
     const navigate = useNavigate();
+    const [cardNumber, setCardNumber] = useState('');
+    const [cardHolder, setCardHolder] = useState('');
+    const [expiration, setExpiration] = useState('');
+    const [cvv, setCvv] = useState('');
 
+    // tablica zawierająca dane z różnych ofert
+    const pricingOptions = [
+        {number:1, header: "1 fotel", price: "249.99", currency: "zł/msc" },
+        {number:4,  header: "1-4 fotele", price: "549.99", currency: "zł/msc" },
+        {number:0,  header: "5+ foteli", price: "899.99", currency: "zł/msc" },
+    ];
+    const [selectedPricingOption, setSelectedPricingOption] = useState(pricingOptions[0]);
     const [isFormValid, setFormValid] = useState<boolean>(false)
 
     const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -47,13 +57,14 @@ const ClinicRegistration = () => {
         setShowModal(false);
     };
     const registerClinic = useCallback(async () => {
-
+        console.log(selectedPricingOption.number)
         try {
             await ClinicApi.register({
                 clinicName: clinicName,
                 ownerName: ownerName,
                 ownerLastname: ownerLastname,
                 phoneNumber:phoneNumber,
+                numberOfSeats:selectedPricingOption.number,
                 city: city,
                 address: address,
                 email: email,
@@ -65,11 +76,11 @@ const ClinicRegistration = () => {
         } catch (error: any) {
 
         }
-    }, [phoneNumber,clinicName, city, address, email, password, navigate]);
+    }, [selectedPricingOption,ownerLastname,ownerName,phoneNumber,clinicName, city, address, email, password, navigate]);
 
     useEffect(() => {
         setEmailValid(email.match(emailRegex) !== null)
-    }, [email])
+    }, [email,emailRegex])
 
     useEffect(() => {
         setFormValid(clinicName.length >= 2 && city.length >= 2 && address.length >= 2 && ownerName.length >= 2 && ownerLastname.length >= 2);
@@ -108,20 +119,8 @@ const ClinicRegistration = () => {
         setSecondPassword(event.target.value)
     }
 
-    const [cardNumber, setCardNumber] = useState('');
-    const [cardHolder, setCardHolder] = useState('');
-    const [expiration, setExpiration] = useState('');
-    const [cvv, setCvv] = useState('');
-
-    // tablica zawierająca dane z różnych ofert
-        const pricingOptions = [
-            { header: "1 fotel", price: "249.99", currency: "zł/msc" },
-            { header: "1-4 fotele", price: "549.99", currency: "zł/msc" },
-            { header: "5+ foteli", price: "899.99", currency: "zł/msc" },
-        ];
 
     // stan przechowujący aktualnie wybraną opcję
-    const [selectedPricingOption, setSelectedPricingOption] = useState(pricingOptions[0]);
 
     const handlePricingOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedPricingOption(pricingOptions[event.target.selectedIndex]);
@@ -174,7 +173,10 @@ const ClinicRegistration = () => {
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button onClick={registerClinic} disabled={!isEmailValid || !isPasswordValid || !isFormValid}>
+                            <Button onClick={closeModal} >
+                                Anuluj
+                            </Button>
+                            <Button onClick={registerClinic} >
                                 Zapłać
                             </Button>
                             {/*disabled={!isEmailValid || !isPasswordValid || !isFormValid}*/}
@@ -232,7 +234,7 @@ const ClinicRegistration = () => {
                         {!isPasswordValid && secondPassword.length !== 0 &&
                             <ValidationError>Hasła nie są takie same</ValidationError>}
 
-                        <LoginButton  onClick={openModal} disabled={!isEmailValid || !isPasswordValid || !isFormValid}>
+                        <LoginButton  onClick={openModal} >
                             Zarejestruj
                         </LoginButton>
                         {/*// disabled={!isEmailValid || !isPasswordValid || !isFormValid}*/}

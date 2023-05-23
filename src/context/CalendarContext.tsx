@@ -72,7 +72,7 @@ export const CalendarContextProvider = ({ children }: React.PropsWithChildren) =
         finally {
             // setIsLoading(false);
         }
-    }, [currentClinic?.id]);
+    }, [currentClinic?.id,currentUser?.roles]);
 
     useEffect(() => {
         fetchVisits();

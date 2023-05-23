@@ -3,6 +3,7 @@ export type ClinicRequest = {
     ownerName:string
     ownerLastname:string
     phoneNumber:string
+    numberOfSeats:number
     city:string
     address:string
     email:string

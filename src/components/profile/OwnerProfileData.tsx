@@ -7,14 +7,11 @@ import {UserApi} from "../../api/UserApi";
 import {LoginForm, LoginInputs, StyledTextFieldMedium, StyledTextFieldSmall} from "../login/Login.styles";
 
 export default function DataGridDemo() {
-    const [ownerEmail, setOwnerEmail] = useState<String>();
     const [clinic, setClinic] = useState<ClinicResponse>();
     const fetchClinic = useCallback(async () => {
         try {
             const result = await ClinicApi.getMyClinic();
             setClinic(result.data);
-            const user = await UserApi.getUser();
-            setOwnerEmail(user.data.email);
         }
         finally {
 

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {useCallback, useContext,  useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import {toast} from "react-toastify";
@@ -57,7 +57,7 @@ export const ResetEmail = () => {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
-    }, [email,navigate]);
+    }, [token,email,navigate]);
 
     const onEmailChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setEmailValid(emailRegex.test(event.target.value));

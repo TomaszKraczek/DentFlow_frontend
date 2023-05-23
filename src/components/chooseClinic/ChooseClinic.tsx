@@ -7,7 +7,7 @@ import {ClinicResponse} from "../../models/api/ClinicResponse";
 import {ClinicApi} from "../../api/ClinicApi";
 import {useNavigate} from "react-router-dom";
 import {ClinicContext} from "../../context/ClinicContext";
-import {CLINIC_ID, CLINIC_NAME, CLINIC_PHONE} from "../../constants/constants";
+import {CLINIC_ID, CLINIC_NAME, CLINIC_PHONE, NOS} from "../../constants/constants";
 import {UserApi} from "../../api/UserApi";
 import {
     Button,
@@ -18,7 +18,6 @@ import {
     ModalOverlay,
     UserName
 } from "../profile/Profile.styles";
-import {Visit} from "../calendar/dayCalendar/Visit";
 import {UserContext} from "../../context/UserContext";
 
 
@@ -100,6 +99,7 @@ export const ChooseClinic = () => {
             localStorage.setItem(CLINIC_ID,String(foundClinic.id))
             localStorage.setItem(CLINIC_NAME,foundClinic.name)
             localStorage.setItem(CLINIC_PHONE,foundClinic.phoneNumber)
+            localStorage.setItem(NOS,String(foundClinic.numberOfSeats))
 
         }
         navigate(`/clinics/${clinicId}/visits`)

@@ -5,7 +5,6 @@ import {CalendarContext} from "../../../context/CalendarContext";
 import {VisitResponse} from "../../../models/api/VisitResponse";
 import Tooltip from "@mui/material/Tooltip";
 import {UserContext} from "../../../context/UserContext";
-import {CLINIC_NAME} from "../../../constants/constants";
 
 
 

@@ -9,7 +9,6 @@ import React from "react";
 import {FirstTypeOffer} from "./offers/FirstTypeOffer";
 import {SecondTypeOffer} from "./offers/SecondTypeOffer";
 import {ThirdTypeOffer} from "./offers/ThirdTypeOffer";
-import Typography from "@mui/material/Typography";
 import {H1, H3} from "../../pages/homePage/HomePage.style";
 
 

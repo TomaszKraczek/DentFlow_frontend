@@ -13,11 +13,7 @@ import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
-import {EmployeeResponse} from "../../models/api/EmployeeResponse";
 import {SearchElement, SearchElementInput} from "../MyClinic/Table.styles";
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import {LoginButton} from "../login/Login.styles";
-import { Tooth } from '../../models/Tooth';
 import {useNavigate} from "react-router-dom";
 
 interface TablePaginationActionsProps {
@@ -124,7 +120,7 @@ export default function CustomPaginationActionsTable() {
             results = searchTerm ? searchPatients(searchTerm, searchTerm) : [];
         }
         setPatientsSearchResults(results);
-        if (event.target.value == "") {
+        if (event.target.value === "") {
             setPatientsSearchResults(patients)
         }
     }
@@ -135,7 +131,6 @@ export default function CustomPaginationActionsTable() {
                 clinicId: currentClinic?.id
             });
             setPatients(result.data)
-            console.log(result.data)
             setPatientsSearchResults(result.data)
         } finally {
             // setIsLoading(false);

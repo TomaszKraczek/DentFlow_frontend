@@ -4,4 +4,5 @@ export type ClinicResponse = {
     phoneNumber:string
     city:string
     address:string
+    numberOfSeats:number
 }

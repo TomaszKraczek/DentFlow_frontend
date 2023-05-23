@@ -1,6 +1,5 @@
 import {authorizedApi} from "../hooks/withAxiosIntercepted";
 import {Tooth} from "../models/Tooth";
-import dayjs from "dayjs";
 
 export class TeethApi {
     static async saveToothStatus(request: {

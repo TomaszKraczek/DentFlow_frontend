@@ -31,7 +31,7 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
     const [type, setType] = useState("Konsultacja");
     const [from, setFrom] = useState<string>("");
     const [to, setTo] = useState<string>("");
-    const{fetchVisits} = useContext(CalendarContext)
+    const{fetchVisits,currentVisits} = useContext(CalendarContext)
     const [isFormComplete, setIsFormComplete] = useState(false);
     const generateTimeOptions = () => {
         const options = [];
@@ -118,13 +118,26 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         }
     }, [doctor?.email,type,patient?.patientId,currentClinic?.id,props,from, to,date,description]);
     function doFilterDoctors ()  {
-        const filterDoctors:EmployeeResponse[]=[]
+        let filterDoctors:EmployeeResponse[]=[]
         doctors.map((doctor)=>{
             doctor.hoursOfAvailability.map((hour)=>{
                 if(hour.day.toLowerCase() === date?.format("dddd") ){
                     if (hour.from <= from && to<=hour.to){
                         filterDoctors.push(doctor)
                     }
+                }
+            })
+        })
+        currentVisits.map((visit)=>{
+            doctors.map((doctor)=> {
+                if (visit.doctor.email === doctor.email) {
+                    const visitStartTime = new Date(visit.visitDate);
+                    const visitEndTime = new Date(visit.visitDate);
+                    visitEndTime.setMinutes(visitEndTime.getMinutes() + visit.lengthOfTheVisit);
+                    if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from){
+                        filterDoctors = filterDoctors.filter((item) => item.email !== doctor.email);
+                    }
+
                 }
             })
         })

@@ -3,8 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {ClinicApi} from "../../api/ClinicApi";
 import {toast} from "react-toastify";
 import {UserApi} from "../../api/UserApi";
-import {LoginButton, LoginForm, LoginHeader, LoginInputs, ValidationError} from "../login/Login.styles";
-import {FormControlLabel, FormLabel, Radio, RadioGroup, TextField} from "@mui/material";
+import {LoginButton, LoginForm, LoginHeader, LoginInputs,} from "../login/Login.styles";
+import {FormControlLabel, Radio, TextField} from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import {AutocompleteEmail, FormLabelStyled, RadioGroupStyled} from "./AddEmployee.styles";
 

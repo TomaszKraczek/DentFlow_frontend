@@ -4,7 +4,6 @@ import axios from "axios";
 import {UserRegistrationData} from "../models/api/UserRegistrationData";
 import {ProfileUserResponse} from "../models/api/ProfileUserResponse";
 import {UserUpdateData} from "../models/api/UserUpdateData";
-import {PatientResponse} from "../models/api/PatientResponse";
 import {ClinicResponse} from "../models/api/ClinicResponse";
 import {HoursOfAvailabilityRequest} from "../models/api/HoursOfAvailabilityRequest";
 import {HoursOfAvailabilityResponse} from "../models/api/HoursOfAvailabilityResponse";

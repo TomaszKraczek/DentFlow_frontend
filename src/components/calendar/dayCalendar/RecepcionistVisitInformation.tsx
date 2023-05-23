@@ -16,7 +16,7 @@ export  const  RecepcionistVisitInformation= () =>{
     const[description,setDescription] = useState<string|undefined>("")
     useEffect(()=>{
         setDescription(currentVisit?.receptionistDescription)
-    },[])
+    },[currentVisit])
 
     function safeVisitDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
        setDescription(event.target.value)

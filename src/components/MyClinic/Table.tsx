@@ -8,7 +8,7 @@ import LastPageIcon from '@mui/icons-material/LastPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import {
-    Box, CardActions, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableFooter,
+    Box, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableFooter,
     TablePagination, TableRow, useTheme
 } from '@mui/material';
 import {
@@ -192,8 +192,7 @@ export default function CustomPaginationActionsTable() {
                 email: employeeMail
             })
             closeModal()
-            const result = await ClinicApi.getEmployees()
-            setEmployees(result.data)
+            fetchEmployees()
             toast.success("Pracownik usunięty");
         } catch (error) {
             toast.error("Nie udało się usunąć pracownika")
@@ -201,6 +200,7 @@ export default function CustomPaginationActionsTable() {
     };
 
     return (
+        <>
         <Container>
             <SearchElement>
                 Wyszukaj pracownika:<br/>
@@ -222,7 +222,9 @@ export default function CustomPaginationActionsTable() {
                             <TableCell>
                                 <strong>Email</strong>
                             </TableCell>
-                            <TableCell />
+                            <TableCell>
+
+                            </TableCell>
                         </TableRow>
                         {(rowsPerPage > 0
                                 ? employeesSearchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -236,6 +238,9 @@ export default function CustomPaginationActionsTable() {
                                        }}>
                                 <TableCell component="th" scope="row">
                                     {employee.firstName}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {employee.lastName}
                                 </TableCell>
                                 <TableCell>
                                     {employee.roles.includes("DOCTOR")&&"Lekarz" || employee.roles.includes("RECEPTIONIST")&&"Recepcjonistka"}
@@ -272,30 +277,30 @@ export default function CustomPaginationActionsTable() {
                                 onRowsPerPageChange={handleChangeRowsPerPage}
                                 ActionsComponent={TablePaginationActions}
                             />
-                            <CardActions>
-                                {showModal && (
-                                    <Modal>
-                                        <ModalOverlay/>
-                                        <ModalContent>
-                                            <UserName>Na pewno chcesz usunąć pracownika?</UserName>
-                                            <ModalBody>
-                                            </ModalBody>
-                                            <ModalFooter>
-                                                <Button onClick={closeModal}>
-                                                    Anuluj
-                                                </Button>
-                                                <Button onClick={handleEmployeeDelete}>
-                                                    Potwierdz
-                                                </Button>
-                                            </ModalFooter>
-                                        </ModalContent>
-                                    </Modal>
-                                )}
-                            </CardActions>
+
                         </TableRow>
                     </TableFooter>
                 </Table>
             </TableContainer>
         </Container>
+        {showModal && (
+            <Modal>
+                <ModalOverlay/>
+                <ModalContent>
+                    <UserName>Na pewno chcesz usunąć pracownika?</UserName>
+                    <ModalBody>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button onClick={closeModal}>
+                            Anuluj
+                        </Button>
+                        <Button onClick={handleEmployeeDelete}>
+                            Potwierdz
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        )}
+    </>
     );
 }
