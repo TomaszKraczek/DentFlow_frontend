@@ -42,7 +42,6 @@ const UserRegistration = () => {
         }catch (error){
             toast.error("Bład serwera")
         }
-
     }
 
     useEffect(() => {
@@ -65,8 +64,6 @@ const UserRegistration = () => {
         return passwordRegex.test(password);
     }
 
-
-
     const onFirstnameChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setFirstName(event.target.value)
     }
@@ -83,7 +80,6 @@ const UserRegistration = () => {
     const onRepeatedPasswordChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setRepeatedPassword(event.target.value)
     }
-
 
     return (
         <LoginForm height={55}>
