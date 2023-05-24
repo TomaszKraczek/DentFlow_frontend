@@ -134,7 +134,7 @@ const ClinicRegistration = () => {
     return (
         <>
             {showModal?(
-                <Modal>
+                <Modal id='clinicRegistration'>
                     <ModalOverlay/>
                     <PaymentModalContent>
                         <UserName>Płatność</UserName>
@@ -162,7 +162,7 @@ const ClinicRegistration = () => {
                     </PaymentModalContent>
                 </Modal>
                 ):(
-                <LoginForm height={67}>
+                <LoginForm height={67} id='clinicRegistration'>
                     <LoginHeader>
                         Załóż przychodnię
                     </LoginHeader>

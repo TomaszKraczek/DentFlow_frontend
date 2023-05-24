@@ -7,6 +7,7 @@ import {UserContextProvider} from "./context/UserContext";
 import {NavbarContextProvider} from "./context/NavbarContext";
 import {ClinicContextProvider} from "./context/ClinicContext";
 import {CalendarContextProvider} from "./context/CalendarContext";
+import './app.css';
 
 function App() {
   return (

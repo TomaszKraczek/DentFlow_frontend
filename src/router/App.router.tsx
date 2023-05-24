@@ -40,11 +40,11 @@ export const AppRouter = () => {
     <Routes>
       <Route path="/"
              element={
-          <HomePageProtected>
+          <UnauthorizedRoute>
               <HomePage />
               <AboutUs />
               <Pricing />
-          </HomePageProtected>
+          </UnauthorizedRoute>
       }></Route>
         <Route element={<SetContainter/>}>
             <Route
@@ -116,9 +116,9 @@ export const AppRouter = () => {
           <Route
               path="/login"
               element={
-                  <UnauthorizedRoute>
+                  // <UnauthorizedRoute>
                       <Login />
-                  </UnauthorizedRoute>
+                  // </UnauthorizedRoute>
               }
           ></Route>
           <Route
@@ -136,7 +136,9 @@ export const AppRouter = () => {
             <Route
                 path="/clinic-registration"
                 element={
+                    <UnauthorizedRoute>
                         <ClinicRegistration />
+                    </UnauthorizedRoute>
                 }
             ></Route>
             <Route
@@ -173,6 +175,12 @@ export const AppRouter = () => {
                 path="/contact"
                 element={
                     <Contact/>
+                }
+            ></Route>
+            <Route
+                path="/aboutUs"
+                element={
+                    <AboutUs/>
                 }
             ></Route>
         </Route>

@@ -14,10 +14,11 @@ import {
 import BuildOutlinedIcon from '@mui/icons-material/BuildOutlined';
 import GppGoodOutlinedIcon from '@mui/icons-material/GppGoodOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import './aboutUs.css';
 
 export const AboutUs = () => {
     return (
-        <Section>
+        <Section id='AboutUs'>
             <Container>
                 <Up>
                     <Title>DentFlow</Title>
