@@ -38,5 +38,5 @@ export function getTimeRemaining() {
     const duration = dayjs.duration(remainingTime); // Konwertuj różnicę na obiekt Duration
 
     // Zwróć pozostały czas w formacie godzin:minuty:sekundy
-    return duration.hours() *66 + duration.minutes() ;
+    return duration.hours() *67 + duration.minutes() ;
 }

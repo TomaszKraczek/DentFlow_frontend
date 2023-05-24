@@ -10,7 +10,7 @@ export type CalendarContextType = {
   currentVisit: VisitResponse | null;
   currentVisits: VisitResponse[] |[];
   fetchVisits:()=> void;
-  visitModifier: (visit: VisitResponse) => void;
+  visitModifier: (visit: VisitResponse|null) => void;
   visitsModifier: (visits: VisitResponse[] | []) => void;
   dateModifier: (date:dayjs.Dayjs) => void;
   selectedDateModifier: (date:dayjs.Dayjs) => void;

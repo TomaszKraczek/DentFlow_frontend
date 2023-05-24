@@ -1,10 +1,9 @@
 import React, {useCallback, useContext, useState} from 'react';
 import { EmployeeResponse } from '../../models/api/EmployeeResponse';
 import { VisitResponse } from "../../models/api/VisitResponse";
-import { Time } from "./ClinicAvailability.styles";
+import {ModalContent, Time} from "./ClinicAvailability.styles";
 import {
     Modal,
-    ModalContent,
     ModalOverlay,
 } from "../profile/Profile.styles";
 import {LoginButton, LoginHeader, LoginInputs} from "../login/Login.styles";
@@ -31,11 +30,14 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
     const {currenDate} = useContext(CalendarContext)
 
     const renderTimeList = (timeList: string[]) => {
-        return timeList.map((time, index) => <Time key={index}>{time}</Time>);
+        return timeList.map((time, index) => <Time onClick={handleModalOpen} key={index}>{time}</Time>);
     };
 
     const handleModalClose = () => {
         setShowModal(false)
+    };
+    const handleModalOpen = () => {
+        setShowModal(true)
     };
     function changeDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
         setDescription(event.target.value)

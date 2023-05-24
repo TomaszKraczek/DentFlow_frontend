@@ -12,7 +12,7 @@ import {toast} from "react-toastify";
 
 export  const  RecepcionistVisitInformation= () =>{
     const{currentClinic} = useContext(ClinicContext)
-    const{currentVisit,fetchVisits} = useContext(CalendarContext)
+    const{currentVisit,fetchVisits,visitModifier} = useContext(CalendarContext)
     const[description,setDescription] = useState<string|undefined>("")
     useEffect(()=>{
         setDescription(currentVisit?.receptionistDescription)
@@ -42,6 +42,7 @@ export  const  RecepcionistVisitInformation= () =>{
                 visitId:currentVisit?.id,
             })
             toast.success("Usunieto wizyte");
+            visitModifier(null);
             fetchVisits()
         } catch (error: any) {
             toast.error("Wystąpił błąd podczas połączenia z serwerem.", {

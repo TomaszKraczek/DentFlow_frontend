@@ -66,7 +66,9 @@ export const AppRouter = () => {
             <Route
                 path="/visits"
                 element={
-                    <Calendar/>
+                    <ProtectedRoute>
+                        <Calendar/>
+                    </ProtectedRoute>
                 }
             ></Route>
             <Route
@@ -163,18 +165,6 @@ export const AppRouter = () => {
                 path="*"
                 element={<NotFound />}>
             </Route>
-            <Route
-                path="/pricing"
-                element={
-                    <Pricing/>
-                }
-            ></Route>
-            <Route
-                path="/contact"
-                element={
-                    <Contact/>
-                }
-            ></Route>
         </Route>
 
     </Routes>

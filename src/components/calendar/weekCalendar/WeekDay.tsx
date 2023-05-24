@@ -63,7 +63,7 @@ export  const WeekDay: React.FC<Props> = (props:Props) =>{
                                 ))}
                             </Hour>
                 ))}
-                {!props.isWeekCalendar && <Timer/>}
+                {!props.isWeekCalendar && (currentUser?.roles.includes("DOCTOR") ||currentUser?.roles.includes("RECEPTIONIST")) && <Timer/>}
             </DayBody>
     </>
     )

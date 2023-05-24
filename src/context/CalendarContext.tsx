@@ -17,7 +17,7 @@ const defaultSettings: CalendarContextType = {
     currentVisit: null,
     currentVisits: [],
     fetchVisits:()=>{},
-    visitModifier: (visit: VisitResponse) => {},
+    visitModifier: (visit: VisitResponse |null) => {},
     visitsModifier: (visits: VisitResponse[]) => {},
     dateModifier: (date:dayjs.Dayjs ) => {},
     selectedDateModifier: (date:dayjs.Dayjs) => {},
@@ -37,7 +37,7 @@ export const CalendarContextProvider = ({ children }: React.PropsWithChildren) =
     const [noFilterVisits,setNoFilterVisits] = useState<VisitResponse[]  >([]);
     const {currentClinic} = useContext(ClinicContext);
     const {currentUser} = useContext(UserContext);
-    const visitModifier = (visit: VisitResponse ) => {
+    const visitModifier = (visit: VisitResponse |null) => {
         setCurrentVisit(visit);
     };
     const visitsModifier = (visits: VisitResponse[] ) => {

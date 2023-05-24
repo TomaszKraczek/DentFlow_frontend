@@ -102,25 +102,49 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         doFilterDoctors()
     },[doctors,date,from,to])
 
+    function ClinicHasSeats () {
+        console.log(currentClinic?.numberOfSeats)
+        return true
+    };
+    function DoctorIsFree () {
+        currentVisits.map((visit)=>{
+            if(visit.doctor.email===doctor?.email){
+                return false
+            }
+        })
+        return true
+    };
+
     const handleAppointment= useCallback(async () => {
-        try {
-            await VisitApi.add({
-                clinicId:currentClinic?.id,
-                receptionistDescription: description,
-                visitDate:date?.format("YYYY-MM-DD"),
-                visitTime:from,
-                type:type === "Kontrolna" ? "CONTROL" : type === "Zabieg" ? "TREATMENT" : type === "Inne" ? "OTHER" : "",
-                doctorEmail:doctor?.email,
-                patientId:patient?.patientId,
-                lengthOfTheVisit: dayjs(to, "HH:mm").diff(dayjs(from, "HH:mm"), "minute")
-            })
-            props.handleModalClose();
-            toast.success("Dodano wizyte");
-            fetchVisits()
-        } catch (error) {
+        if (!ClinicHasSeats()){
+            toast.info("niemasz miejsca w w gabinecie zwieksz ilość foteli", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }else if (!DoctorIsFree()){
+            toast.info("lekarz ma juz wizyte o tej godzinie", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }
+        else{
+            try {
+                await VisitApi.add({
+                    clinicId:currentClinic?.id,
+                    receptionistDescription: description,
+                    visitDate:date?.format("YYYY-MM-DD"),
+                    visitTime:from,
+                    type:type === "Kontrolna" ? "CONTROL" : type === "Zabieg" ? "TREATMENT" : type === "Inne" ? "OTHER" : "",
+                    doctorEmail:doctor?.email,
+                    patientId:patient?.patientId,
+                    lengthOfTheVisit: dayjs(to, "HH:mm").diff(dayjs(from, "HH:mm"), "minute")
+                })
+                props.handleModalClose();
+                toast.success("Dodano wizyte");
+                fetchVisits()
+            } catch (error) {
                 toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
                     position: toast.POSITION.TOP_RIGHT,
                 });
+            }
         }
     }, [doctor?.email,type,patient?.patientId,currentClinic?.id,props,from, to,date,description]);
     function doFilterDoctors ()  {
