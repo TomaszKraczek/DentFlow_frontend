@@ -184,6 +184,8 @@ const ClinicRegistration = () => {
 
                         <StyledTextFieldMedium label='tel kliniki' size={"medium"} value={phoneNumber} onChange={onPhoneNumberChange}/>
                         <StyledTextFieldSmall label='tel kliniki' size={"small"} value={phoneNumber} onChange={onPhoneNumberChange}/>
+                        {phoneNumber.length < 9 && phoneNumber.length !== 0 && <ValidationError>Numer telefonu ma przynajmniej 9 znaków</ValidationError>}
+
 
                         <StyledTextFieldMedium label="Email" size={'medium'} value={email} onChange={onEmailChange}/>
                         <StyledTextFieldSmall label="Email" size={'small'} value={email} onChange={onEmailChange}/>
