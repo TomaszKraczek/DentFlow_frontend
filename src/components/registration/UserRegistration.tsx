@@ -7,12 +7,15 @@ import {
     LoginButton, LoginForm,
     LoginHeader,
     LoginInputs,
-    PasswordRecoveryLabel,
+    PasswordRecoveryLabel, StyledDatePickerMedium, StyledDatePickerSmall,
     StyledTextFieldMedium,
     StyledTextFieldSmall,
     ValidationError
 } from "../login/Login.styles";
 import { Grid, Link } from "@mui/material";
+import dayjs from "dayjs";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers";
 
 
 const UserRegistration = () => {
@@ -26,6 +29,9 @@ const UserRegistration = () => {
     const [isRepeatedPasswordValid, setIsRepeatedPasswordValid] = useState<boolean>(true);
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     const navigate = useNavigate();
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [pesel, setPesel] = useState('')
+    const [birthDate, setBirthDate] =  useState<dayjs.Dayjs | null>(null);
 
     const handleSubmit = () => {
         let user: UserRegistrationData = {
@@ -48,8 +54,8 @@ const UserRegistration = () => {
         setIsRepeatedPasswordValid(validateRepeatedPassword(repeatedPassword));
         setIsEmailValid(validateEmail(email));
         setIsPasswordValid(validatePassword(password));
-        setIsDataValid((isPasswordValid && isEmailValid && isRepeatedPasswordValid))
-    }, [repeatedPassword, email, password, isPasswordValid, isEmailValid,  isRepeatedPasswordValid]);
+        setIsDataValid((isPasswordValid && isEmailValid && isRepeatedPasswordValid && phoneNumber.length >= 5 && lastName.length >= 2 && firstName.length >= 2 && pesel.length === 11 && birthDate != null))
+    }, [repeatedPassword, email, password, isPasswordValid, isEmailValid,  isRepeatedPasswordValid, lastName, phoneNumber, firstName, pesel, birthDate]);
 
     const validateRepeatedPassword = (repeatedPassword: string) => {
         return password === repeatedPassword;
@@ -80,9 +86,18 @@ const UserRegistration = () => {
     const onRepeatedPasswordChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setRepeatedPassword(event.target.value)
     }
+    const onPhoneNumberChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setPhoneNumber(event.target.value)
+    }
+    const onPESELChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setPesel(event.target.value)
+    }
+    const onBirthdayChange = (date: dayjs.Dayjs | any) => {
+        setBirthDate(date)
+    }
 
     return (
-        <LoginForm height={55}>
+        <LoginForm height={67}>
 
             <LoginHeader>
                 Rejestracja
@@ -99,6 +114,17 @@ const UserRegistration = () => {
                 <StyledTextFieldSmall label="Email" size={"small"} type="email" onChange={onEmailChange}/>
                 {!isEmailValid && email.length !== 0 && <ValidationError>Podaj poprawny adres email</ValidationError>}
 
+                <StyledTextFieldMedium label="Numer telefonu" type="tel" size={"medium"} onChange={onPhoneNumberChange}/>
+                <StyledTextFieldSmall label="Numer telefonu" type="tel" size={"small"} onChange={onPhoneNumberChange}/>
+
+                <StyledTextFieldMedium label="PESEL" size={"medium"} onChange={onPESELChange}/>
+                <StyledTextFieldSmall label="PESEL" size={"small"} onChange={onPESELChange}/>
+                {pesel.length !== 11 && pesel.length !== 0 && <ValidationError>Błędny PESEL</ValidationError>}
+
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <StyledDatePickerMedium label={"Data urodzenia"} slotProps={{textField:{size:"medium"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => onBirthdayChange(date)}/>
+                    <StyledDatePickerSmall label={"Data urodzenia"} slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => onBirthdayChange(date)}/>
+                </LocalizationProvider>
 
                 <StyledTextFieldMedium label="Hasło" type="password" size={"medium"} onChange={onPasswordChange}/>
                 <StyledTextFieldSmall label="Hasło" type="password" size={"small"} onChange={onPasswordChange}/>
@@ -108,8 +134,7 @@ const UserRegistration = () => {
                 <StyledTextFieldSmall label="Powtórz hasło" type="password" size={"small"} onChange={onRepeatedPasswordChange}/>
                 {!isRepeatedPasswordValid && password.length !== 0 && <ValidationError>Hasła nie są zgodne</ValidationError>}
 
-                {/*<StyledTextFieldMedium label="Numer telefonu" type="tel" size={"medium"} onChange={onTelNumberChange}/>*/}
-                {/*<StyledTextFieldSmall label="Numer telefonu" type="tel" size={"small"} onChange={onTelNumberChange}/>*/}
+
 
                 <LoginButton onClick={handleSubmit} disabled={!isDataValid}>
                     Dołącz
@@ -133,8 +158,6 @@ const UserRegistration = () => {
         </LoginForm>
 
     );
-
-
 
 
 }
