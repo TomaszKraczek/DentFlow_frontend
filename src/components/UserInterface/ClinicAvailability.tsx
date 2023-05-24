@@ -21,7 +21,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
     const { clinicId } = useParams();
     const [doctors, setDoctors] = useState<EmployeeResponse[]>([]);
     const [visits, setVisits] = useState<VisitResponse[]>([]);
-    const {currenDate} = useContext(CalendarContext)
+    const {selectedDate,currenDate} = useContext(CalendarContext)
     const {currentClinic} = useContext(ClinicContext)
     const fetchDoctors = async () => {
         try {
@@ -41,7 +41,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
             const result = await ClinicApi.getVisitsForClinic({
                 clinicId: parsedClinicId,
             });
-            setVisits( result.data.filter(value => dayjs(value.visitDate).format("YYYY MM dd")===currenDate.format("YYYY MM dd")))
+            setVisits( result.data.filter(value => dayjs(value.visitDate).format("YYYY MM dd")===selectedDate.format("YYYY MM dd")))
         } catch (error) {
             toast.error("Bład serwera")
         }
@@ -55,7 +55,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
     return (
         <Div isOpen={props.isOpen} >
             <div>
-                <HeaderLabel>{currenDate.format("MMM DD dddd")}</HeaderLabel>
+                <HeaderLabel>{selectedDate.format("MMM DD dddd")}</HeaderLabel>
                 <HeaderLabel>Umówić się telefonicznie:<br />{currentClinic?.phoneNumber}</HeaderLabel>
                 <HeaderLabel>Godziny dostępności lekarzy</HeaderLabel>
                 <>
@@ -63,7 +63,7 @@ export const ClinicAvailability: React.FC<Props> = (props:Props) => {
                         <>
                             <HeaderLabel>{doctor.firstName} {doctor.lastName}</HeaderLabel>
                             <List key={id}>
-                                <TimeRange clinicId={clinicId} doctor={doctor} visits={visits}/>
+                                <TimeRange clinicId={clinicId} doctor={doctor}  visits={visits}/>
                             </List>
                         </>
                     ))}

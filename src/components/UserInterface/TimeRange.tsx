@@ -27,42 +27,45 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
     const [type, setType] = useState("Konsultacja");
     const [description, setDescription] = useState("")
     const [from, setfrom] = useState("")
-    const {currenDate} = useContext(CalendarContext)
+    const {selectedDate,dateModifier} = useContext(CalendarContext)
 
     const renderTimeList = (timeList: string[]) => {
-        return timeList.map((time, index) => <Time onClick={handleModalOpen} key={index}>{time}</Time>);
+        return timeList.map((time, index) => <Time onClick={bookAVisit} key={doctor.email+index}>{time}</Time>);
     };
 
     const handleModalClose = () => {
         setShowModal(false)
     };
-    const handleModalOpen = () => {
-        setShowModal(true)
-    };
+
     function changeDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
         setDescription(event.target.value)
     }
+    const bookAVisit = (event:React.MouseEvent<HTMLDivElement> ) => {
+        setShowModal(true)
+        setfrom(event.currentTarget.innerHTML)
+    };
     const handleAppointment = useCallback(async () => {
         try {
             await VisitApi.addVisitUser({
                 clinicId:parseInt(clinicId??""),
                 receptionistDescription: description,
-                visitDate:currenDate?.format("YYYY-MM-DD"),
+                visitDate:selectedDate?.format("YYYY-MM-DD"),
                 visitTime:from,
                 type:type === "Kontrolna" ? "CONTROL" : type === "Zabieg" ? "TREATMENT" : type === "Inne" ? "OTHER" : "",
                 doctorEmail:doctor.email,
                 lengthOfTheVisit: 30
             })
             toast.success("Dodano wizyte");
-            setShowModal(true)
-        } catch (errot) {
-            toast.error("Bład serwera")
+            setShowModal(false)
+            dateModifier(selectedDate.add(1,"day"))
+        } finally {
+            // setIsLoading(false);
         }
-    }, [doctor.email,currenDate,clinicId,type,props,description]);
+    }, [doctor.email,selectedDate,clinicId,type,props,description]);
     const getAvailableTimes = () => {
         const hoursOfAvailability:HoursOfAvailabilityResponse[] = []
         doctor.hoursOfAvailability.map((hour)=>{
-            if(hour.day.toLowerCase() === currenDate.format("dddd")){
+            if(hour.day.toLowerCase() === selectedDate.format("dddd")){
                 hoursOfAvailability.push(hour)
             }
         })

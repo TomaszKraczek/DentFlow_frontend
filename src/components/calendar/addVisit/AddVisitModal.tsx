@@ -14,6 +14,7 @@ import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import {VisitApi} from "../../../api/VisitApi";
 import {toast} from "react-toastify";
 import {CalendarContext} from "../../../context/CalendarContext";
+import {VisitResponse} from "../../../models/api/VisitResponse";
 
 
 type Props = {
@@ -103,15 +104,69 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
     },[doctors,date,from,to])
 
     function ClinicHasSeats () {
-        console.log(currentClinic?.numberOfSeats)
-        return true
-    };
-    function DoctorIsFree () {
-        currentVisits.map((visit)=>{
-            if(visit.doctor.email===doctor?.email){
-                return false
+        const visits:VisitResponse[] = [];
+        for (const visit of currentVisits) {
+            if(dayjs(visit.visitDate).format("dddd") === date?.format("dddd")) {
+                const visitStartTime = new Date(visit.visitDate).getTime();
+                const visitEndTime = new Date(visit.visitDate).getTime() + visit.lengthOfTheVisit * 60 * 1000;
+                if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from) {
+                    visits.push(visit);
+                }
             }
-        })
+        }
+        visits.sort((a, b) => new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime());
+
+        const overlappingVisits: VisitResponse[][] = [];
+        let currentGroup: VisitResponse[] = [];
+
+        for (let i = 0; i < visits.length - 1; i++) {
+            const currentVisit = visits[i];
+            const nextVisit = visits[i + 1];
+
+            const currentVisitEndTime = new Date(currentVisit.visitDate).getTime() + currentVisit.lengthOfTheVisit * 60 * 1000;
+            const nextVisitStartTime = new Date(nextVisit.visitDate).getTime();
+
+            if (currentVisitEndTime > nextVisitStartTime) {
+                currentGroup.push(currentVisit);
+            } else {
+                currentGroup.push(currentVisit);
+                overlappingVisits.push(currentGroup);
+                currentGroup = [];
+            }
+        }
+
+        if (currentGroup.length > 0) {
+            currentGroup.push(visits[visits.length - 1]);
+            overlappingVisits.push(currentGroup);
+        }
+        if (overlappingVisits.length === 0 && visits.length<=1){
+            return true
+        }else if(overlappingVisits.length > 0){
+            const counter =  overlappingVisits[0].length ;
+            if (currentClinic?.numberOfSeats){
+                console.log("tu")
+                if(currentClinic?.numberOfSeats===0){
+                    return true
+                }else if(currentClinic?.numberOfSeats>counter){
+                    return true
+                }
+            }
+        }
+        return false
+    };
+    function DoctorIsFree ():boolean {
+        for (const visit of currentVisits) {
+            if(dayjs(visit.visitDate).format("dddd") ===date?.format("dddd")) {
+                if (visit.doctor.email === doctor?.email) {
+                    const visitStartTime = new Date(visit.visitDate);
+                    const visitEndTime = new Date(visit.visitDate);
+                    visitEndTime.setMinutes(visitEndTime.getMinutes() + visit.lengthOfTheVisit);
+                    if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from) {
+                        return false;
+                    }
+                }
+            }
+        }
         return true
     };
 
@@ -160,14 +215,15 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         })
         currentVisits.map((visit)=>{
             doctors.map((doctor)=> {
-                if (visit.doctor.email === doctor.email) {
-                    const visitStartTime = new Date(visit.visitDate);
-                    const visitEndTime = new Date(visit.visitDate);
-                    visitEndTime.setMinutes(visitEndTime.getMinutes() + visit.lengthOfTheVisit);
-                    if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from){
-                        filterDoctors = filterDoctors.filter((item) => item.email !== doctor.email);
+                if(dayjs(visit.visitDate).format("dddd") ===date?.format("dddd")){
+                    if (visit.doctor.email === doctor.email ) {
+                        const visitStartTime = new Date(visit.visitDate);
+                        const visitEndTime = new Date(visit.visitDate);
+                        visitEndTime.setMinutes(visitEndTime.getMinutes() + visit.lengthOfTheVisit);
+                        if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from){
+                            filterDoctors = filterDoctors.filter((item) => item.email !== doctor.email);
+                        }
                     }
-
                 }
             })
         })
@@ -184,7 +240,6 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
             from < to;
         setIsFormComplete(areAllFieldsFilled);
     };
-
     return(
         <Modal>
             <ModalOverlay onClick={props.handleModalClose} />
@@ -244,7 +299,7 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
                         defaultValue={timeOptions[0]}
                         renderInput={(params) => <TextField {...params} label="OD" />}
                         inputValue={from}
-                        onInputChange={(event, value) => {setFrom(value);}}
+                        onInputChange={(event, value) => {setFrom(value)}}
                     />
                     <AutocompleteTime
                         disablePortal

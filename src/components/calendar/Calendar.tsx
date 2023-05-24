@@ -10,7 +10,6 @@ import {UserContext} from "../../context/UserContext";
 import {ClinicAvailability} from "../UserInterface/ClinicAvailability";
 import {useParams} from "react-router-dom";
 import DehazeIcon from '@mui/icons-material/Dehaze';
-import dayjs from "dayjs";
 
 
 export const Calendar = () => {
@@ -66,9 +65,9 @@ export const Calendar = () => {
                    <BackButton onClick={goToday}>
                        Dzisiaj
                    </BackButton>
-                   <BackButton onClick={changeCalendar}>
-                       {isWeekCalendar ?(<>Dzień</>):(<>Tydzień</>)}
-                   </BackButton>
+                   {(currentUser?.roles.includes("DOCTOR") ||
+                           currentUser?.roles.includes("RECEPTIONIST")) &&
+                       <BackButton onClick={changeCalendar}>{isWeekCalendar ?(<>Dzień</>):(<>Tydzień</>)}</BackButton>}
                    <HeaderLabel>{getWeek(currenDate)[0].format("MMMM YYYY")}</HeaderLabel>
                    <Arrow onClick={prevWeek}>
                        &lt;

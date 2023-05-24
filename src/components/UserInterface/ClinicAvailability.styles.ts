@@ -34,7 +34,7 @@ export const ModalContent = styled.div`
   width: 350px;
   text-align: center;
   padding: 20px;
-  height: 450px;
+  height: 430px;
   border: 1px solid #1784b3;
   border-radius: 1rem;
   @media(max-width: 1950px){

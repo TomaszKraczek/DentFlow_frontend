@@ -47,7 +47,7 @@ export const StyledTextarea = styled(TextareaAutosize)`
   flex-direction: row;
   justify-content: center;
   border-color: #9a9a9a;
-
+  resize: none;
   &:hover {
     border-color: #131313;
   }
