@@ -99,7 +99,7 @@ export const Visit = styled.div<{type:string,lengthOfTheVisit:number,selectedVis
   align-items: center;
 `;
 export const Line = styled.div<{time:number}>`
-  height: 2px;
+  height: 1px;
   background-color: red;
   width: 100%;
   border-radius: 6px;

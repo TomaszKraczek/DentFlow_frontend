@@ -25,9 +25,7 @@ import {SelectedProtectedRoute} from "../components/SelectedProtectedRoute";
 import { ResetEmail } from "../components/resetPassword/ResetEmail";
 import {AboutUs} from "../components/aboutUs/AboutUs";
 import PatientDetails from "../components/patientDetails/PatientDetails";
-import {Footer} from "../components/footer/Footer";
-import {Contact} from "../components/contact/Contact";
-import {HomePageProtected} from "../components/HomePageProtected";
+
 
 
 
