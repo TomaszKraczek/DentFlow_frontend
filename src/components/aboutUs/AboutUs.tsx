@@ -29,7 +29,7 @@ export const AboutUs = () => {
                 </Up>
                 <Down>
                     <Cart>
-                        <UpCard><IconCard><AccessTimeOutlinedIcon sx={{ fontSize: 50,color: "#1784B3",marginTop:"10px" }} /></IconCard><DescriptionCard> Nowoczesne rozwiązania</DescriptionCard></UpCard>
+                        <UpCard><IconCard><AccessTimeOutlinedIcon sx={{ fontSize: 50,color: "#1784B3",marginTop:"10px" }} /></IconCard><DescriptionCard> Nowoczesne <br/>rozwiązania</DescriptionCard></UpCard>
                         <DownCard>
                             <DownCardDescription>
                                 DentFlow jest stale na bieżąco

@@ -8,7 +8,7 @@ export const Section = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 950px) {
     height: 200vh;
   }
 `;
@@ -20,8 +20,17 @@ export const Container = styled.div`
   width: 1400px;
   display: flex;
   justify-content: space-between;
+  transition: 2s;
 
-  @media only screen and (max-width: 768px) {
+  @media(max-width: 950px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: 2s;
+  }
+
+  @media only screen and (max-width: 750px) {
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -38,7 +47,15 @@ export const Down = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
+  transition: 2s;
   @media only screen and (max-width: 950px){
+    
+    transition: 2s;
+    align-items: center;
+  }
+
+  @media only screen and (max-width: 750px){
+    transition: 2s;
     flex-direction: column;
     align-items: center;
   }
@@ -50,7 +67,7 @@ export const Title = styled.h1`
   text-align: center;
 
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 950px) {
     text-align: center;
   }
 `;
@@ -63,7 +80,7 @@ export const Desc = styled.p`
   height: 100px;
   font-size: 20px;
   color: #737373;
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 950px) {
     padding: 20px;
     width: 333px;
     text-align: center;
@@ -77,7 +94,9 @@ export const Cart = styled.div`
   background: #1784B3;
   border-radius: 10px;
   margin-bottom: 50px;
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 950px) {
+    width: 283px;
+    height: 380px;
     margin-right: auto;
     margin-left: auto;
   }
@@ -91,7 +110,12 @@ export const DownCard = styled.div`
   border: 1px solid #1784B3;
   border-radius: 11px;
   align-items: center;
-
+  @media only screen and (max-width: 950px) {
+    width: 280px;
+    height: 380px;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
   
 `;
