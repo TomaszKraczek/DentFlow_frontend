@@ -42,7 +42,7 @@ export const HomeHeader = styled.nav`
   width: 100%;
   position: fixed;
   top: 0;
-  bottom: 59rem;
+  margin-bottom: 8rem;
   //left: 0;
   right: 0;
   //z-index: var(--z-fixed);
@@ -57,7 +57,7 @@ export const Logo = styled.img`
     font-size: 1.5rem;
     width: 8rem;
     margin-left: 2rem;
-    //margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
     transition: 2s;
   
     
@@ -78,16 +78,20 @@ export const Logo = styled.img`
 `
 
 export const Links = styled.div`
-  margin-top: 1.5rem;
+  margin-top: 1.7rem;
   gap: 3rem;
   display: flex;
   flex-direction: row;
   white-space: nowrap;
+  transition: 2s;
   
   @media(max-width: 950px){
+    margin-top: 1.4rem;
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
+    transition: 2s;
   }
+  
 `
 
 export const HomeLink = styled.div`
@@ -100,16 +104,23 @@ export const HomeLink = styled.div`
   }
 
   @media(max-width: 1250px){
+    margin-top: 0.3rem;
     font-size: 1rem;
     
     transition: 2s;
   }
 
   @media(max-width: 950px){
-    font-size: 1.3rem;
+    margin-top: 0.7rem;
+    font-size: 0.8rem;
     transition: 2s;
+    //display: none;
+  }
+
+  @media(max-width: 750px){
     display: none;
   }
+  
 `
 
 export const H1 = styled.div`
