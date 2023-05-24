@@ -14,6 +14,7 @@ import logo from "../../resources/img/logo.png"
 import {ProfileButton} from "./ProfileButton";
 import {UserContext} from "../../context/UserContext";
 import {NavbarContext} from "../../context/NavbarContext";
+import {HomeButton1, HomeHeader, HomeLink, Links} from "../../pages/homePage/HomePage.style";
 
 
 export const Navbar= () =>  {
@@ -22,6 +23,7 @@ export const Navbar= () =>  {
     const { currentPages} = useContext(NavbarContext);
     const navigate = useNavigate()
     const location =  useLocation()
+    console.log(location)
     const toggle = () => {
         setIsOpen(!isOpen);
     }
@@ -29,8 +31,9 @@ export const Navbar= () =>  {
     return (
 
         <>
+
         <Wrapper>
-            <LogoLink href={"/"}>
+            <LogoLink onClick={()=>{navigate('/')}}>
                 <Logo src={logo} alt="Logo"></Logo>
             </LogoLink>
             <Toggle onClick={toggle}>
@@ -53,15 +56,16 @@ export const Navbar= () =>  {
             {!currentUser ? (
                 <> {location.pathname === "/login" ?
                     (<Link to={"/user-registration"}>
-                        <Login   width={150}>
-                            Zarejestruj
-                        </Login>
+                        <HomeButton1>
+                            Załóż konto
+                        </HomeButton1>
+
                     </Link>
                     ):(
                        <Link to={"/login"}>
-                            <Login   width={100}>
-                                Zaloguj
-                            </Login>
+                           <HomeButton1>
+                               Zaloguj
+                           </HomeButton1>
                         </Link>
                     )}
 

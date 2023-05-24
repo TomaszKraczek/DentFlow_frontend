@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const PriceContainer = styled.div`
+    margin-top: 5rem;
+    padding-top: 10rem;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 5rem;
     margin-bottom: 5rem;
 
   @media(max-width: 950px) {

@@ -7,7 +7,18 @@ export const Wrapper = styled.nav`
   align-items: center;
   padding: 10px;
   background-color: #1784B3;
-  grid-row: 0;
+  //grid-row: 0;
+  
+  //flex-direction: row;
+  
+  //width: 100%;
+  //position: fixed;
+  //top: 0;
+  ////left: 0;
+  //right: 0;
+  //z-index: var(--z-fixed);
+  //transition: 2s;
+  //background-color: rgb(23, 132, 179);
 `;
 
 export const Logo = styled.img`

@@ -7,11 +7,12 @@ import { Description } from '../../../models/Description';
 import ListItem from '@mui/material/ListItem';
 import {useState} from "react";
 import {ToothNote} from "../../patientDetails/PatientDetails";
+import {Patient} from "../../patientDetails/DentalHistory";
 
 
 
 type Props = {
-    descriptions:Description[]
+    descriptions:Description[];
 };
 
 
@@ -22,7 +23,7 @@ export const VirtualizedList:React.FC<Props> = (props:Props) => {
         const { index, style,data } = props;
 
         return (
-            <ListItem style={{ ...style,width:"21rem",textAlign: "left" }} key={index} component="div" disablePadding>
+            <ListItem style={{ ...style,width:"21rem",textAlign: "left"}} key={index} component="div" disablePadding>
 
                     <ListItemText
                         style={{...style}}

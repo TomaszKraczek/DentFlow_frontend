@@ -22,45 +22,18 @@ import logo from '../../resources/img/logo.png';
 import './HomePage.css'
 
 import {Link} from "react-router-dom";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {HomeNav} from "../HomeNav";
 
 
-
-
-
-const HomePage = () => {
+const HomePage: React.FC = () => {
 
     return (
         <HomeContainer>
             <BorderContainer>
-                <HomeHeader>
-                    <a href="/"><Logo src={logo}/></a>
-                    <Links>
-                        <HomeLink>
-                            <a href="/">Strona główna</a>
-                        </HomeLink>
-                        <HomeLink>
-                            <a href="/pricing"> Cennik </a>
-                        </HomeLink>
-                        <HomeLink>
-                            <a href="/contact">Kontakt</a>
-                        </HomeLink>
-                        <HomeLink>
-                            <a href="/clinic-registration">Załóż przychodnię</a>
-                        </HomeLink>
-                    </Links>
-                    <div id='buttons'>
-                        <Link to={'/user-registration'}>
-                            <HomeButton1 marginTop={0}>Załóż konto</HomeButton1>
-                        </Link>
-
-                        <Link to={"/login"}>
-                            <HomeButton1 marginTop={0}>Zaloguj</HomeButton1>
-                        </Link>
-                    </div>
-                </HomeHeader>
+                <HomeNav/>
                 <div id='homeBody'>
                     <TextArea>
                         <H1>Zaufaj nam!</H1>

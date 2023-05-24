@@ -15,7 +15,7 @@ import {H1, H3} from "../../pages/homePage/HomePage.style";
 
 export const Pricing = () => {
     return (
-        <PriceContainer>
+        <PriceContainer id='pricing'>
             <HeadingText>
                 <H1>Cennik</H1>
                 <H3>Cena Abonamentu zależy od ilości foteli</H3>
