@@ -359,7 +359,7 @@ export const TextArea = styled.div`
   
 `
 
-export const ContactForm = styled.div`
+export const ContactForm = styled.form`
   width: 32rem;
   height: 40rem;
   background-color: white;
