@@ -20,7 +20,6 @@ import {MainContainer} from "../chooseClinic/ChooseClinic.styled";
 
 
 export const AddPatient = () => {
-    const [isEmailValid, setIsEmailValid] = useState<boolean>(true)
     const [isDataValid, setIsDataValid] = useState<boolean>(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -55,15 +54,9 @@ export const AddPatient = () => {
         setBirthDate(date)
     }
 
-    const validateEmail = (email: string) => {
-        const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-        return emailRegex.test(email);
-    };
-
     useEffect(() => {
-        setIsEmailValid(validateEmail(email));
-        setIsDataValid(firstName.length >= 5 && lastName.length >= 2 && pesel.length >= 2 && birthDate != null && phoneNumber.length >= 9 && email.length >= 2)
-    }, [firstName, lastName, pesel, birthDate, phoneNumber, email]);
+        setIsDataValid(firstName.length >= 2 && lastName.length >= 2 && pesel.length >= 2 && birthDate != null && phoneNumber.length >= 9)
+    }, [firstName, lastName, pesel, birthDate, phoneNumber]);
 
     return (
         <MainContainer>
@@ -95,7 +88,6 @@ export const AddPatient = () => {
 
                     <StyledTextFieldMedium label="Email" type="email" size={"medium"} value = {email} onChange={event => setEmail(event.target.value)}/>
                     <StyledTextFieldSmall label="Email" type="email" size={"small"} value = {email} onChange={event => setEmail(event.target.value)}/>
-                    {!isEmailValid && email.length !== 0 && <ValidationError>Błędny adres Email</ValidationError>}
 
                     <LoginButton onClick={PatientRegistration} disabled={!isDataValid}>
                         Dodaj
