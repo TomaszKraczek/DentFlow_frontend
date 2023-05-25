@@ -12,6 +12,7 @@ export const PatientInformation = styled.div`
   width: 27rem;
   border-radius:10px;
   text-align: center;
+  padding-bottom: 2rem;
 `
 export const PatientCard = styled.div`
   align-self: center;

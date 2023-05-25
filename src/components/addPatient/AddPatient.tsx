@@ -34,6 +34,7 @@ export const AddPatient = () => {
         try {
             await PatientApi.register({
                 clinicId: currentClinic?.id as 0,
+                patientId:0,
                 firstName: firstName,
                 lastName: lastName,
                 pesel: pesel,

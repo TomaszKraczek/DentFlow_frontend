@@ -99,7 +99,7 @@ const UserRegistration = () => {
     }
 
     return (
-        <LoginForm height={67}>
+        <LoginForm height={68}>
 
             <LoginHeader>
                 Rejestracja

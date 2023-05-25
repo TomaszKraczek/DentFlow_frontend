@@ -16,6 +16,7 @@ import TablePagination from "@mui/material/TablePagination";
 import {SearchElement, SearchElementInput} from "../MyClinic/Table.styles";
 import {useNavigate} from "react-router-dom";
 
+
 interface TablePaginationActionsProps {
     count: number;
     page: number;

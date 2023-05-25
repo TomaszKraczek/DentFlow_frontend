@@ -2,10 +2,14 @@ import {authorizedApi} from "../hooks/withAxiosIntercepted";
 import {PatientRequest} from "../models/api/PatientRequest";
 import {PatientResponse} from "../models/api/PatientResponse";
 import {PatientInfoRequest} from "../models/api/PatientInfoRequest";
+import {EmployeeResponse} from "../models/api/EmployeeResponse";
 
 export class PatientApi {
     static register = async(request: PatientRequest) =>
         await authorizedApi.post("/patients", request)
+
+    static updatePatientData = async(request: PatientRequest) =>
+        await authorizedApi.patch("/patients", request)
 
     static getVisitInfo = async(request: PatientInfoRequest)=> {
         const requestBody = {
