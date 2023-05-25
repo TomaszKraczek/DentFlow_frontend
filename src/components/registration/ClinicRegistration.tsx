@@ -193,8 +193,7 @@ const ClinicRegistration = () => {
 
                         <StyledTextFieldMedium label="Hasło" size={'medium'} type='password' value={password} onChange={onPasswordChange}/>
                         <StyledTextFieldSmall label="Hasło" size={'small'} type='password' value={password} onChange={onPasswordChange}/>
-                        {password.length < 8 && password.length !== 0 &&
-                            <ValidationError>Hasło musi mieć co najmniej 8 znaków i zawierać jedną cyfrę, jedną małą i jedną dużą literę</ValidationError>}
+                        {!isPasswordValid && password.length !== 0 && <ValidationError>Hasło musi mieć co najmniej 8 znaków i zawierać jedną cyfrę, jedną małą i jedną dużą literę</ValidationError>}
 
                         <StyledTextFieldMedium label="Powtórz Hasło" size={'medium'} type='password' value={secondPassword} onChange={onSecondPasswordChange}/>
                         <StyledTextFieldSmall label="Powtórz Hasło" size={'small'} type='password' value={secondPassword} onChange={onSecondPasswordChange}/>
