@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 export type PatientRequest = {
     clinicId: number,
     patientId:number,
@@ -9,4 +7,10 @@ export type PatientRequest = {
     birthDate: string | undefined,
     email: string,
     phoneNumber: string
+}
+
+export type PatientDescriptionUpdate ={
+    clinicId: number | undefined,
+    patientId: number | undefined,
+    patientDescription: string | undefined
 }

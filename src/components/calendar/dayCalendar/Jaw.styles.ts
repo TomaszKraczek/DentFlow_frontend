@@ -5,6 +5,8 @@ export const Jaw = styled.div`
   width: 100px;
   grid-column: 1;
   height: 639px;
+  margin-left: 8rem;
+  margin-top: 2rem;
 `
 export const UpperJawLeftFirst = styled.img<{
     isSelected:boolean,
@@ -521,7 +523,7 @@ export const DownJawRightEight = styled.img<{
 export const Box = styled.div`
   grid-column: 1;
   width: 405px;
-  margin-right: auto;
-  margin-left: auto;
+  margin-right: 2rem;
+  margin-left: 2rem;
  
 `

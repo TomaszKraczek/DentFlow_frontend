@@ -7,5 +7,6 @@ export type PatientResponse = {
     birthDate: string,
     pesel: string,
     phoneNumber: string,
-    teeth : Tooth[];
+    teeth : Tooth[],
+    patientDescription: string;
 }

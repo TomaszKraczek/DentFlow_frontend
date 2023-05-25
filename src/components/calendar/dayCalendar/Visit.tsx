@@ -32,10 +32,23 @@ import {
 } from "./Jaw.styles";
 import {
     Description,
-    VisitBody, VisitOptions, TeethOptions, ToothDescription,
-    ToothStatus,StatusLabel,StatusCheckbox, ToothDescriptionTextField,
-    ToothDescriptionHistory, PatientInformation, Descriptions,
-    ToothDescriptionSaveButton, DescriptionTitle, DescriptionRow, ToothNumberText,ToothText,PatientInfoText
+    VisitBody,
+    VisitOptions,
+    TeethOptions,
+    ToothDescription,
+    ToothStatus,
+    StatusLabel,
+    StatusCheckbox,
+    ToothDescriptionTextField,
+    ToothDescriptionHistory,
+    PatientInformation,
+    Descriptions,
+    ToothDescriptionSaveButton,
+    DescriptionTitle,
+    DescriptionRow,
+    ToothNumberText,
+    ToothText,
+    TextAreaButton
 
 } from "./DayCalendar.styles";
 import UpLEight from "../../../resources/img/Jaw/8-UP-L.png";
@@ -78,10 +91,7 @@ import { TeethApi } from "../../../api/TeethApi";
 import {VirtualizedList} from "./ToothNoteList";
 import dayjs from "dayjs";
 import {toast} from "react-toastify";
-
-
-
-
+import {PatientApi} from "../../../api/PatientApi";
 
 
 type Props = {
@@ -109,6 +119,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
     const [developmentalDefect,setDevelopmentalDefect]=useState<boolean>(false)
     const [pathologicalClash,setPathologicalClash]=useState<boolean>(false)
     const [toothName,setToothName] = useState("");
+    const [patientDescription, setPatientDescription] = useState("");
     const [descriptionTooth, setDescriptionTooth] = useState("")
     const {currentClinic} = useContext(ClinicContext);
 
@@ -141,7 +152,8 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                 clinicId: currentClinic?.id,
                 visitId: currentVisit?.id,
                 doctorDescription: event.target.value
-            })
+            });
+            toast.success("Zapisano dokumentajcę wizyty", {position:toast.POSITION.TOP_RIGHT})
         }catch (error){
             toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
                 position: toast.POSITION.TOP_RIGHT,
@@ -286,29 +298,61 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
         setDevelopmentalDefect(!developmentalDefect);
         saveToothStatus()
     }
+
+    function handlePatientDescriptionChange(event:React.ChangeEvent<HTMLTextAreaElement>) {
+        setPatientDescription(event.target.value)
+    }
     function changePathologicalClashStatus(){
         if(currentTooth)
             currentTooth.pathologicalClash = !currentTooth.pathologicalClash;
         setPathologicalClash(!pathologicalClash);
         saveToothStatus()
     }
+
+    const savePatientDescription = useCallback(async ()=> {
+        try {
+            await PatientApi.updatePatientDescription(
+                {clinicId: currentClinic?.id,
+                    patientId: currentVisit?.patient.patientId,
+                    patientDescription: patientDescription
+                })
+            toast.success("Zapisano notatkę na temat pacjenta", {
+                position:toast.POSITION.TOP_RIGHT})
+        } catch (error) {
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
+            });
+        }}, [currentClinic?.id, currentVisit?.patient.patientId, patientDescription])
+
+
+
     useEffect(() => {
         if(currentVisit){
             setTeeth(currentVisit.patient.teeth.sort((a,b) => a.number-b.number))
             setCurrentTooth(null)
+            setPatientDescription(currentVisit.patient.patientDescription);
         }
     },[currentVisit])
+
+
     return(
        <VisitBody>
            {currentVisit && (
                <>
                    <Box>
                        <PatientInformation>
-                           <PatientInfoText>
-                               Pacjent: {currentVisit.patient.lastName}   {currentVisit.patient.firstName}<br/>
-                               Pesel:{currentVisit.patient.pesel}<br/>
-                               Data urodzenia:{currentVisit.patient.birthDate}
-                           </PatientInfoText>
+                           <DescriptionRow>
+                               <DescriptionTitle>Dane pacjenta:</DescriptionTitle>
+                               Imię i nazwisko: {currentVisit.patient.firstName} {currentVisit.patient.lastName}<br/>
+                               PESEL: {currentVisit.patient.pesel} <br/>
+                               Data urodzenia: {currentVisit.patient.birthDate}
+                           </DescriptionRow>
+                           <DescriptionRow>
+                               <DescriptionTitle>Notatka na temat pacjenta:</DescriptionTitle>
+                               <Description value={patientDescription} onChange={handlePatientDescriptionChange}/>
+                               <TextAreaButton onClick={savePatientDescription}>Zapisz</TextAreaButton>
+                           </DescriptionRow>
+
                        </PatientInformation>
                        <Jaw>
                            <UpperJawLeftFirst src={UpLFirst} isSelected = {currentTooth?.number ===11}  isNoTooth={teeth[0]?.noTooth}  alt="11" onClick={(event) => handleChoseTooth(event,teeth[0])}/>
@@ -327,33 +371,34 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                            <UpperJawRightSix src={UpRSix} isSelected = {currentTooth?.number ===26}  isNoTooth={teeth[13]?.noTooth}  alt="26" onClick={(event) => handleChoseTooth(event,teeth[13])}/>
                            <UpperJawRightSeven src={UpRSeven} isSelected = {currentTooth?.number ===27}  isNoTooth={teeth[14]?.noTooth}  alt="27" onClick={(event) => handleChoseTooth(event,teeth[14])}/>
                            <UpperJawRightEight src={UpREight} isSelected = {currentTooth?.number ===28}  isNoTooth={teeth[15]?.noTooth}  alt="28" onClick={(event) => handleChoseTooth(event,teeth[15])}/>
-                           <DownJawLeftFirst src={DownLFirst} isSelected = {currentTooth?.number ===41}  isNoTooth={teeth[16]?.noTooth}  alt="41" onClick={(event) => handleChoseTooth(event,teeth[24])}/>
-                           <DownJawLeftSecond src={DownLSecond} isSelected = {currentTooth?.number ===42}  isNoTooth={teeth[17]?.noTooth}  alt="42" onClick={(event) => handleChoseTooth(event,teeth[25])}/>
-                           <DownJawLeftThird src={DownLThird} isSelected = {currentTooth?.number ===43}  isNoTooth={teeth[18]?.noTooth}  alt="43" onClick={(event) => handleChoseTooth(event,teeth[26])}/>
-                           <DownJawLeftFour src={DownLFour} isSelected = {currentTooth?.number ===44}  isNoTooth={teeth[19]?.noTooth}  alt="44" onClick={(event) => handleChoseTooth(event,teeth[27])}/>
-                           <DownJawLeftFive src={DownLFive} isSelected = {currentTooth?.number ===45}  isNoTooth={teeth[20]?.noTooth}  alt="45" onClick={(event) => handleChoseTooth(event,teeth[28])}/>
-                           <DownJawLeftSix src={DownLSix} isSelected = {currentTooth?.number ===46}  isNoTooth={teeth[21]?.noTooth}  alt="46" onClick={(event) => handleChoseTooth(event,teeth[29])}/>
-                           <DownJawLeftSeven src={DownLSeven} isSelected = {currentTooth?.number ===47}  isNoTooth={teeth[22]?.noTooth}  alt="47" onClick={(event) => handleChoseTooth(event,teeth[30])}/>
-                           <DownJawLeftEight src={DownLEight} isSelected = {currentTooth?.number ===48}  isNoTooth={teeth[23]?.noTooth}  alt="48" onClick={(event) => handleChoseTooth(event,teeth[31])}/>
-                           <DownJawRightFirst src={DownRFirst} isSelected = {currentTooth?.number ===31}  isNoTooth={teeth[24]?.noTooth}  alt="31" onClick={(event) => handleChoseTooth(event,teeth[16])}/>
-                           <DownJawRightSecond src={DownRSecond} isSelected = {currentTooth?.number ===32}  isNoTooth={teeth[25]?.noTooth}  alt="32" onClick={(event) => handleChoseTooth(event,teeth[17])}/>
-                           <DownJawRightThird src={DownRThird} isSelected = {currentTooth?.number ===33}  isNoTooth={teeth[26]?.noTooth}  alt="33" onClick={(event) => handleChoseTooth(event,teeth[18])}/>
-                           <DownJawRightFour src={DownRFour} isSelected = {currentTooth?.number ===34}  isNoTooth={teeth[27]?.noTooth}  alt="34" onClick={(event) => handleChoseTooth(event,teeth[19])}/>
-                           <DownJawRightFive src={DownRFive} isSelected = {currentTooth?.number ===35}  isNoTooth={teeth[28]?.noTooth}  alt="35" onClick={(event) => handleChoseTooth(event,teeth[20])}/>
-                           <DownJawRightSix src={DownRSix} isSelected = {currentTooth?.number ===36}  isNoTooth={teeth[29]?.noTooth}  alt="36" onClick={(event) => handleChoseTooth(event,teeth[21])}/>
-                           <DownJawRightSeven src={DownRSeven} isSelected = {currentTooth?.number ===37}  isNoTooth={teeth[30]?.noTooth}  alt="37" onClick={(event) => handleChoseTooth(event,teeth[22])}/>
-                           <DownJawRightEight src={DownREight} isSelected = {currentTooth?.number ===38}  isNoTooth={teeth[31]?.noTooth}  alt="38" onClick={(event) => handleChoseTooth(event,teeth[23])}/>
+                           <DownJawLeftFirst src={DownLFirst} isSelected = {currentTooth?.number ===41}  isNoTooth={teeth[24]?.noTooth}  alt="41" onClick={(event) => handleChoseTooth(event,teeth[24])}/>
+                           <DownJawLeftSecond src={DownLSecond} isSelected = {currentTooth?.number ===42}  isNoTooth={teeth[25]?.noTooth}  alt="42" onClick={(event) => handleChoseTooth(event,teeth[25])}/>
+                           <DownJawLeftThird src={DownLThird} isSelected = {currentTooth?.number ===43}  isNoTooth={teeth[26]?.noTooth}  alt="43" onClick={(event) => handleChoseTooth(event,teeth[26])}/>
+                           <DownJawLeftFour src={DownLFour} isSelected = {currentTooth?.number ===44}  isNoTooth={teeth[27]?.noTooth}  alt="44" onClick={(event) => handleChoseTooth(event,teeth[27])}/>
+                           <DownJawLeftFive src={DownLFive} isSelected = {currentTooth?.number ===45}  isNoTooth={teeth[28]?.noTooth}  alt="45" onClick={(event) => handleChoseTooth(event,teeth[28])}/>
+                           <DownJawLeftSix src={DownLSix} isSelected = {currentTooth?.number ===46}  isNoTooth={teeth[29]?.noTooth}  alt="46" onClick={(event) => handleChoseTooth(event,teeth[29])}/>
+                           <DownJawLeftSeven src={DownLSeven} isSelected = {currentTooth?.number ===47}  isNoTooth={teeth[30]?.noTooth}  alt="47" onClick={(event) => handleChoseTooth(event,teeth[30])}/>
+                           <DownJawLeftEight src={DownLEight} isSelected = {currentTooth?.number ===48}  isNoTooth={teeth[31]?.noTooth}  alt="48" onClick={(event) => handleChoseTooth(event,teeth[31])}/>
+                           <DownJawRightFirst src={DownRFirst} isSelected = {currentTooth?.number ===31}  isNoTooth={teeth[16]?.noTooth}  alt="31" onClick={(event) => handleChoseTooth(event,teeth[16])}/>
+                           <DownJawRightSecond src={DownRSecond} isSelected = {currentTooth?.number ===32}  isNoTooth={teeth[17]?.noTooth}  alt="32" onClick={(event) => handleChoseTooth(event,teeth[17])}/>
+                           <DownJawRightThird src={DownRThird} isSelected = {currentTooth?.number ===33}  isNoTooth={teeth[18]?.noTooth}  alt="33" onClick={(event) => handleChoseTooth(event,teeth[18])}/>
+                           <DownJawRightFour src={DownRFour} isSelected = {currentTooth?.number ===34}  isNoTooth={teeth[19]?.noTooth}  alt="34" onClick={(event) => handleChoseTooth(event,teeth[19])}/>
+                           <DownJawRightFive src={DownRFive} isSelected = {currentTooth?.number ===35}  isNoTooth={teeth[20]?.noTooth}  alt="35" onClick={(event) => handleChoseTooth(event,teeth[20])}/>
+                           <DownJawRightSix src={DownRSix} isSelected = {currentTooth?.number ===36}  isNoTooth={teeth[21]?.noTooth}  alt="36" onClick={(event) => handleChoseTooth(event,teeth[21])}/>
+                           <DownJawRightSeven src={DownRSeven} isSelected = {currentTooth?.number ===37}  isNoTooth={teeth[22]?.noTooth}  alt="37" onClick={(event) => handleChoseTooth(event,teeth[22])}/>
+                           <DownJawRightEight src={DownREight} isSelected = {currentTooth?.number ===38}  isNoTooth={teeth[23]?.noTooth}  alt="38" onClick={(event) => handleChoseTooth(event,teeth[23])}/>
                        </Jaw>
                    </Box>
 
                    <VisitOptions>
                        <Descriptions>
                            <DescriptionRow>
-                               <DescriptionTitle>Notatka Lekarska</DescriptionTitle>
+                               <DescriptionTitle>Notatka lekarska z wizyty:</DescriptionTitle>
                                <Description value={currentVisit.doctorDescription}  onChange={saveVisitDescription}/>
+                               <TextAreaButton>Zapisz</TextAreaButton>
                            </DescriptionRow>
                            <DescriptionRow>
-                               <DescriptionTitle>Notatka z Recepcji</DescriptionTitle>
+                               <DescriptionTitle>Notatka recepcji:</DescriptionTitle>
                                <Description value={currentVisit.receptionistDescription} disabled/>
                            </DescriptionRow>
                        </Descriptions>

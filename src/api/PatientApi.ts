@@ -1,5 +1,5 @@
 import {authorizedApi} from "../hooks/withAxiosIntercepted";
-import {PatientRequest} from "../models/api/PatientRequest";
+import {PatientDescriptionUpdate, PatientRequest} from "../models/api/PatientRequest";
 import {PatientResponse} from "../models/api/PatientResponse";
 import {PatientInfoRequest} from "../models/api/PatientInfoRequest";
 import {EmployeeResponse} from "../models/api/EmployeeResponse";
@@ -20,5 +20,8 @@ export class PatientApi {
         const response = await authorizedApi.get<PatientResponse>("/patients",
             {params: requestBody})
     }
+
+    static updatePatientDescription = async(request: PatientDescriptionUpdate) =>
+        await authorizedApi.put("/patients/change-description", request)
 
 }
