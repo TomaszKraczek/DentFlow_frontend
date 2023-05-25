@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {ClinicContext} from "../../context/ClinicContext";
 import {PatientApi} from "../../api/PatientApi";
 import {toast} from "react-toastify";
@@ -20,6 +20,8 @@ import {MainContainer} from "../chooseClinic/ChooseClinic.styled";
 
 
 export const AddPatient = () => {
+    const [isEmailValid, setIsEmailValid] = useState<boolean>(true)
+    const [isDataValid, setIsDataValid] = useState<boolean>(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [pesel, setPesel] = useState('')
@@ -51,6 +53,17 @@ export const AddPatient = () => {
     const handleBirthdayChange = (date: dayjs.Dayjs | any) => {
         setBirthDate(date)
     }
+
+    const validateEmail = (email: string) => {
+        const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+        return emailRegex.test(email);
+    };
+
+    useEffect(() => {
+        setIsEmailValid(validateEmail(email));
+        setIsDataValid(firstName.length >= 5 && lastName.length >= 2 && pesel.length >= 2 && birthDate != null && phoneNumber.length >= 9 && email.length >= 2)
+    }, [firstName, lastName, pesel, birthDate, phoneNumber, email]);
+
     return (
         <MainContainer>
             <LoginForm height={54}>
@@ -77,11 +90,13 @@ export const AddPatient = () => {
 
                     <StyledTextFieldMedium label="Numer telefonu" type="tel" size={"medium"} onChange={event => setPhoneNumber(event.target.value)}/>
                     <StyledTextFieldSmall  label="Numer telefonu" type="tel" size={"small"} onChange={event => setPhoneNumber(event.target.value)}/>
+                    {phoneNumber.length < 9 && phoneNumber.length !== 0 && <ValidationError>Numer telefonu ma przynajmniej 9 znaków</ValidationError>}
 
                     <StyledTextFieldMedium label="Email" type="email" size={"medium"} value = {email} onChange={event => setEmail(event.target.value)}/>
                     <StyledTextFieldSmall label="Email" type="email" size={"small"} value = {email} onChange={event => setEmail(event.target.value)}/>
+                    {!isEmailValid && email.length !== 0 && <ValidationError>Błędny adres Email</ValidationError>}
 
-                    <LoginButton  onClick={PatientRegistration}>
+                    <LoginButton onClick={PatientRegistration} disabled={!isDataValid}>
                         Dodaj
                     </LoginButton>
 
