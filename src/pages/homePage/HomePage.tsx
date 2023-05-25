@@ -5,28 +5,17 @@ import {
     ContactForm,
     ContactHero,
     ContactInputs,
-    HomeButton1,
     HomeContainer,
-    HomeHeader,
-    HomeLink,
-    Links,
-    Logo,
     TextArea,
     H1, H2,
     HomeButton2,
     StyledTextFieldMedium,
     StyledTextFieldSmall,
-    StyledDatePickerMedium, StyledDatePickerSmall, HomeButton3,
+    HomeButton3,
 
 } from "./HomePage.style";
-
-import logo from '../../resources/img/logo.png';
 import './HomePage.css'
-
-import {Link} from "react-router-dom";
-import React, {useEffect, useState, useRef, forwardRef} from "react";
-import {LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import React, {useRef} from "react";
 import {HomeNav} from "../HomeNav";
 import {toast} from "react-toastify";
 
@@ -39,20 +28,17 @@ const HomePage: React.FC = () => {
         e.preventDefault();
 
         if(form.current) {
-            console.log(form)
             emailjs.sendForm(
                 'service_ov5ok5n',
                 'template_h0n2kvd',
                 form.current,
                 'llomuTlqWtnrTfYaL')
                 .then((result) => {
-                    console.log(result.text);
                     toast.success('Wiadomość wysłana. Dziękujemy', {position: toast.POSITION.TOP_RIGHT})
                     if(form.current) {
                         form.current.reset();
                     }
                 }, (error) => {
-                    console.log(error.text);
                     toast.error('Błąd podczas wysłania formularza.',{position: toast.POSITION.TOP_RIGHT})
                 });
 

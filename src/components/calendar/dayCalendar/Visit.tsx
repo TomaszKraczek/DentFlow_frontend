@@ -121,6 +121,8 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
     const [toothName,setToothName] = useState("");
     const [patientDescription, setPatientDescription] = useState("");
     const [descriptionTooth, setDescriptionTooth] = useState("")
+    const [doctorDescription, setDoctorDescription] = useState("")
+    const {fetchVisits} = useContext(CalendarContext);
     const {currentClinic} = useContext(ClinicContext);
 
     function handleChoseTooth(event:React.MouseEvent<HTMLImageElement>,tooth:Tooth)  {
@@ -146,7 +148,13 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
         setPathologicalClash(tooth.pathologicalClash)
     };
 
+
+    function handleChangeDoctorDescription(event:React.ChangeEvent<HTMLTextAreaElement>){
+        setDoctorDescription(event.target.value)
+    }
+
     const saveVisitDescription = useCallback(async (event:React.ChangeEvent<HTMLTextAreaElement>) =>{
+
         try {
             await VisitApi.saveDescription({
                 clinicId: currentClinic?.id,
@@ -154,13 +162,16 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                 doctorDescription: event.target.value
             });
             toast.success("Zapisano dokumentajcę wizyty", {position:toast.POSITION.TOP_RIGHT})
+            if (currentVisit){
+                currentVisit.doctorDescription = doctorDescription;
+            }
         }catch (error){
             toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
                 position: toast.POSITION.TOP_RIGHT,
             });
         }
 
-    },[currentClinic?.id,currentVisit?.id]);
+    },[doctorDescription,currentClinic?.id,currentVisit?.id]);
 
     const saveToothStatus = useCallback(async () =>{
         try {
@@ -318,6 +329,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                 })
             toast.success("Zapisano notatkę na temat pacjenta", {
                 position:toast.POSITION.TOP_RIGHT})
+            fetchVisits()
         } catch (error) {
             toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
                 position: toast.POSITION.TOP_RIGHT,
@@ -328,9 +340,10 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
 
     useEffect(() => {
         if(currentVisit){
+            setDoctorDescription(currentVisit?.doctorDescription ?? "")
             setTeeth(currentVisit.patient.teeth.sort((a,b) => a.number-b.number))
             setCurrentTooth(null)
-            setPatientDescription(currentVisit.patient.patientDescription);
+            setPatientDescription(currentVisit.patient.patientDescription ?? "");
         }
     },[currentVisit])
 
@@ -349,8 +362,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                            </DescriptionRow>
                            <DescriptionRow>
                                <DescriptionTitle>Notatka na temat pacjenta:</DescriptionTitle>
-                               <Description value={patientDescription} onChange={handlePatientDescriptionChange}/>
-                               <TextAreaButton onClick={savePatientDescription}>Zapisz</TextAreaButton>
+                               <Description value={patientDescription} onBlur={savePatientDescription} onChange={handlePatientDescriptionChange}/>
                            </DescriptionRow>
 
                        </PatientInformation>
@@ -394,8 +406,7 @@ export  const Visit: React.FC<Props> = (props:Props) =>{
                        <Descriptions>
                            <DescriptionRow>
                                <DescriptionTitle>Notatka lekarska z wizyty:</DescriptionTitle>
-                               <Description value={currentVisit.doctorDescription}  onChange={saveVisitDescription}/>
-                               <TextAreaButton>Zapisz</TextAreaButton>
+                               <Description value={doctorDescription} onBlur={saveVisitDescription}  onChange={handleChangeDoctorDescription}/>
                            </DescriptionRow>
                            <DescriptionRow>
                                <DescriptionTitle>Notatka recepcji:</DescriptionTitle>
