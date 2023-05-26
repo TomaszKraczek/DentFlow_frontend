@@ -1,12 +1,7 @@
 import {Tooth} from "../../models/Tooth";
-import ListItemText from "@mui/material/ListItemText";
 import * as React from "react";
-import {VirtualizedList} from "../calendar/dayCalendar/ToothNoteList";
 import {PatientHistoryList} from "./PatientHistoryList";
-import {useCallback, useContext, useEffect} from "react";
-import {PatientApi} from "../../api/PatientApi";
-import {toast} from "react-toastify";
-import {ClinicContext} from "../../context/ClinicContext";
+
 
 
 interface DentalHistoryProps{

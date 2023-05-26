@@ -49,6 +49,7 @@ export const DescriptionRow = styled.div`
     border:1px solid rgb(23,132,179);
     border-radius:1rem;
     margin-right:3%;
+    padding-bottom: 1rem;
 `
 
 export const ToothDescriptionSaveButton = styled.button`

@@ -15,6 +15,7 @@ export const PatientInformations = styled.div`
   padding-bottom: 2rem;
 `
 export const PatientInformation = styled.strong`
+  font-size: 1.4rem;
   margin-left: 3rem;
 `
 export const PatientCard = styled.div`

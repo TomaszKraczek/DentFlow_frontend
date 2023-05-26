@@ -181,7 +181,7 @@ export const VisitsTable: React.FC<DentalHistoryProps> = ( { patient }) =>{
                                 <strong>Opis Recepcjonistki</strong>
                             </TableCell>
                             <TableCell >
-                                <strong>Robione Zęby</strong>
+                                <strong>Podgląd Zębów</strong>
                             </TableCell>
                         </TableRow>
                         {(rowsPerPage > 0

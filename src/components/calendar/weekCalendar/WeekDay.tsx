@@ -40,14 +40,14 @@ export  const WeekDay: React.FC<Props> = (props:Props) =>{
     };
     return(
         <>
-            <DayBody  column={props.column} isWeekCalendar={props.isWeekCalendar} isReceptionist={props.isReceptionist} isDoctor={props.isDoctor} >
+            <DayBody key={`${props.day.format("DDD")}_${Math.floor(Math.random() * (1000 - 1 + 1))}`}   column={props.column} isWeekCalendar={props.isWeekCalendar} isReceptionist={props.isReceptionist} isDoctor={props.isDoctor} >
                 <DayBodyHeader  isToday={dayjs(new Date()).format("YYYYMMDD")  === props.day.format("YYYYMMDD")}>
                     <DayTextLabel className="margin marginBottom0" >{props.day.format("ddd")}.</DayTextLabel>
                     <DayLabel>{props.day.format("DD")}</DayLabel>
                 </DayBodyHeader>
 
                 {[...Array(12)].map((_, i) => (
-                            <Hour key={`${props.day.format("DD")}_${i}`}  row={i+2} >
+                            <Hour key={`${Math.floor(Math.random() * (1000 - 1 + 1))}${props.day.format("DD")}_${i}`}  row={i+2} >
                                 <HourHeader>{i+8}.00</HourHeader>
                                  {getMatchingVisits(i+8+"").map((visit) => (
                                     <Tooltip key={i}  title={

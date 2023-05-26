@@ -103,10 +103,9 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         doFilterDoctors()
     },[doctors,date,from,to])
 
-    function ClinicHasSeats () {
-        const visits:VisitResponse[] = [];
+    function filterVisit(visits:VisitResponse[]) {
         for (const visit of currentVisits) {
-            if(dayjs(visit.visitDate).format("dddd") === date?.format("dddd")) {
+            if (dayjs(visit.visitDate).format("dddd") === date?.format("dddd")) {
                 const visitStartTime = new Date(visit.visitDate).getTime();
                 const visitEndTime = new Date(visit.visitDate).getTime() + visit.lengthOfTheVisit * 60 * 1000;
                 if (dayjs(visitStartTime).format("HH:mm") < to && dayjs(visitEndTime).format("HH:mm") > from) {
@@ -114,10 +113,14 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
                 }
             }
         }
-        visits.sort((a, b) => new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime());
+        return  visits.sort((a, b) => new Date(a.visitDate).getTime() - new Date(b.visitDate).getTime());
+    }
 
-        const overlappingVisits: VisitResponse[][] = [];
+    function clinicHasSeats () {
+        const visits:VisitResponse[] = filterVisit([]);
+        console.log(visits)
         let currentGroup: VisitResponse[] = [];
+        const overlappingVisits: VisitResponse[][] = [];
 
         for (let i = 0; i < visits.length - 1; i++) {
             const currentVisit = visits[i];
@@ -139,6 +142,9 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
             currentGroup.push(visits[visits.length - 1]);
             overlappingVisits.push(currentGroup);
         }
+
+
+
         if (overlappingVisits.length === 0 && visits.length<=1){
             return true
         }else if(overlappingVisits.length > 0){
@@ -154,7 +160,7 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
         }
         return false
     };
-    function DoctorIsFree ():boolean {
+    function doctorIsFree ():boolean {
         for (const visit of currentVisits) {
             if(dayjs(visit.visitDate).format("dddd") ===date?.format("dddd")) {
                 if (visit.doctor.email === doctor?.email) {
@@ -171,11 +177,11 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
     };
 
     const handleAppointment= useCallback(async () => {
-        if (!ClinicHasSeats()){
+        if (!clinicHasSeats()){
             toast.info("niemasz miejsca w w gabinecie zwieksz ilość foteli", {
                 position: toast.POSITION.TOP_RIGHT,
             });
-        }else if (!DoctorIsFree()){
+        }else if (!doctorIsFree()){
             toast.info("lekarz ma juz wizyte o tej godzinie", {
                 position: toast.POSITION.TOP_RIGHT,
             });

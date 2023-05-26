@@ -151,6 +151,7 @@ export const ChooseClinic = () => {
                             open={open}
                             onClose={handleClose}
                             onOpen={handleOpen}
+                            defaultValue={0}
                             label="Clinic"
                             onChange={handleChange}
                         >

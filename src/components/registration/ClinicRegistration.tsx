@@ -162,7 +162,7 @@ const ClinicRegistration = () => {
                     </PaymentModalContent>
                 </Modal>
                 ):(
-                <LoginForm height={67} id='clinicRegistration'>
+                <LoginForm height={71} id='clinicRegistration'>
                     <LoginHeader>
                         Załóż przychodnię
                     </LoginHeader>
