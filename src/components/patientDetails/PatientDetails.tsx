@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { Description } from '../../models/Description';
 import DentalHistory from "./DentalHistory";
-import {PatientCard, PatientData, PatientInformation} from "./PatientDetails.styles";
+import {PatientCard, PatientData, PatientInformation, PatientInformations} from "./PatientDetails.styles";
 import './DentalHistory.css'
 import React, {useCallback, useContext, useState} from "react";
 import {Button} from "../profile/Profile.styles";
@@ -13,6 +13,7 @@ import {LocalizationProvider} from "@mui/x-date-pickers";
 import {DatePicker} from "@mui/x-date-pickers/DatePicker";
 import {PatientApi} from "../../api/PatientApi";
 import {ClinicContext} from "../../context/ClinicContext";
+import {VisitsTable} from "./VisitsTable";
 
 export type ToothNote = {
     teethNumber: number,
@@ -30,7 +31,6 @@ function PatientDetails() {
     const [email,setEmail] = useState<string>(patient.email);
     const {currentClinic} = useContext(ClinicContext)
     const ariaLabel = { 'aria-label': 'description' };
-
     const editPatientData = useCallback(async () => {
         setEdit(!edit)
         if (edit){
@@ -58,19 +58,20 @@ function PatientDetails() {
     }
     return (
             <PatientData>
-                <PatientInformation>
-                    <p className='patientInfo'><strong>Imię:</strong>{edit ? (<Input defaultValue={firstName} sx={{width:"100px"}} inputProps={ariaLabel} onChange={(event)=>{setFirstName(event.target.value)}} />):(<>{firstName}</>)}</p>
-                    <p className='patientInfo'><strong>Nazwisko:</strong> {edit ? (<Input defaultValue={lastName} sx={{width:"100px"}} inputProps={ariaLabel} onChange={(event)=>{setLastName(event.target.value)}} />):(<>{lastName}</>)}</p>
-                    <p className='patientInfo'><strong>PESEL: </strong>{edit ? (<Input defaultValue={pesel} sx={{width:"100px"}} inputProps={ariaLabel} onChange={(event)=>{setPesel(event.target.value)}} />):(<>{pesel}</>)}</p>
-                    <p className='patientInfo'><strong>Data urodzenia: </strong>{edit ? (<LocalizationProvider dateAdapter={AdapterDayjs}><DatePicker sx={{width:"40%"}}  slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/> </LocalizationProvider>):(<>{birthDate?.format("DD-MM-YYYY")}</>)}</p>
-                    <p className='patientInfo'><strong>Numer telefonu: </strong>{edit ? (<Input defaultValue={phoneNumber} sx={{width:"100px"}} inputProps={ariaLabel} onChange={(event)=>{setPhoneNumber(event.target.value)}} />):(<>{phoneNumber}</>)}</p>
-                    <p className='patientInfo'><strong>email: </strong>{edit ? (<Input defaultValue={email} sx={{width:"150px"}} inputProps={ariaLabel} onChange={(event)=>{setEmail(event.target.value)}} />):(<>{email}</>)}</p>
+                <PatientInformations>
+                    <p className='patientInfo'><PatientInformation>Imię:</PatientInformation><Input disabled={!edit} defaultValue={firstName} sx={{width:"67%",fontSize:"25px"}} inputProps={ariaLabel} onChange={(event)=>{setFirstName(event.target.value)}} /></p>
+                    <p className='patientInfo'><PatientInformation>Nazwisko:</PatientInformation> <Input disabled={!edit} defaultValue={lastName} sx={{width:"52%",fontSize:"25px"}} inputProps={ariaLabel} onChange={(event)=>{setLastName(event.target.value)}} /></p>
+                    <p className='patientInfo'><PatientInformation>PESEL: </PatientInformation><Input disabled={!edit}  defaultValue={pesel} sx={{width:"61%",fontSize:"25px"}}  inputProps={ariaLabel} onChange={(event)=>{setPesel(event.target.value)}} /></p>
+                    <p className='patientInfo'><PatientInformation>Numer telefonu: </PatientInformation><Input disabled={!edit} defaultValue={phoneNumber} sx={{width:"37%",fontSize:"25px"}}  inputProps={ariaLabel} onChange={(event)=>{setPhoneNumber(event.target.value)}} /></p>
+                    <p className='patientInfo'><PatientInformation>email: </PatientInformation><Input disabled={!edit} defaultValue={email} sx={{width:"63%",fontSize:"25px"}}  inputProps={ariaLabel} onChange={(event)=>{setEmail(event.target.value)}} /></p>
+                    <p className='patientInfo'><PatientInformation>Data urodzenia: </PatientInformation><LocalizationProvider dateAdapter={AdapterDayjs}><DatePicker disabled={!edit} sx={{width:"40%"}}  slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/> </LocalizationProvider></p>
                     <Button onClick={editPatientData}>
                         {edit ? (<>Zapisz</>):(<>Edytuj Dane</>)}
                     </Button>
-                </PatientInformation>
+                </PatientInformations>
+                <VisitsTable   patient={patient}/>
                 <PatientCard>
-                    <DentalHistory patient={patient} />
+                    <DentalHistory teeth={patient.teeth} />
                 </PatientCard>
             </PatientData>
 

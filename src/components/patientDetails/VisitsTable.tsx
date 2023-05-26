@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {useCallback, useContext, useEffect} from "react";
-import {ClinicApi} from "../../api/ClinicApi";
-import {Container, PatientDetailsButton} from "./PatientsList.styles";
-import {PatientResponse} from "../../models/api/PatientResponse";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {ClinicContext} from "../../context/ClinicContext";
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import LastPageIcon from '@mui/icons-material/LastPage';
@@ -13,8 +10,22 @@ import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TablePagination from "@mui/material/TablePagination";
-import {SearchElement, SearchElementInput} from "../MyClinic/Table.styles";
-import {useNavigate} from "react-router-dom";
+import {PatientApi} from "../../api/PatientApi";
+import {toast} from "react-toastify";
+import {VisitResponse} from "../../models/api/VisitResponse";
+import dayjs from 'dayjs';
+import {Container, ModalContent, PatientCard, PatientDetailsButton} from './PatientDetails.styles';
+import {
+    Button,
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalOverlay,
+
+} from "../profile/Profile.styles";
+import {Tooth} from "../../models/Tooth";
+import DentalHistory from './DentalHistory';
+
 
 
 interface TablePaginationActionsProps {
@@ -82,70 +93,48 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
         </Box>
     );
 }
+export interface Patient {
+    patientId: number;
+    firstName: string;
+    lastName: string;
+    teeth: Tooth[];
+}
 
-
-export default function CustomPaginationActionsTable() {
-    const [patients, setPatients] = React.useState<PatientResponse[]>([]);
-    const [patientsSearchResults, setPatientsSearchResults] = React.useState<PatientResponse[]>([]);
-    const {currentClinic} = useContext(ClinicContext);
-    const [page, setPage] = React.useState(0);
+interface DentalHistoryProps{
+    patient: Patient;
+}
+export const VisitsTable: React.FC<DentalHistoryProps> = ( { patient }) =>{
+    const[visits , setVisits]=useState<VisitResponse[]>([])
+    const[teeth , setTeeth]=useState<Tooth[]>([])
+    const [page, setPage] = useState(0);
+    const [showModal, setShowModal] = useState<boolean>(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const navigate = useNavigate();
+    const {currentClinic} = useContext(ClinicContext)
 
-    function splitString(str: string): string[] | null {
-        if (str.includes(" ")) {
-            return str.split(" ");
-        }
-        return null;
-    }
-
-    function searchPatients(firstName: string, lastName: string) {
-
-        return patients.filter((patient) => {
-            const firstNameMatch = patient.firstName.toLowerCase().includes(firstName.toLowerCase());
-            const lastNameMatch = patient.lastName.toLowerCase().includes(lastName.toLowerCase());
-
-            if (firstName === lastName) return firstNameMatch || lastNameMatch
-            else return firstNameMatch && lastNameMatch
-        });
-    }
-
-    function patientHandleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const searchTerm = event.target.value;
-        const result = splitString(searchTerm);
-        let results: PatientResponse[] = [];
-        if (result !== null) {
-            const [firstWord, secondWord] = result;
-            results = searchTerm ? searchPatients(firstWord, secondWord) : [];
-        } else {
-            results = searchTerm ? searchPatients(searchTerm, searchTerm) : [];
-        }
-        setPatientsSearchResults(results);
-        if (event.target.value === "") {
-            setPatientsSearchResults(patients)
-        }
-    }
-
-    const fetchPatients = useCallback(async () => {
+    const getParientVisits = useCallback(async () => {
         try {
-            const result = await ClinicApi.getPatients({
-                clinicId: currentClinic?.id
+            if (currentClinic){
+                const result = await PatientApi.getPatientVisits({
+                    clinicId: currentClinic?.id as 0,
+                    patientId: patient.patientId,
+                })
+                setVisits(result.data.sort((a, b) => b.id - a.id))
+            }
+        }catch (error){
+            toast.error("Wystąpił błąd podczas połączenia z serwerem.", {
+                position: toast.POSITION.TOP_RIGHT,
             });
-            setPatients(result.data)
-            setPatientsSearchResults(result.data)
-        } finally {
-            // setIsLoading(false);
         }
-    }, [currentClinic?.id]);
 
-    useEffect(() => {
-        fetchPatients();
-    }, [fetchPatients])
+    },[currentClinic?.id])
 
+    useEffect(()=>{
+        getParientVisits()
+    },[getParientVisits])
 
     // Avoid a layout jump when reaching the last page with empty rows.
     const emptyRows =
-        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - patients.length) : 0;
+        page > 0 ? Math.max(0, (1 + page) * rowsPerPage - visits.length) : 0;
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -160,49 +149,63 @@ export default function CustomPaginationActionsTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
-
-    const handlePatientDetailsBtt = (patient: PatientResponse) => {
-        navigate(`/patients/${patient.lastName}`, {state: {patient}})
+    const showTeeth = (visitDate: string) => {
+        setShowModal(true)
+        setTeeth(filterTeethByDateTime(patient.teeth, dayjs(visitDate).format("YYYY-MM-DD")))
     }
-
+    const filterTeethByDateTime = (teeth: Tooth[], dateTime: string): Tooth[] => {
+        return teeth.filter(tooth => tooth.descriptions.some(description => dayjs(description.dateTime).format("YYYY-MM-DD") === dateTime));
+    }
+    const closeModal = () => {
+        setShowModal(false)
+    }
     return (
         <Container>
-            <SearchElement>
-                Wyszukaj Pacjenta:<br/>
-                <SearchElementInput onChange={patientHandleInputChange}/>
-            </SearchElement>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 500 }} aria-label="custom pagination table">
                     <TableBody>
                         <TableRow>
                             <TableCell>
-                                <strong>Imię</strong>
+                                <strong>Data Wizyty</strong>
                             </TableCell>
                             <TableCell>
-                                <strong>Nazwisko</strong>
+                                <strong>Nazwisko Lekarza</strong>
                             </TableCell>
                             <TableCell>
-                                <strong>Email</strong>
+                                <strong>Typ</strong>
                             </TableCell>
-                            <TableCell>
+                            <TableCell style={{ textAlign:"center"}}>
+                                <strong>Opis Lekarza</strong>
+                            </TableCell>
+                            <TableCell style={{ textAlign:"center"}}>
+                                <strong>Opis Recepcjonistki</strong>
+                            </TableCell>
+                            <TableCell >
+                                <strong>Robione Zęby</strong>
                             </TableCell>
                         </TableRow>
                         {(rowsPerPage > 0
-                                ? patientsSearchResults.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                : patientsSearchResults
-                        ).map((patient) => (
-                            <TableRow key={patient.firstName}>
-                                <TableCell component="th" scope="row">
-                                    {patient.firstName}
+                                ? visits.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                : visits
+                        ).map((visit) => (
+                            <TableRow key={visit.id}>
+                                <TableCell style={{ width: "10%"}}>
+                                    {dayjs(visit.visitDate).format("DD MM YYYY")}
                                 </TableCell>
-                                <TableCell >
-                                    {patient.lastName}
+                                <TableCell style={{ width: "10%"}} >
+                                    {visit.doctor.firstName} {visit.doctor.lastName}
                                 </TableCell>
-                                <TableCell style={{ width: 60,marginLeft:0 }} >
-                                    {patient.email}
+                                <TableCell style={{ width: "10%" }}>
+                                    {visit.type === "CONTROL" ? "Kontrolna" : visit.type === "TREATMENT" ? "Zabieg" : visit.type === "OTHER" ? "Inna" : ""}
                                 </TableCell>
-                                <TableCell align={"right"}>
-                                    <PatientDetailsButton onClick={() => handlePatientDetailsBtt(patient)}>Karta pacjenta</PatientDetailsButton>
+                                <TableCell style={{ width: "30%",marginLeft:"5%" }}>
+                                    {visit.doctorDescription}
+                                </TableCell>
+                                <TableCell style={{ width: "25%",marginLeft:"5%" }} >
+                                    {visit.receptionistDescription}
+                                </TableCell>
+                                <TableCell style={{ width: "5%" }}>
+                                    <PatientDetailsButton onClick={()=>{showTeeth(visit.visitDate)}}>Pokaż</PatientDetailsButton>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -217,7 +220,7 @@ export default function CustomPaginationActionsTable() {
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
                                 colSpan={3}
-                                count={patients.length}
+                                count={visits.length}
                                 rowsPerPage={rowsPerPage}
                                 page={page}
                                 SelectProps={{
@@ -234,6 +237,24 @@ export default function CustomPaginationActionsTable() {
                     </TableFooter>
                 </Table>
             </TableContainer>
+            {showModal && (
+                <Modal>
+                    <ModalOverlay/>
+                    <ModalContent>
+                        <ModalBody>
+                            <PatientCard>
+                                <DentalHistory teeth={teeth} />
+                            </PatientCard>
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button onClick={closeModal}>
+                                Zamknij
+                            </Button>
+
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+            )}
         </Container>
     );
 }

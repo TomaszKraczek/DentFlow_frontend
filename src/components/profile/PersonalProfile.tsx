@@ -113,10 +113,15 @@ export default function MultiActionAreaCard() {
     };
     const handleClinicModalSubmit = async () => {
         try {
-            const updateClinic = await ClinicApi.updateClinic({
+            await ClinicApi.updateClinic({
                 address: address,
                 phoneNumber: phoneNumber
             });
+            const updatedUser = await UserApi.updateUser({
+                firstName: firstName,
+                lastName: lastName
+            });
+            setUser(updatedUser.data);
             toast.success("Zaktualizowano profil");
             closeModal();
         } catch (error) {
@@ -185,7 +190,7 @@ export default function MultiActionAreaCard() {
                             )}
                         </CardActions>}
 
-                        {currentUser?.roles.includes("DOCTOR") && <CardActions>
+                        {!currentUser?.roles.includes("OWNER") && <CardActions>
                             {showModal && (
                                 <Modal>
                                     <ModalOverlay/>

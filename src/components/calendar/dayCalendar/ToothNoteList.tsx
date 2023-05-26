@@ -1,13 +1,10 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import { FixedSizeList, ListChildComponentProps } from 'react-window';
 import { Description } from '../../../models/Description';
 import ListItem from '@mui/material/ListItem';
-import {useState} from "react";
-import {ToothNote} from "../../patientDetails/PatientDetails";
-import {Patient} from "../../patientDetails/DentalHistory";
+
 
 
 
