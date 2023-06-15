@@ -27,7 +27,7 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
     const [type, setType] = useState("Konsultacja");
     const [description, setDescription] = useState("")
     const [from, setfrom] = useState("")
-    const {selectedDate,dateModifier} = useContext(CalendarContext)
+    const {selectedDate,dateModifier,fetchVisits} = useContext(CalendarContext)
 
     const renderTimeList = (timeList: string[]) => {
         return timeList.map((time, index) => <Time onClick={bookAVisit} key={doctor.email+index}>{time}</Time>);
@@ -58,6 +58,7 @@ export const TimeRange: React.FC<TimeRangeProps> = (props: TimeRangeProps) => {
             toast.success("Dodano wizyte");
             setShowModal(false)
             dateModifier(selectedDate.add(1,"day"))
+
         } finally {
             // setIsLoading(false);
         }

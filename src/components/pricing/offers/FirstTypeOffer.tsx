@@ -65,7 +65,7 @@ export const FirstTypeOffer: React.FC<OfferProps> = ({ price, header, currency }
                         color={"#1784B3"}
                         size={30}
                     />
-                    <H4>brak opłat za pomoc</H4>
+                    <H4>bezpłatna pomoc</H4>
 
                 </OfferIcon>
             </OfferParam>

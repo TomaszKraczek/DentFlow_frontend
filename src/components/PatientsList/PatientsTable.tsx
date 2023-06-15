@@ -198,7 +198,7 @@ export default function CustomPaginationActionsTable() {
                                 <TableCell >
                                     {patient.lastName}
                                 </TableCell>
-                                <TableCell style={{ width: 60,marginLeft:0 }} >
+                                <TableCell style={{ width: 60,marginLeft:0}} >
                                     {patient.email}
                                 </TableCell>
                                 <TableCell align={"right"}>

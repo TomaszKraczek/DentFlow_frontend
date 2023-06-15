@@ -233,7 +233,8 @@ export  const AddVisitModal: React.FC<Props> = (props:Props) =>{
                 }
             })
         })
-        setFilterDoctors(filterDoctors)
+        setFilterDoctors(filterDoctors.filter((value, index, self) => {
+            return index === self.findIndex((obj) => obj.email === value.email);}))
     };
     const validateForm = () => {
         const areAllFieldsFilled =

@@ -1,4 +1,4 @@
-import React, {useContext,useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { getWeek} from "../../utils/utils";
 import {Slidebar} from "./slider/Slidebar";
 import { Week } from './weekCalendar/Week';
@@ -17,7 +17,7 @@ export const Calendar = () => {
     const dayjs = require('dayjs');
     require('dayjs/locale/pl'); // Importuj lokalizację językową
     dayjs.locale('pl'); // Ustawienie języka na polski
-    const {currenDate,selectedDate,selectedDateModifier,weekDays,dateModifier} = useContext(CalendarContext)
+    const {currenDate,selectedDate,selectedDateModifier,weekDays,dateModifier,fetchVisits} = useContext(CalendarContext)
     const {currentUser} = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(false);
     const [isWeekCalendar, setIsWeekCalendar] = useState(true);
@@ -42,13 +42,18 @@ export const Calendar = () => {
         if(isWeekCalendar){
             dateModifier(currenDate.add(1, 'week'));
         }else {
+            dateModifier(selectedDate.add(1, 'days'));
             selectedDateModifier(selectedDate.add(1, 'days'));
         }
     }
+    useEffect(()=>{
+        fetchVisits();
+    },[])
     const prevWeek =() => {
         if(isWeekCalendar) {
             dateModifier(currenDate.subtract(1, 'week'));
         }else {
+            dateModifier(selectedDate.subtract(1, 'days'));
             selectedDateModifier(selectedDate.subtract(1, 'days'));
         }
     }

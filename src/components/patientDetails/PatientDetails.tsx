@@ -58,11 +58,11 @@ function PatientDetails() {
     return (
             <PatientData>
                 <PatientInformations>
-                    <><PatientInformation>Imię:</PatientInformation><Input disabled={!edit} defaultValue={firstName} sx={{width:"67%",fontSize:"1.4rem"}} inputProps={ariaLabel} onChange={(event)=>{setFirstName(event.target.value)}} /> </>
-                    <><PatientInformation>Nazwisko:</PatientInformation> <Input disabled={!edit} defaultValue={lastName} sx={{width:"52%",fontSize:"1.4rem"}} inputProps={ariaLabel} onChange={(event)=>{setLastName(event.target.value)}} /> </>
-                    <><PatientInformation>PESEL: </PatientInformation><Input disabled={!edit}  defaultValue={pesel} sx={{width:"61%",fontSize:"1.4rem"}}  inputProps={ariaLabel} onChange={(event)=>{setPesel(event.target.value)}} /> </>
-                    <><PatientInformation>Numer telefonu: </PatientInformation><Input disabled={!edit} defaultValue={phoneNumber} sx={{width:"37%",fontSize:"1.4rem"}}  inputProps={ariaLabel} onChange={(event)=>{setPhoneNumber(event.target.value)}} /> </>
-                    <><PatientInformation>email: </PatientInformation><Input disabled={!edit} defaultValue={email} sx={{width:"63%",fontSize:"1rem"}}  inputProps={ariaLabel} onChange={(event)=>{setEmail(event.target.value)}} /> </>
+                    <><PatientInformation>Imię:</PatientInformation><Input disabled={!edit} defaultValue={firstName} sx={{width:"67%",fontSize:"1.4rem",marginBottom:"10px"}} inputProps={ariaLabel} onChange={(event)=>{setFirstName(event.target.value)}} /> </>
+                    <><PatientInformation>Nazwisko:</PatientInformation> <Input disabled={!edit} defaultValue={lastName} sx={{width:"52%",fontSize:"1.4rem",marginBottom:"10px"}} inputProps={ariaLabel} onChange={(event)=>{setLastName(event.target.value)}} /> </>
+                    <><PatientInformation>PESEL: </PatientInformation><Input disabled={!edit}  defaultValue={pesel} sx={{width:"61%",fontSize:"1.4rem",marginBottom:"10px"}}  inputProps={ariaLabel} onChange={(event)=>{setPesel(event.target.value)}} /> </>
+                    <><PatientInformation>Numer telefonu: </PatientInformation><Input disabled={!edit} defaultValue={phoneNumber} sx={{width:"37%",fontSize:"1.4rem",marginBottom:"10px"}}  inputProps={ariaLabel} onChange={(event)=>{setPhoneNumber(event.target.value)}} /> </>
+                    <><PatientInformation>email: </PatientInformation><Input disabled={!edit} defaultValue={email} sx={{width:"63%",fontSize:"1rem",marginBottom:"10px"}}  inputProps={ariaLabel} onChange={(event)=>{setEmail(event.target.value)}} /> </>
                     <><PatientInformation>Data urodzenia: </PatientInformation><LocalizationProvider dateAdapter={AdapterDayjs}><DatePicker disabled={!edit} sx={{width:"40%"}}  slotProps={{textField:{size:"small"}}} value={birthDate} format={"DD-MM-YYYY"} onChange={(date) => handleBirthdayChange(date)}/> </LocalizationProvider> </>
                     <Button onClick={editPatientData}>
                         {edit ? (<>Zapisz</>):(<>Edytuj Dane</>)}
